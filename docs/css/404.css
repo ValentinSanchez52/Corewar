@@ -1,0 +1,49 @@
+/* 404 */
+.not-found {
+	margin: auto;
+	display: grid;
+	text-align: center;
+}
+.not-found a {
+	padding: 10px;
+	margin: 30px;
+	color: var(--primary);
+	border: 3px solid var(--primary);
+	border-radius: 1000px;
+	text-decoration: none;
+	transition: all 0.2s;
+	animation: hue 10s infinite linear;
+}
+.not-found a:hover {
+	color: var(--bg-0);
+	border: 3px solid transparent;
+	border-radius: 1000px;
+	background: var(--primary);
+	text-decoration: none;
+}
+.not-found h1 {
+	color: var(--light-orange);
+	font-size: 30vh;
+	background: linear-gradient(130deg, var(--bg-3), var(--primary));
+	color: transparent;
+	text-fill-color: transparent;
+	background-clip: border-box;
+	-webkit-background-clip: text;
+	background-clip: text;
+	vertical-align: bottom;
+	animation: hue 10s infinite linear;
+}
+
+@keyframes hue {
+	0%, 50%, 100% {
+		filter: hue-rotate(0deg);
+	}
+	30%, 70% {
+		filter: hue-rotate(-180deg);
+	}
+}
+
+/* Hides pagination */
+body .docsify-pagination-container {
+	display: none;
+}

@@ -1,0 +1,11 @@
+pages:
+    script:
+    - mkdir -p public
+    - ls -la
+    - rm -rf public/*
+    - mv -v docs/* public/
+    artifacts:
+        paths:
+        - public/
+    only:
+    - docs

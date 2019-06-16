@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="description" content="Description">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css">
+		<link rel="stylesheet" href="plugins/command-line/prism-command-line.css" data-noprefix />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/plugins/command-line/prism-command-line.css" data-noprefix />
+		<link rel="stylesheet" href="css/custom.css">
+	</head>
+	<body>
+		<div id="app">
+			<div class="loading">
+				<div class="sk-cube-grid">
+					<div class="sk-cube sk-cube1"></div>
+					<div class="sk-cube sk-cube2"></div>
+					<div class="sk-cube sk-cube3"></div>
+					<div class="sk-cube sk-cube4"></div>
+					<div class="sk-cube sk-cube5"></div>
+					<div class="sk-cube sk-cube6"></div>
+					<div class="sk-cube sk-cube7"></div>
+					<div class="sk-cube sk-cube8"></div>
+					<div class="sk-cube sk-cube9"></div>
+				</div>
+				<noscript>You need to enable js on this page for it to generate the documentation.</noscript>
+			Loading...
+			</div>
+		</div>
+		<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+		<script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+		<script src="//unpkg.com/prismjs/components/prism-c.min.js"></script>
+		<script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
+		<script>
+			let ID = 0;
+			mermaid.initialize({
+				startOnLoad: false,
+				flowchart:{
+					useMaxWidth:false,
+					htmlLabels:true
+				},
+				theme: null,
+				themeCSS: "mermaid-custom.css"
+			});
+
+			window.$docsify = {
+				auto2top: true,
+				coverpage: false,
+				executeScript: true,
+				notFoundPage: true,
+				loadSidebar: true,
+				loadNavbar: true,
+				maxLevel: 4,
+				name: 'Mishell',
+				namelink: '/',
+				subMaxLevel: 6,
+				search: {
+					paths: 'auto',
+				},
+				markdown: {
+					renderer: {
+						code: function(code, lang) {
+							if (lang === "mermaid") {
+								return (
+									'<div class="mermaid">' + mermaid.render('mermaid-svg-' + ID++, code) + "</div>"
+								);
+							}
+							return this.origin.code.apply(this, arguments);
+						}
+					}
+				}
+			};
+		</script>
+		<script src="//unpkg.com/docsify-pagination/dist/docsify-pagination.min.js"></script>
+		<script src="https://unpkg.com/docsify-copy-code@2"></script>
+	</body>
+</html>
+<div class="gitlab-corner-wrapper"><a href="https://gitlab.com/shellcore/42sh" class="gitlab-corner" aria-label="View source on GitLab"><svg id="logo_art" data-name="logo art" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 586 559"><g id="g44"><path id="path46" class="cls-1" d="M461.17,301.83l-18.91-58.12L404.84,128.43a6.47,6.47,0,0,0-12.27,0L355.15,243.64H230.82L193.4,128.43a6.46,6.46,0,0,0-12.26,0L143.78,243.64l-18.91,58.19a12.88,12.88,0,0,0,4.66,14.39L293,435,456.44,316.22a12.9,12.9,0,0,0,4.73-14.39"/></g><g id="g48"><path id="path50" class="cls-2" d="M293,434.91h0l62.16-191.28H230.87L293,434.91Z"/></g><g id="g56"><path id="path58" class="cls-1" d="M293,434.91,230.82,243.63h-87L293,434.91Z"/></g><g id="g64"><path id="path66" class="cls-3" d="M143.75,243.69h0l-18.91,58.12a12.88,12.88,0,0,0,4.66,14.39L293,435,143.75,243.69Z"/></g><g id="g72"><path id="path74" class="cls-2" d="M143.78,243.69h87.11L193.4,128.49a6.47,6.47,0,0,0-12.27,0l-37.35,115.2Z"/></g><g id="g76"><path id="path78" class="cls-1" d="M293,434.91l62.16-191.28H442.3L293,434.91Z"/></g><g id="g80"><path id="path82" class="cls-3" d="M442.24,243.69h0l18.91,58.12a12.85,12.85,0,0,1-4.66,14.39L293,434.91l149.2-191.22Z"/></g><g id="g84"><path id="path86" class="cls-2" d="M442.28,243.69h-87.1l37.42-115.2a6.46,6.46,0,0,1,12.26,0l37.42,115.2Z"/></g></svg></a></div>
