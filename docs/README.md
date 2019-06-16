@@ -8,6 +8,12 @@ Corewar the war of process.
 
 ## Features
 
+!> Subject to change
+
+?> wow
+
+x> nope
+
 - Virtual machine with an arena
 - Champion compiler
 

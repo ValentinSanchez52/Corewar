@@ -122,6 +122,58 @@
 	/* Sidebar */
 	--sidebar-border-color    : var(--secondary);
 	--sidebar-background      : var(--mark-background);
+
+	/* Search */
+	--search-background                      : transparent;
+	--search-margin                          : 0;
+	--search-padding                         : 10px 0 0 0;
+
+	/* Clear Button */
+	--search-clear-icon-color1               : var(--light-red);
+	--search-clear-icon-color2               : var(--fg-2);
+
+	/* Input */
+	--search-input-background-color          : var(--bg-2);
+	--search-input-background-color--focus   : ;
+	--search-input-background-image          : ;
+	--search-input-background-image--focus   : ;
+	--search-input-background-position       : ;
+	--search-input-background-position--focus: ;
+	--search-input-background-repeat         : no-repeat;
+	--search-input-background-size           : ;
+	--search-input-background-size--focus    : ;
+	--search-input-border-color              : transparent;
+	--search-input-border-radius             : 3px;
+	--search-input-border-width              : 0;
+	--search-input-color                     : ;
+	--search-input-font-size                 : ;
+	--search-input-margin                    : ;
+	--search-input-padding                   : 0.8em;
+	--search-input-placeholder-color         : ;
+	--search-input-transition                : all 0.4 ease;
+
+	/* Order */
+	--search-flex-order                      : 1;
+
+	/* Results */
+	--search-result-heading-color            : var(--light-blue);
+	--search-result-heading-font-size        : var(--base-font-size);
+	--search-result-heading-font-weight      : normal;
+	--search-result-heading-margin           : 0 0 0.25em;
+	--search-result-item-border-color        : ;
+	--search-result-item-border-style        : solid;
+	--search-result-item-border-width        : 0 0 1px 0;
+	--search-result-item-color               : ;
+	--search-result-item-font-size           : ;
+	--search-result-item-font-weight         : normal;
+	--search-result-item-margin              : ;
+	--search-result-item-padding             : 1em 0;
+	--search-result-keyword-background       : var(--light-purple);
+	--search-result-keyword-border-radius    : var(--border-radius-s);
+	--search-result-keyword-color            : var(--bg-1);
+	--search-result-keyword-font-weight      : normal;
+	--search-result-keyword-margin           : 0 0.1em;
+	--search-result-keyword-padding          : 0.2em;
 }
 
 /* Prism Highlighting */
@@ -787,4 +839,10 @@ blockquote cite {
 	.gitlab-corner .cls-3 {
 		animation: cycle3 .6s
 	}
+}
+
+/* Responsive sidebar */
+.sidebar {
+	position: fixed;
+	min-width: 500px;
 }
