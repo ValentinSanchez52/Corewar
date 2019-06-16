@@ -1,4 +1,4 @@
 - [Home](/)
-- [En](en)
+- [En](en/)
 	- [Norm](en/norm.md)
 - [Fr](fr)

@@ -39,11 +39,12 @@
 	--primary   : var(--light-orange);
 	--secondary : var(--dark-orange);
 
-	--gitlab-bg      : var(--bg-2);
-	--gitlab-border  : var(--dark-orange);
-	--gitlab-accent1 : var(--light-orange);
-	--gitlab-accent2 : var(--dark-orange);
-	--gitlab-accent3 : var(--light-yellow);
+	--gitlab-bg       : var(--bg-2);
+	--gitlab-hover-bg : var(--bg-3);
+	--gitlab-border   : var(--dark-orange);
+	--gitlab-accent1  : var(--light-orange);
+	--gitlab-accent2  : var(--dark-orange);
+	--gitlab-accent3  : var(--light-yellow);
 
 	/* Base */
 	--theme-color             : var(--primary);
@@ -703,6 +704,11 @@ blockquote cite {
 	transform: rotate(45deg);
 	background: var(--gitlab-bg);
 	border-bottom: 2px solid var(--gitlab-border);
+	transition: background 0.4s ease;
+}
+
+.gitlab-corner:hover {
+	background: var(--gitlab-hover-bg);
 }
 
 .gitlab-corner svg {

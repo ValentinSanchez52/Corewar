@@ -2,9 +2,9 @@
 
 # Norm to follow:
 
- - ## Base  
+ - ### `Base`  
 	Is the [42 norm](https://cdn.intra.42.fr/pdf/pdf/1608/norme.en.pdf).
- - ## Function prototypes  
+ - ### `Function prototypes`  
 	should be written this way:  
 ```c
 type	name(
@@ -15,9 +15,14 @@ type	name(
 ```  
 	The only exception to this is when you have one argument you can write it inline.
 
- - ## Files
+ - ### `Files`  
 	Each file should only contain one function named as the file.  
 	You can make `static` functions as well as long as there it respects the 42 norm.
 
- - ## Flags  
-	
+ - ### `Flags`  
+	You shall use `-Weverything`.
+
+ - ### `Pragmas`  
+	Pragmas are authorized just don't abuse them, they are shy at 42...
+ - ### `Variables`  
+	Don't abuse the `static` qualifier but please do on the `const`.
