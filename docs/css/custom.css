@@ -839,6 +839,10 @@ html:not([data-platform^="Mac"]), body:not([data-platform^="Mac"]) * {
 	scrollbar-width: auto;
 }
 
+.app-name img {
+	width: 100px;
+}
+
 :root {
 	--sidebar-width : 500px;
 }
