@@ -843,6 +843,11 @@ html:not([data-platform^="Mac"]), body:not([data-platform^="Mac"]) * {
 	width: 100px;
 }
 
+.sidebar, .sidebar-toggle,
+main > .content {
+	transition: transform var(--sidebar-transition-duration) ease-out;
+}
+
 :root {
 	--sidebar-width : 500px;
 }
