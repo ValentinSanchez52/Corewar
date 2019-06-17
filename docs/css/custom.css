@@ -155,22 +155,19 @@
 	--search-flex-order                      : 1;
 
 	/* Results */
-	--search-result-heading-color            : var(--light-blue);
+	--search-result-heading-color            : var(--light-purple);
 	--search-result-heading-font-size        : var(--base-font-size);
-	--search-result-heading-font-weight      : normal;
+	--search-result-heading-font-weight      : bold;
 	--search-result-heading-margin           : 0 0 0.25em;
-	--search-result-item-border-color        : ;
-	--search-result-item-border-style        : solid;
-	--search-result-item-border-width        : 0 0 1px 0;
-	--search-result-item-color               : ;
+	--search-result-item-color               : var(--fg-2);
 	--search-result-item-font-size           : ;
 	--search-result-item-font-weight         : normal;
 	--search-result-item-margin              : ;
 	--search-result-item-padding             : 1em 0;
-	--search-result-keyword-background       : var(--light-purple);
+	--search-result-keyword-background       : var(--light-blue);
 	--search-result-keyword-border-radius    : var(--border-radius-s);
-	--search-result-keyword-color            : var(--bg-1);
-	--search-result-keyword-font-weight      : normal;
+	--search-result-keyword-color            : var(--fg-1);
+	--search-result-keyword-font-weight      : bold;
 	--search-result-keyword-margin           : 0 0.1em;
 	--search-result-keyword-padding          : 0.2em;
 }
@@ -843,8 +840,7 @@ html:not([data-platform^="Mac"]), body:not([data-platform^="Mac"]) * {
 	width: 100px;
 }
 
-.sidebar, .sidebar-toggle,
-main > .content {
+.sidebar-toggle {
 	transition: transform var(--sidebar-transition-duration) ease-out;
 }
 

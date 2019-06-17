@@ -18,17 +18,27 @@ type	name(
 	The only exception to this is when you have one argument you can write it inline.  
 	The name of a function should be explicit of it's doing. Every function should be commented on how it works, treats the data, return values, etc...  
 	```c
+	typedef struct      s_error
+	{
+		int             level;
+		int             code;
+		char            *message;
+		void            (*print)(t_error);
+		void            (*destructor)(t_error);
+	}                   t_error;
+
 	/*
 	** Prints an error and destroys it if needed.
 	** Returns nothing.
 	** Can exit on states superiors than `ERR_WARNING`.
 	*/
-	void		print_error(
+
+	void                print_error(
 		t_error error
 	)
 	{
-		if (error.message)
-			print(error.message);
+		if (error.message && error.print)
+			error.print(error.message);
 		if (error.destructor)
 			error.destructor(error);
 		if (error.level > ERR_WARNING)

@@ -10,10 +10,6 @@ Corewar the war of process.
 
 !> Subject to change
 
-?> wow
-
-x> nope
-
 - Virtual machine with an arena
 - Champion compiler
 
