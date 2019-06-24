@@ -1,4 +1,5 @@
 - [Home](/)
 - [En](en/)
 	- [Norm](en/norm)
-- [Fr](fr)
+- [Fr](fr/)
+	- [Norm](fr/norme)
