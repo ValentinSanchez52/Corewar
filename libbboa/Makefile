@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/04/04 04:17:21 by mbeilles          #+#    #+#              #
-#    Updated: 2019/05/25 10:16:05 by mbeilles         ###   ########.fr        #
+#    Created: 2017/11/18 08:44:32 by mbeilles          #+#    #+#              #
+#    Updated: 2019/06/25 14:35:52 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRCS = $(PATH_SRC)/parse_args.c						\
 	   $(PATH_SRC)/print_functions.c				\
 	   $(PATH_SRC)/get_usage.c						\
 	   $(PATH_SRC)/get_usage_error.c				\
+	   $(PATH_SRC)/compare_options.c				\
 
 INCS = $(PATH_INC)/bboa.h							\
 
@@ -53,15 +54,18 @@ PATH_DEP := .dep
 #                                 Compilation                                  #
 #==============================================================================#
 
-LDLIBS = $(foreach dep, $(NODEP_LIBS), $(dep)/$(notdir $(dep)).a) \
+LDLIBS = \
+
+CLIBS = $(foreach dep, $(LIBS), $(dep)/$(dep).a) \
 
 LDFLAGS = \
-
-CLIBS = $(foreach dep, $(LIBS), $(dep)/$(notdir $(dep)).a) \
 
 CFLAGS = -I$(PATH_INC) $(FLAGS) \
 		 $(foreach dep, $(LIBS), -I$(dep)/$(PATH_INC)) $(FLAGS) \
 		 $(foreach dep, $(NODEP_LIBS), -I$(dep)/$(PATH_INC)) $(FLAGS) \
+
+FAST_FLAG = -O3 -march=native -flto
+SLOW_FLAG = -fsanitize=address -g3 -O0
 
 #==============================================================================#
 #                                   Various                                    #

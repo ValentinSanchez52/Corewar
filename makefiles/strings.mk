@@ -21,6 +21,7 @@ MAKING_SUCCESS = $(SUCCESS_HD)$(SUCCESS_COLOR)$(NAME)" generated!\n"$(NRM)
 MAKING_FAILURE = $(FAILURE_HD)$(ERROR_COLOR)$(NAME)" not generated!\n"$(NRM)
 MAKING_LIB = $(HD)$(PROJECT_COLOR)$(NAME)$(PRIMARY_COLOR)" is making %s \n"$(NRM)
 MADE_LIB = $(HD)$(PROJECT_COLOR)$(NAME)$(PRIMARY_COLOR)" Made all it's dependencies\n"$(NRM)
+MAKING_COMMAND = $(HD)$(WN)$(WARNING_COLOR)"=>"$(PROJECT_COLOR_ALT)" Making %s with '$(CMD)'...\n"$(NRM)
 
 COMPILING_OK = $(HD)$(OK)$(PRIMARY_COLOR)$(PRIMARY_COLOR_ALT)$(dir $<)$(PRIMARY_COLOR)$(notdir $<)"\n"$(NRM)
 COMPILING_KO = $(HD)$(KO)$(ERROR_COLOR)"* "$(PRIMARY_COLOR_ALT)$(dir $<)$(PRIMARY_COLOR)$(notdir $<)"\n"$(NRM)

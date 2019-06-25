@@ -1,13 +1,29 @@
+NICK = MAKE
+NAME = Corewar
+PROJECT_COLOR = "\033[38;5;111m"
+PROJECT_COLOR_ALT = "\033[38;5;110m"
+
+.DEFAULT_GOAL := all
+
+CMD = $(filter-out asm, $(filter-out corewar, $(filter-out all, $(MAKECMDGOALS))))
+ifeq ($(CMD),)
+CMD=all
+endif
+
 corewar:
-	@$(MAKE) -C corewar $(MAKECMDGOALS)
+	@printf $(MAKING_COMMAND) corewar
+	@$(MAKE) -C corewar $(CMD)
 
-asm:
-	@$(MAKE) -C asm $(MAKECMDGOALS)
+assembler:
+	@printf $(MAKING_COMMAND) asm
+	@$(MAKE) -C asm $(CMD)
 
-all: corewar asm
-re: corewar asm
-clean: corewar asm
-fclean: corewar asm
-depend: corewar asm
+all: assembler corewar
+re: assembler corewar
+clean: assembler corewar
+fclean: assembler corewar
+depend: assembler corewar
 
-.PHONY: all re corewar asm clean fclean depend
+.PHONY: all corewar assembler
+
+include ./makefiles/strings.mk

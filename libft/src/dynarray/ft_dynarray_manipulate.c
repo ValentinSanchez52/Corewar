@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 05:04:46 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/06/25 07:07:46 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/06/25 13:41:19 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void					*ft_dynarray_push(t_dynarray *arr, void *elem
 	{
 		if (arr)
 			free(arr);
-		return (NULL);
+		ft_exit(1, "No space left on device.\n", NULL);
 	}
 	memcpy(arr->array + arr->index, elem, size);
 	arr->index += size;
@@ -48,7 +48,7 @@ void					*ft_dynarray_set(t_dynarray *arr, uint64_t index,
 	{
 		if (arr)
 			free(arr);
-		return (NULL);
+		ft_exit(1, "No space left on device.\n", NULL);
 	}
 	memcpy(arr->array + index, elem, size);
 	return ((void*)index);
@@ -69,7 +69,7 @@ void					*ft_dynarray_insert(t_dynarray *arr, uint64_t index
 	{
 		if (arr)
 			free(arr);
-		return (NULL);
+		ft_exit(1, "No space left on device.\n", NULL);
 	}
 	memmove(arr->array + index + size, arr->array + index, arr->index - index);
 	memcpy(arr->array + index, elem, size);

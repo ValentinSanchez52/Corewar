@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 04:11:57 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/05/25 10:45:07 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/06/25 14:36:38 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ typedef enum			e_bboa_state
 # define BBOA_GE  BBOA_RS_GENERIC_ERROR
 # define BBOA_TM  BBOA_RS_TYPE_MISMATCH
 # define BBOA_MR  BBOA_RS_MULTIPLE_REFS
+
+# define BBOA_EC  BBOA_ERR_CRIT
 
 typedef enum			e_bboa_error_level
 {
@@ -132,6 +134,7 @@ typedef struct			s_arg_array
 	uint32_t			opt_len;
 	uint32_t			len;
 	t_arg_token			*array;
+	void				*data;
 }						t_arg_array;
 
 typedef struct			s_arg_gen
@@ -152,7 +155,8 @@ typedef struct			s_opt_match {
 
 typedef struct			s_opt_patterns
 {
-	t_hashmap			*matches;
+	t_hashmap			*map;
+	void				*data;
 }						t_opt_patterns;
 
 /*
@@ -189,6 +193,8 @@ t_arg_token				bboa_parse_number(char *v);
 t_arg_token				bboa_parse_boolean(char *v);
 t_arg_token				bboa_parse_void(char *v);
 t_arg_token				bboa_parse_string(char *v);
+
+int						bboa_compare_usage_str(const void *e1, const void *e2);
 
 extern t_bboa_error		g_bboa_error;
 

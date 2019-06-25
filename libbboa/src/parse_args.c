@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/28 14:36:18 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/06/14 13:55:10 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/06/25 14:33:40 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@
 **		projects.
 */
 
-static t_hashmap	**mtch(void)
+static t_opt_patterns	**mtch(void)
 {
-	static t_hashmap*matches;
+	static t_opt_patterns	*map;
 
-	return (&matches);
+	return (&map);
 }
 
 /*
@@ -38,8 +38,12 @@ static t_hashmap	**mtch(void)
 **	is left to the writter of the callback function.
 */
 
-static t_arg_array	*generate_tokens(t_opt_match *match, char *opt,
-		uint32_t args_left, t_arg_gen gen)
+static t_arg_array		*generate_tokens(
+		t_opt_match *match,
+		char *opt,
+		uint32_t args_left,
+		t_arg_gen gen
+)
 {
 	static t_convert_function	matrix[BBOA_AT_MAX_TYPE] = {
 		[BBOA_AT_NONE] = &bboa_parse_void,
@@ -56,6 +60,7 @@ static t_arg_array	*generate_tokens(t_opt_match *match, char *opt,
 	tkn->len = ~0u;
 	tkn->opt = ft_strdup(opt);
 	tkn->opt_len = ft_strlen(opt);
+	tkn->data = (*mtch())->data;
 	if (gen.first && match->arg_count > 0)
 		tkn->array[++tkn->len] = matrix[match->types[tkn->len]](gen.first);
 	while (++tkn->len < match->arg_count && tkn->len - !!gen.first < args_left
@@ -77,8 +82,12 @@ static t_arg_array	*generate_tokens(t_opt_match *match, char *opt,
 **	Then frees the token and it's content.
 */
 
-static t_bboa_state	parse_double_arg(char ***last, uint32_t arg, int argc
-		, char **argv)
+static t_bboa_state		parse_double_arg(
+		char ***last,
+		uint32_t arg,
+		int argc,
+		char **argv
+)
 {
 	t_opt_match		*match;
 	t_arg_array		*tkn;
@@ -87,7 +96,8 @@ static t_bboa_state	parse_double_arg(char ***last, uint32_t arg, int argc
 
 	if ((str = ft_strrchr(argv[0] + 2, '=')))
 		*str++ = '\0';
-	if (ft_hashmap_get(*mtch(), (uint8_t*)argv[0] + 2, (void**)&match) && match)
+	if (ft_hashmap_get((*mtch())->map, (uint8_t*)argv[0] + 2,
+				(void**)&match) && match)
 	{
 		if (!(tkn = generate_tokens(match, argv[0] + 2, argc - arg - 1,
 						(t_arg_gen){argv + 1, str})))
@@ -95,7 +105,8 @@ static t_bboa_state	parse_double_arg(char ***last, uint32_t arg, int argc
 		*last = (argv + tkn->len + !str > *last)
 			? argv + tkn->len + !str : *last;
 		if ((state = match->func(tkn)) == BBOA_RS_DISPLAY_USAGE)
-			bboa_set_error_usage(*mtch(), *argv + 2, state, BBOA_ERR_INFO);
+			bboa_set_error_usage((*mtch())->map, *argv + 2, state,
+					BBOA_ERR_INFO);
 		ft_afree(3, tkn->array, tkn->opt, tkn);
 		return (state);
 	}
@@ -115,10 +126,14 @@ static t_bboa_state	parse_double_arg(char ***last, uint32_t arg, int argc
 **	Then frees the token and it's content.
 */
 
-static t_bboa_state	parse_single_arg(char ***lt, uint32_t arg, int ac
-		, char **av)
+static t_bboa_state		parse_single_arg(
+		char ***lt,
+		uint32_t arg,
+		int ac,
+		char **av
+)
 {
-	t_opt_match		*match;
+	t_opt_match		*mth;
 	t_arg_array		*tkn;
 	static char		s[3] = " \0";
 	char			*str;
@@ -129,19 +144,19 @@ static t_bboa_state	parse_single_arg(char ***lt, uint32_t arg, int ac
 	if ((str = ft_strrchr(av[0] + 2, '=')))
 		*str++ = '\0';
 	while (s[2] <= BBOA_RS_OK && (s[0] = av[0][++i]))
-		if (ft_hashmap_get(*mtch(), (uint8_t*)s, (void**)&match) && match)
+		if (ft_hashmap_get((*mtch())->map, (uint8_t*)s, (void**)&mth) && mth)
 		{
-			if (!(tkn = generate_tokens(match, s, ac - (*lt - av) + !!str,
+			if (!(tkn = generate_tokens(mth, s, ac - (*lt - av) + !!str,
 							(t_arg_gen){.args = *lt, .first = (av[0]
 									+ i + 2 == str) ? str : NULL})))
 				return (BBOA_RS_GENERIC_ERROR);
 			*lt += tkn->len - (av[0] + i + 2 == str);
-			if ((s[2] = match->func(tkn)) == BBOA_RS_DISPLAY_USAGE)
-				bboa_set_error_usage(*mtch(), s, s[2], BBOA_ERR_INFO);
+			if ((s[2] = mth->func(tkn)) == BBOA_RS_DISPLAY_USAGE)
+				bboa_set_error_usage((*mtch())->map, s, s[2], BBOA_ERR_INFO);
 			ft_afree(3, tkn->array, tkn->opt, tkn);
 		}
 		else
-			return (bboa_set_error_usage(*mtch(), s, BBOA_NOT, BBOA_ERR_CRIT));
+			return (bboa_set_error_usage((*mtch())->map, s, BBOA_NOT, BBOA_EC));
 	return ((t_bboa_state)s[2]);
 }
 
@@ -162,17 +177,20 @@ static t_bboa_state	parse_single_arg(char ***lt, uint32_t arg, int ac
 **	Assuming that each option only takes 1 argument except `a` which takes 2.
 */
 
-char				**bboa_parse_args(t_opt_patterns *options
-									, int argc, char **argv)
+char					**bboa_parse_args(
+		t_opt_patterns *options,
+		int argc,
+		char **argv
+)
 {
-	uint32_t		arg;
-	t_bboa_state	st;
-	char			**last_args;
+	uint32_t			arg;
+	t_bboa_state		st;
+	char				**last_args;
 
 	arg = ~0u;
 	st = BBOA_RS_OK;
 	last_args = argv;
-	*mtch() = options->matches;
+	*mtch() = options;
 	while (last_args - argv < argc && st == BBOA_RS_OK)
 	{
 		arg = last_args - argv;

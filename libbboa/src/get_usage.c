@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 16:05:49 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/05/25 14:20:31 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/06/25 14:34:09 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,6 @@
 #include "bboa.h"
 #include "libft.h"
 #include "dynarray.h"
-
-static int				bboa_compare_usage_str(
-		const void *str1,
-		const void *str2
-)
-{
-	int					comp;
-	char				*s1;
-	char				*s2;
-
-	s1 = ((t_usage_str*)str1)->first;
-	s2 = ((t_usage_str*)str2)->first;
-	while (*s1 && *s2)
-	{
-		if (ft_tolower(*s1) != ft_tolower(*s2))
-			break ;
-		s1++;
-		s2++;
-	}
-	return (ft_tolower(*s1) - ft_tolower(*s2));
-}
 
 static inline uint64_t	bboa_get_max_len_strs(t_dynarray *strs)
 {
@@ -102,11 +81,40 @@ static inline char		*bboa_get_formated_usage(
 	return (s);
 }
 
+static inline void		gen_option_with_types(
+		t_dynarray *s,
+		char *key,
+		t_opt_match *entry
+)
+{
+	static const char	*type_display[BBOA_AT_MAX_TYPE] = {
+		[BBOA_AT_NONE] = "<_>",
+		[BBOA_AT_STRING] = "<argument>",
+		[BBOA_AT_NUMBER] = "<number>",
+		[BBOA_AT_BOOLEAN] = "<bool>",
+	};
+	const char			*type;
+	uint8_t				i;
+	uint8_t				len;
+
+	ft_dynarray_push(s, key, ft_strlen(key));
+	len = entry->arg_count;
+	ft_dynarray_push(s, " ", len > 0);
+	i = -1;
+	while (++i < len)
+	{
+		type = type_display[entry->types[i]];
+		ft_dynarray_push(s, (void*)type, ft_strlen(type));
+		ft_dynarray_push(s, " ", (i < len - 1));
+	}
+	ft_dynarray_push(s, "", 1);
+}
+
 char					*bboa_get_usage(t_hashmap *options)
 {
 	t_dynarray			*strs;
 	t_hash_entry		*val;
-	char				*s;
+	t_dynarray			*s;
 	uint32_t			j;
 	uint16_t			i;
 
@@ -116,9 +124,11 @@ char					*bboa_get_usage(t_hashmap *options)
 	j = 0;
 	while ((val = ft_hashmap_iterate(options, &i, &j)))
 	{
-		s = (char*)val->key;
+		if (!(s = ft_dynarray_create(4096, 4096)))
+			ft_exit(1, "No space left on device.\n", NULL);
+		gen_option_with_types(s, (char*)val->key, val->value);
 		ft_dynarray_push(strs, &(t_usage_str){
-				.first = s, .len = ft_strlen(s),
+				.first = (char*)s->array, .len = ft_strlen((char*)s->array),
 				.desc = ((((t_opt_match*)val->value)->desc) ? ft_strajoin(2,
 							" - ", ((t_opt_match*)val->value)->desc) : NULL),
 		}, sizeof(t_usage_str));
