@@ -6,10 +6,11 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 05:04:46 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/06/25 13:41:19 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/01 15:20:23 by njiall           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "dynarray.h"
 
 #include <stdlib.h>

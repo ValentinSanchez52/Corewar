@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/18 08:44:32 by mbeilles          #+#    #+#              #
-#    Updated: 2019/06/14 11:02:39 by mbeilles         ###   ########.fr        #
+#    Updated: 2019/07/01 15:43:37 by njiall           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ NICK = LFT
 PROJECT_COLOR = "\033[38;5;214m"
 PROJECT_COLOR_ALT = "\033[38;5;172m"
 
-CC = gcc
+CC = clang
 
 #==============================================================================#
 #                                   Sources                                    #
@@ -31,6 +31,8 @@ CC = gcc
 SRCS = \
 	   $(PATH_SRC)/error/ft_error.c											\
 	   $(PATH_SRC)/error/ft_error_exit.c									\
+	   $(PATH_SRC)/error/ft_handle_error.c									\
+	   $(PATH_SRC)/error/ft_default_error_printer.c							\
 	   $(PATH_SRC)/types/ft_get_pow.c										\
 	   $(PATH_SRC)/types/ft_isspace.c										\
 	   $(PATH_SRC)/types/ft_isalnum.c										\

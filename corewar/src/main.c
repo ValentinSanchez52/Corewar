@@ -6,11 +6,12 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 14:39:16 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/06/25 14:39:16 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/01 15:44:48 by njiall           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
+#include <stdio.h>
 #include "corewar.h"
 #include "bboa.h"
 #include "libft.h"
