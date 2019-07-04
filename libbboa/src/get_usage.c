@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 16:05:49 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/04 19:04:23 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/04 19:32:06 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static inline char		*bboa_get_formated_usage(
 	i = 0;
 	while ((us = ft_dynarray_iterate(strs, &i, sizeof(t_usage_str))))
 	{
-		ft_dynarray_push(msg, (us->type) ? "--" : " -", 2);
+		ft_dynarray_push(msg, (us->type) ? "\e[37m--\e[0m" : " \e[37m-\e[0m", 11);
 		ft_dynarray_push(msg, us->first, us->len);
 		if (us->desc && (j = us->len))
 			while (++j < max_len)
@@ -106,7 +106,7 @@ static void				bboa_push_us(
 	ft_dynarray_push(strs, &(t_usage_str){
 			.first = (char*)s->array, .len = ft_strlen((char*)s->array),
 			.desc = ((((t_opt_match*)val->value)->desc) ? ft_strajoin(2,
-						" - ", ((t_opt_match*)val->value)->desc) : NULL),
+						" \e[33m-\e[0m ", ((t_opt_match*)val->value)->desc) : NULL),
 			.type = type,
 			}, sizeof(t_usage_str));
 	free(s);
