@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 14:34:20 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/04 19:05:42 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/04 20:44:33 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,15 @@ static const char *const		get_header(t_bboa_error_level level)
 static const char *const		get_template(t_bboa_state state)
 {
 	static const char *const	templates[BBOA_RS_MAX_STATE] = {
-		[BBOA_RS_NONE] = "This shouldn't be happening.",
+		[BBOA_RS_NONE] = "How did you get there?",
 		[BBOA_RS_OK] = "There is no error, why are you printing?",
-		[BBOA_RS_DISPLAY_USAGE] = "Displaying usage.",
-		[BBOA_RS_UNKNOWN_OPT] = "Unknown option.",
-		[BBOA_RS_NO_ARG] = "No argmument for option.",
-		[BBOA_RS_NOT_ENOUGH_ARGS] = "Not enough arguments for option.",
-		[BBOA_RS_GENERIC_ERROR] = "An error has occured.",
-		[BBOA_RS_TYPE_MISMATCH] = "Type mismatch for option.",
-		[BBOA_RS_MULTIPLE_REFS] = "Multiple references to option."
+		[BBOA_RS_DISPLAY_USAGE] = "Displaying usage",
+		[BBOA_RS_UNKNOWN_OPT] = "Unknown option",
+		[BBOA_RS_NO_ARG] = "No argmument",
+		[BBOA_RS_NOT_ENOUGH_ARGS] = "Not enough arguments",
+		[BBOA_RS_GENERIC_ERROR] = "An error has occured",
+		[BBOA_RS_TYPE_MISMATCH] = "Type mismatch",
+		[BBOA_RS_MULTIPLE_REFS] = "Multiple references to option"
 	};
 
 	return (templates[state]);
@@ -67,19 +67,19 @@ void							bboa_print_error(t_bboa_error error)
 
 	if (error.message && error.match && error.argument)
 		msg = ft_strajoin(10, get_header(error.level), " ",
-				get_template(error.state), " On option '", error.match,
-				"' at '", error.argument, "'\n", error.message, "\n");
+				get_template(error.state), " on \e[33m'\e[1;33m", error.match,
+				"\e[0;33m'\e[0m at '\e[34m", error.argument, "\e[0m'\n", error.message,
+				"\n");
 	else if (error.message && error.match)
 		msg = ft_strajoin(8, get_header(error.level), " ",
-				get_template(error.state), " On option '", error.match, "'\n",
-				error.message, "\n");
+				get_template(error.state), " on \e[33m'\e[1;33m", error.match,
+				"\e[0;33m'\e[0m\n", error.message, "\n");
 	else if (error.message)
 		msg = ft_strajoin(6, get_header(error.level), " ",
-				get_template(error.state), "\n",
-				error.message, "\n");
+				get_template(error.state), ".\n", error.message, "\n");
 	else
 		msg = ft_strajoin(4, get_header(error.level), " ",
-				get_template(error.state), "\n");
+				get_template(error.state), ".\n");
 	if (msg && (write(1, msg, ft_strlen(msg)) || 1))
 		free(msg);
 	if (error.destructor)

@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 14:39:16 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/04 18:25:18 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/04 20:39:35 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,35 +16,56 @@
 #include "bboa.h"
 #include "libft.h"
 
-// Generic help function
+/*
+** Generic help function
+*/
 static t_bboa_state			help(t_arg_array *args) {
 	return (BBOA_RS_DISPLAY_USAGE);
 }
 
-// Use this for debug purposes
+/*
+** Use this for debug purposes
+*/
 static t_bboa_state			print_args(t_arg_array *args) {
 	t_arg_token				token;
 	uint32_t				i;
 
 	i = -1;
+	printf("Printing for option \e[1;32m'\e[1;36m%s\e[32m'\e[0m \
+\e[1;36m-\e[0;36m>\e[0m data: \e[36m%p\e[0m\n", args->opt, args->data);
 	while (++i < args->len)
 	{
 		token = args->array[i];
 		switch (token.type) {
 			default:
-				printf("Arg [NONE]: %p\n", token.none_token.data);
+				printf("\e[1;4mArg\e[0m [\e[1;33mNONE\e[0m]: \e[33m%p\e[0m\n",
+						token.none_token.data);
 				break ;
 			case BBOA_AT_STRING:
-				printf("Arg [STRG]: %s\n", token.string_token.string);
+				printf("\e[1;4mArg\e[0m [\e[1;32mSTRG\e[0m]: \e[32m%s\e[0m\n",
+						token.string_token.string);
 				break ;
 			case BBOA_AT_NUMBER:
-				printf("Arg [NUMB]: %f\n", token.number_token.number);
+				printf("\e[1;4mArg\e[0m [\e[1;34mNMBR\e[0m]: \e[4;34m%d\e[0m-[\e[34m%f\e[0m]\n",
+						(int)token.number_token.number, token.number_token.number);
 				break ;
 			case BBOA_AT_BOOLEAN:
-				printf("Arg [BOOL]: %s\n", (token.bool_token.boolean ? "true" : "false"));
+				printf("\e[1;4mArg\e[0m [\e[1;35mBOOL\e[0m]: \e[35m%s\e[0m\n",
+						(token.bool_token.boolean ? "true" : "false"));
 				break ;
 		}
 	}
+	return (BBOA_RS_OK);
+}
+
+static t_bboa_state			parse_player(t_arg_array *args) {
+	print_args(args);
+	if (args->len < 2
+			|| args->array[0].type != BBOA_AT_NUMBER
+			|| args->array[1].type != BBOA_AT_STRING)
+		return (BBOA_RS_TYPE_MISMATCH);
+	printf("Loading '%s' as player %u...\n", args->array[1].string_token.string,
+			(uint32_t)args->array[0].number_token.number);
 	return (BBOA_RS_OK);
 }
 
@@ -57,7 +78,7 @@ static const t_option		g_options[] = {
 			.func = &help,
 			.types = {},
 			.arg_count = 0,
-			.desc = "Show this usage"
+			.desc = "Show this usage."
 		}
 	},
 	(t_option){
@@ -68,18 +89,18 @@ static const t_option		g_options[] = {
 			.func = &print_args,
 			.types = {BBOA_AT_NUMBER},
 			.arg_count = 1,
-			.desc = "Dump the arena state after n cycles"
+			.desc = "Dump the arena state after [\e[37mnumber\e[0m] cycles."
 		}
 	},
 	(t_option){
-		.option = {"number", "num", "n"},
-		.type = {OPT_DOUBLE, OPT_DOUBLE, OPT_SINGLE},
-		.length = 3,
+		.option = {"number", "num", "n", "player", "p"},
+		.type = {OPT_DOUBLE, OPT_DOUBLE, OPT_SINGLE, OPT_DOUBLE, OPT_SINGLE},
+		.length = 5,
 		.match = (t_opt_match){
-			.func = &print_args,
+			.func = &parse_player,
 			.types = {BBOA_AT_NUMBER, BBOA_AT_STRING},
 			.arg_count = 2,
-			.desc = "Sets next champion's number in args"
+			.desc = "Sets champion's(\e[37margument\e[0m) [\e[37mnumber\e[0m]."
 		}
 	},
 };
