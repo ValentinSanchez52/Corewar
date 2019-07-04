@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/28 14:36:18 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/06/25 14:33:40 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/04 18:14:06 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 **		projects.
 */
 
-static t_opt_patterns	**mtch(void)
+t_opt_patterns			**mtch(void)
 {
 	static t_opt_patterns	*map;
 
@@ -38,7 +38,7 @@ static t_opt_patterns	**mtch(void)
 **	is left to the writter of the callback function.
 */
 
-static t_arg_array		*generate_tokens(
+t_arg_array				*generate_tokens(
 		t_opt_match *match,
 		char *opt,
 		uint32_t args_left,
@@ -57,10 +57,11 @@ static t_arg_array		*generate_tokens(
 			|| !(tkn->array = (t_arg_token*)malloc(sizeof(t_arg_token)
 					* match->arg_count)))
 		return (NULL);
-	tkn->len = ~0u;
-	tkn->opt = ft_strdup(opt);
-	tkn->opt_len = ft_strlen(opt);
-	tkn->data = (*mtch())->data;
+	*tkn = (t_arg_array){
+			.array = tkn->array, .len = ~0u,
+			.opt = ft_strdup(opt), .opt_len = ft_strlen(opt),
+			.data = (*mtch())->data
+	};
 	if (gen.first && match->arg_count > 0)
 		tkn->array[++tkn->len] = matrix[match->types[tkn->len]](gen.first);
 	while (++tkn->len < match->arg_count && tkn->len - !!gen.first < args_left
@@ -69,95 +70,6 @@ static t_arg_array		*generate_tokens(
 		tkn->array[tkn->len] = matrix[match->types[tkn->len]](gen.args[tkn->len
 				- !!gen.first]);
 	return (tkn);
-}
-
-/*
-**	| Parse a double dash option and it's arguments |
-**		`str` points to the start of what is after '='.
-**
-**	This function gets of there's is a match for the argument
-**		then generate tokens.
-**	If the state of return is different of OK it asumes there's an error
-**		and prints.
-**	Then frees the token and it's content.
-*/
-
-static t_bboa_state		parse_double_arg(
-		char ***last,
-		uint32_t arg,
-		int argc,
-		char **argv
-)
-{
-	t_opt_match		*match;
-	t_arg_array		*tkn;
-	char			*str;
-	t_bboa_state	state;
-
-	if ((str = ft_strrchr(argv[0] + 2, '=')))
-		*str++ = '\0';
-	if (ft_hashmap_get((*mtch())->map, (uint8_t*)argv[0] + 2,
-				(void**)&match) && match)
-	{
-		if (!(tkn = generate_tokens(match, argv[0] + 2, argc - arg - 1,
-						(t_arg_gen){argv + 1, str})))
-			return (BBOA_RS_GENERIC_ERROR);
-		*last = (argv + tkn->len + !str > *last)
-			? argv + tkn->len + !str : *last;
-		if ((state = match->func(tkn)) == BBOA_RS_DISPLAY_USAGE)
-			bboa_set_error_usage((*mtch())->map, *argv + 2, state,
-					BBOA_ERR_INFO);
-		ft_afree(3, tkn->array, tkn->opt, tkn);
-		return (state);
-	}
-	return (BBOA_RS_OK);
-}
-
-/*
-**	| Parse all single dash options contained in the argument string |
-**	For norm purposes the return state is stored at the end of `s`.
-**		`str` points to the start of what is after '='.
-**
-**	This function loops over each char of the arguement until a '=' or the end.
-**		for each char it copies to `s` so that it's a string only containing it.
-**		then it generate tokens as above.
-**	If the state of return is different of OK it asumes there's an error
-**		and prints.
-**	Then frees the token and it's content.
-*/
-
-static t_bboa_state		parse_single_arg(
-		char ***lt,
-		uint32_t arg,
-		int ac,
-		char **av
-)
-{
-	t_opt_match		*mth;
-	t_arg_array		*tkn;
-	static char		s[3] = " \0";
-	char			*str;
-	uint32_t		i;
-
-	s[2] = (char)BBOA_RS_OK;
-	i = 0;
-	if ((str = ft_strrchr(av[0] + 2, '=')))
-		*str++ = '\0';
-	while (s[2] <= BBOA_RS_OK && (s[0] = av[0][++i]))
-		if (ft_hashmap_get((*mtch())->map, (uint8_t*)s, (void**)&mth) && mth)
-		{
-			if (!(tkn = generate_tokens(mth, s, ac - (*lt - av) + !!str,
-							(t_arg_gen){.args = *lt, .first = (av[0]
-									+ i + 2 == str) ? str : NULL})))
-				return (BBOA_RS_GENERIC_ERROR);
-			*lt += tkn->len - (av[0] + i + 2 == str);
-			if ((s[2] = mth->func(tkn)) == BBOA_RS_DISPLAY_USAGE)
-				bboa_set_error_usage((*mtch())->map, s, s[2], BBOA_ERR_INFO);
-			ft_afree(3, tkn->array, tkn->opt, tkn);
-		}
-		else
-			return (bboa_set_error_usage((*mtch())->map, s, BBOA_NOT, BBOA_EC));
-	return ((t_bboa_state)s[2]);
 }
 
 /*
@@ -194,14 +106,15 @@ char					**bboa_parse_args(
 	while (last_args - argv < argc && st == BBOA_RS_OK)
 	{
 		arg = last_args - argv;
+		st = BBOA_RS_NONE;
 		if (argv[arg] && argv[arg][0] == '-' && argv[arg][1] == '-'
 				&& (last_args = argv + arg + 1))
 			st = parse_double_arg(&last_args, arg, argc, argv + arg);
 		else if (argv[arg] && argv[arg][0] == '-'
 				&& (last_args = argv + arg + 1))
-			st = parse_single_arg(&last_args, arg, argc, argv + arg);
-		else
-			st = BBOA_RS_NONE;
+			if ((st = parse_long_single_arg(&last_args, arg, argc, argv + arg))
+					== BBOA_RS_UNKNOWN_OPT)
+				st = parse_single_arg(&last_args, arg, argc, argv + arg);
 	}
 	if (st <= BBOA_RS_OK)
 		return (last_args);

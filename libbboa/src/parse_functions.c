@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/29 21:15:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/04/22 14:52:11 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/04 16:36:05 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,24 @@
 
 t_arg_token		bboa_parse_number(char *v)
 {
-	return ((t_arg_token){
-			.number_token = {
-				.type = BBOA_AT_NUMBER,
-				.data = NULL,
-				.number = ft_strtod(v, &v)
-			}});
+	char		*s;
+	double		d;
+
+	d = ft_strtod(v, &s);
+	if (v != s)
+		return ((t_arg_token){
+				.number_token = {
+					.type = BBOA_AT_NUMBER,
+					.data = NULL,
+					.number = d
+				}});
+	else
+		return ((t_arg_token){
+				.number_token = {
+					.type = BBOA_AT_NONE,
+					.data = NULL,
+					.number = 0.0
+				}});
 }
 
 t_arg_token		bboa_parse_boolean(char *v)

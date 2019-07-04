@@ -6,11 +6,12 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 10:14:47 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/05/25 10:47:35 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/04 19:00:31 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include "libft.h"
 #include "bboa.h"
 
 void				bboa_usage_error_destructor(t_bboa_error error)
@@ -19,7 +20,7 @@ void				bboa_usage_error_destructor(t_bboa_error error)
 }
 
 t_bboa_state		bboa_set_error_usage(
-		t_hashmap *options,
+		t_opt_patterns *options,
 		char *match,
 		t_bboa_state state,
 		t_bboa_error_level level

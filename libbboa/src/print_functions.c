@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 14:34:20 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/05/25 14:21:45 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/04 19:05:42 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,17 @@ void							bboa_print_error(t_bboa_error error)
 	char						*msg;
 
 	if (error.message && error.match && error.argument)
-		msg = ft_strajoin(12, get_header(error.level), " ",
-				get_template(error.state), " On option '", error.match,
-				"' at '", error.argument, "'\n",
-				get_header(error.level), " ", error.message, "\n");
-	else if (error.message && error.match)
 		msg = ft_strajoin(10, get_header(error.level), " ",
-				get_template(error.state), " On option '", error.match, "'\n",
-				get_header(error.level), " ", error.message, "\n");
-	else if (error.message)
+				get_template(error.state), " On option '", error.match,
+				"' at '", error.argument, "'\n", error.message, "\n");
+	else if (error.message && error.match)
 		msg = ft_strajoin(8, get_header(error.level), " ",
+				get_template(error.state), " On option '", error.match, "'\n",
+				error.message, "\n");
+	else if (error.message)
+		msg = ft_strajoin(6, get_header(error.level), " ",
 				get_template(error.state), "\n",
-				get_header(error.level), " ", error.message, "\n");
+				error.message, "\n");
 	else
 		msg = ft_strajoin(4, get_header(error.level), " ",
 				get_template(error.state), "\n");
