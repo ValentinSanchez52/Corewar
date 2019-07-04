@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/28 14:36:18 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/04 18:14:06 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/04 19:44:10 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ char					**bboa_parse_args(
 	while (last_args - argv < argc && st == BBOA_RS_OK)
 	{
 		arg = last_args - argv;
-		st = BBOA_RS_NONE;
 		if (argv[arg] && argv[arg][0] == '-' && argv[arg][1] == '-'
 				&& (last_args = argv + arg + 1))
 			st = parse_double_arg(&last_args, arg, argc, argv + arg);
@@ -118,6 +117,7 @@ char					**bboa_parse_args(
 	}
 	if (st <= BBOA_RS_OK)
 		return (last_args);
+	bboa_set_error_usage(*mtch(), ft_strrchr(argv[0], '-') + 1, st, BBOA_EC);
 	bboa_print_error(g_bboa_error);
 	return (NULL);
 }
