@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 04:11:57 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/06/25 14:36:38 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/04 18:35:14 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct			s_usage_str
 {
 	char				*first;
 	uint32_t			len;
+	bool				type;
 	char				*desc;
 }						t_usage_str;
 
@@ -155,7 +156,8 @@ typedef struct			s_opt_match {
 
 typedef struct			s_opt_patterns
 {
-	t_hashmap			*map;
+	t_hashmap			*maps;
+	t_hashmap			*mapd;
 	void				*data;
 }						t_opt_patterns;
 
@@ -173,16 +175,45 @@ typedef struct			s_opt_patterns
 **	- argc: The number of strings contained in argv.
 **	- argv: An array of strings on which you want to check options.
 */
+
+t_opt_patterns			**mtch(void);
+
 char					**bboa_parse_args(
 		t_opt_patterns *opt,
 		int ac,
 		char **av
 );
+
+t_bboa_state			parse_long_single_arg(
+		char ***last_arg,
+		uint32_t args_left,
+		int ac,
+		char **av
+);
+t_bboa_state			parse_single_arg(
+		char ***last_arg,
+		uint32_t args_left,
+		int ac,
+		char **av
+);
+t_bboa_state			parse_double_arg(
+		char ***last_arg,
+		uint32_t args_left,
+		int ac,
+		char **av
+);
+t_arg_array				*generate_tokens(
+		t_opt_match *match,
+		char *opt,
+		uint32_t args_left,
+		t_arg_gen gen
+);
+
 t_bboa_error			*bboa_get_error(void);
 void					bboa_print_error(t_bboa_error error);
-char					*bboa_get_usage(t_hashmap *opts);
+char					*bboa_get_usage(t_opt_patterns *opts);
 void					bboa_usage_error_destructor(t_bboa_error error);
-t_bboa_state			bboa_set_error_usage(t_hashmap *opts, char *match,
+t_bboa_state			bboa_set_error_usage(t_opt_patterns *opts, char *match,
 								t_bboa_state state, t_bboa_error_level level);
 
 /*

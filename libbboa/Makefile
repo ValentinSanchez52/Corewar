@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/18 08:44:32 by mbeilles          #+#    #+#              #
-#    Updated: 2019/06/25 14:35:52 by mbeilles         ###   ########.fr        #
+#    Updated: 2019/07/04 18:02:01 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,9 @@ CC = gcc
 #==============================================================================#
 
 SRCS = $(PATH_SRC)/parse_args.c						\
+	   $(PATH_SRC)/parse_single_arg.c				\
+	   $(PATH_SRC)/parse_double_arg.c				\
+	   $(PATH_SRC)/parse_long_single_arg.c			\
 	   $(PATH_SRC)/parse_functions.c				\
 	   $(PATH_SRC)/print_functions.c				\
 	   $(PATH_SRC)/get_usage.c						\

@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/18 08:44:32 by mbeilles          #+#    #+#              #
-#    Updated: 2019/07/01 15:43:37 by njiall           ###   ########.fr        #
+#    Updated: 2019/07/04 15:36:58 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRCS = \
 	   $(PATH_SRC)/types/ft_isascii.c										\
 	   $(PATH_SRC)/types/ft_isprint.c										\
 	   $(PATH_SRC)/types/ft_isset.c											\
+	   $(PATH_SRC)/types/ft_isinf.c											\
 	   $(PATH_SRC)/list/ft_lstadd.c											\
 	   $(PATH_SRC)/list/ft_lstdel.c											\
 	   $(PATH_SRC)/list/ft_lstdelone.c										\
@@ -118,6 +119,7 @@ SRCS = \
 	   $(PATH_SRC)/str/ft_t_string_expand.c									\
 	   $(PATH_SRC)/str/ft_ltostr.c											\
 	   $(PATH_SRC)/str/ft_ultostr.c											\
+	   $(PATH_SRC)/str/ft_dtostr.c											\
 	   $(PATH_SRC)/dynarray/ft_dynarray_create.c							\
 	   $(PATH_SRC)/dynarray/ft_dynarray_manipulate.c						\
 	   $(PATH_SRC)/dynarray/ft_dynarray_iterate.c							\

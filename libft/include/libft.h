@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/13 17:22:36 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/06/14 10:53:17 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/04 15:40:26 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,17 +81,13 @@ typedef struct	s_mem_block
 	struct s_mem_block	*next;
 }				t_mem_block;
 
-typedef struct	s_double_subdiv
-{
-	unsigned long		mant : 52;
-	unsigned int		exp : 11;
-	int					sign : 1;
-}				t_double_subdiv;
-
-typedef union	u_double
-{
-	double				d;
-	t_double_subdiv		s;
+typedef union	u_double {
+	double			d;
+	struct {
+		uint64_t	mantisa : 52;
+		uint64_t	exponent : 11;
+		uint64_t	sign : 1;
+	};
 }				t_double;
 
 /*
@@ -105,6 +101,7 @@ int				ft_isprint(int c);
 int				ft_isalnum(int c);
 int				ft_isspace(int c);
 int				ft_isset(int c, char *set);
+int				ft_isinf(double d);
 
 /*
 ** --- Memblock manipulation ---
@@ -135,6 +132,7 @@ char			*ft_itoa(int nbr);
 
 char			*ft_ultostr(uint64_t num, uint8_t radix, uint8_t upcase);
 char			*ft_ltostr(int64_t num, uint8_t radix, uint8_t upcase);
+char			*ft_dtostr(double d, uint32_t precision, bool force_sign);
 
 char			*ft_strcpy(char *dest, const char *src);
 char			*ft_strncpy(char *dest, const char *src, size_t n);
