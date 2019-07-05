@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/28 14:36:18 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/04 19:44:10 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/06 01:39:10 by njiall           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,19 @@
 
 t_opt_patterns			**mtch(void)
 {
-	static t_opt_patterns	*map;
+	static t_opt_patterns	*matches;
 
-	return (&map);
+	return (&matches);
+}
+
+static inline bool		bboa_is_double(char *av)
+{
+	return (av && av[0] == '-' && av[1] == '-');
+}
+
+static inline bool		bboa_is_single(char *av)
+{
+	return (av && av[0] == '-');
 }
 
 /*
@@ -57,11 +67,9 @@ t_arg_array				*generate_tokens(
 			|| !(tkn->array = (t_arg_token*)malloc(sizeof(t_arg_token)
 					* match->arg_count)))
 		return (NULL);
-	*tkn = (t_arg_array){
-			.array = tkn->array, .len = ~0u,
-			.opt = ft_strdup(opt), .opt_len = ft_strlen(opt),
-			.data = (*mtch())->data
-	};
+	tkn->len = ~0u;
+	tkn->opt = ft_strdup(opt);
+	tkn->opt_len = ft_strlen(opt);
 	if (gen.first && match->arg_count > 0)
 		tkn->array[++tkn->len] = matrix[match->types[tkn->len]](gen.first);
 	while (++tkn->len < match->arg_count && tkn->len - !!gen.first < args_left
@@ -89,15 +97,12 @@ t_arg_array				*generate_tokens(
 **	Assuming that each option only takes 1 argument except `a` which takes 2.
 */
 
-char					**bboa_parse_args(
-		t_opt_patterns *options,
-		int argc,
-		char **argv
-)
+char				**bboa_parse_args(t_opt_patterns *options
+									, int argc, char **argv)
 {
-	uint32_t			arg;
-	t_bboa_state		st;
-	char				**last_args;
+	uint32_t		arg;
+	t_bboa_state	st;
+	char			**last_args;
 
 	arg = ~0u;
 	st = BBOA_RS_OK;
@@ -106,18 +111,17 @@ char					**bboa_parse_args(
 	while (last_args - argv < argc && st == BBOA_RS_OK)
 	{
 		arg = last_args - argv;
-		if (argv[arg] && argv[arg][0] == '-' && argv[arg][1] == '-'
-				&& (last_args = argv + arg + 1))
+		if (bboa_is_double(argv[arg]) && (last_args = argv + arg + 1))
 			st = parse_double_arg(&last_args, arg, argc, argv + arg);
-		else if (argv[arg] && argv[arg][0] == '-'
-				&& (last_args = argv + arg + 1))
+		else if (bboa_is_single(argv[arg]) && (last_args = argv + arg + 1))
 			if ((st = parse_long_single_arg(&last_args, arg, argc, argv + arg))
 					== BBOA_RS_UNKNOWN_OPT)
 				st = parse_single_arg(&last_args, arg, argc, argv + arg);
 	}
 	if (st <= BBOA_RS_OK)
 		return (last_args);
-	bboa_set_error_usage(*mtch(), ft_strrchr(argv[0], '-') + 1, st, BBOA_EC);
+	bboa_set_error_usage(*mtch(), ft_strrchr(argv[0], '-') + 1, st,
+			(g_bboa_error.level) ? BBOA_EC : g_bboa_error.level);
 	bboa_print_error(g_bboa_error);
 	return (NULL);
 }
