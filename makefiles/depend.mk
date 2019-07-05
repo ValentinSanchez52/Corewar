@@ -30,7 +30,7 @@ $(PATH_DEP)/%.d: ;
 
 .SECONDEXPANSION:
 
-FAST_FLAG = -O3 -march=native -flto
+FAST_FLAG = -O3 -march=native #-flto
 SLOW_FLAG = -fsanitize=address -g3 -O0
 
 ifeq	(,$(filter debug, $(MAKECMDGOALS)))
