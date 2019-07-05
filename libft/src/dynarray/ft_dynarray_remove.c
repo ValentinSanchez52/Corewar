@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 05:05:03 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/03/31 05:05:21 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/05 15:06:55 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 void				*ft_dynarray_remove(t_dynarray *arr, uint64_t index
 										, uint64_t size)
 {
-	memmove(arr->array + index, arr->array + index + size
-			, arr->index - index - size);
+	memmove(arr->array + index, arr->array + index + size,
+			arr->index - index - size);
 	arr->index -= size;
 	if (arr->index + size < arr->size / 4
 			&& arr->min_size > arr->size / 4
