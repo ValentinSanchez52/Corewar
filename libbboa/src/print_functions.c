@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 14:34:20 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/04 20:44:33 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/06 04:25:57 by njiall           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ t_bboa_error g_bboa_error = (t_bboa_error){
 static const char *const		get_header(t_bboa_error_level level)
 {
 	static const char *const	headers[BBOA_ERR_MAX_LEVEL] = {
-		[BBOA_ERR_INFO] = "\e[0;37m[\e[1;34mi\e[0;37m]\e[0m",
-		[BBOA_ERR_WARN] = "\e[0;37m[\e[1;33m!\e[0;37m]\e[0m",
-		[BBOA_ERR_CRIT] = "\e[0;37m[\e[1;31mx\e[0;37m]\e[0m"
+		[BBOA_ERR_NO] = "",
+		[BBOA_ERR_INFO] = "\e[0;37m[\e[1;34mi\e[0;37m]\e[0m ",
+		[BBOA_ERR_WARN] = "\e[0;37m[\e[1;33m!\e[0;37m]\e[0m ",
+		[BBOA_ERR_CRIT] = "\e[0;37m[\e[1;31mx\e[0;37m]\e[0m "
 	};
 
 	return (headers[level]);
@@ -66,20 +67,19 @@ void							bboa_print_error(t_bboa_error error)
 	char						*msg;
 
 	if (error.message && error.match && error.argument)
-		msg = ft_strajoin(10, get_header(error.level), " ",
-				get_template(error.state), " on \e[33m'\e[1;33m", error.match,
-				"\e[0;33m'\e[0m at '\e[34m", error.argument, "\e[0m'\n", error.message,
-				"\n");
+		msg = ft_strajoin(9, get_header(error.level), get_template(error.state),
+				" on \e[33m'\e[1;33m", error.match, "\e[0;33m'\e[0m at '\e[34m",
+				error.argument, "\e[0m'\n", error.message, "\n");
 	else if (error.message && error.match)
-		msg = ft_strajoin(8, get_header(error.level), " ",
-				get_template(error.state), " on \e[33m'\e[1;33m", error.match,
+		msg = ft_strajoin(7, get_header(error.level), get_template(error.state),
+				" on \e[33m'\e[1;33m", error.match,
 				"\e[0;33m'\e[0m\n", error.message, "\n");
 	else if (error.message)
-		msg = ft_strajoin(6, get_header(error.level), " ",
-				get_template(error.state), ".\n", error.message, "\n");
+		msg = ft_strajoin(5, get_header(error.level), get_template(error.state),
+				".\n", error.message, "\n");
 	else
-		msg = ft_strajoin(4, get_header(error.level), " ",
-				get_template(error.state), ".\n");
+		msg = ft_strajoin(3, get_header(error.level), get_template(error.state),
+				".\n");
 	if (msg && (write(1, msg, ft_strlen(msg)) || 1))
 		free(msg);
 	if (error.destructor)

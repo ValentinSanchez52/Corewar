@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/18 08:44:32 by mbeilles          #+#    #+#              #
-#    Updated: 2019/07/04 15:36:58 by mbeilles         ###   ########.fr        #
+#    Updated: 2019/07/06 04:45:26 by njiall           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,6 +78,7 @@ SRCS = \
 	   $(PATH_SRC)/str/ft_putnbr.c											\
 	   $(PATH_SRC)/str/ft_putnbr_fd.c										\
 	   $(PATH_SRC)/str/ft_strncpy.c											\
+	   $(PATH_SRC)/str/ft_strbasename.c										\
 	   $(PATH_SRC)/str/ft_strcat.c											\
 	   $(PATH_SRC)/str/ft_strcdup.c											\
 	   $(PATH_SRC)/str/ft_strreplace.c										\

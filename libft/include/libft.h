@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/13 17:22:36 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/04 15:40:26 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/06 04:44:03 by njiall           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ char			*ft_strdup(const char *str);
 char			*ft_strcdup(const char *str, int c);
 char			*ft_strndup(const char *str, size_t n);
 char			*ft_strnew(size_t size);
+char			*ft_strbasename(char *name);
 
 void			ft_strclr(char *s);
 void			ft_strdel(char **as);
