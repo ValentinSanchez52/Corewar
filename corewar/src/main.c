@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 14:39:16 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/04 20:39:35 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/06 04:45:59 by njiall           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,15 @@ static t_bboa_state			print_args(t_arg_array *args) {
 
 static t_bboa_state			parse_player(t_arg_array *args) {
 	print_args(args);
-	if (args->len < 2
-			|| args->array[0].type != BBOA_AT_NUMBER
+	if (args->len < 2)
+		return (BBOA_RS_NOT_ENOUGH_ARGS);
+	else if (args->array[0].type != BBOA_AT_NUMBER
 			|| args->array[1].type != BBOA_AT_STRING)
 		return (BBOA_RS_TYPE_MISMATCH);
-	printf("Loading '%s' as player %u...\n", args->array[1].string_token.string,
+	char *player = ft_strbasename(args->array[1].string_token.string);
+	printf("Loading '%s' as player %u...\n", player,
 			(uint32_t)args->array[0].number_token.number);
+	free(player);
 	return (BBOA_RS_OK);
 }
 
@@ -125,6 +128,11 @@ static inline char			**parse_options(int c, char **v, void *data)
 					patterns.maps : patterns.mapd,
 					(uint8_t*)g_options[i].option[j],
 					(t_opt_match*)&g_options[i].match);
+	}
+	if (c == 0)
+	{
+		bboa_set_error_usage(&patterns, NULL, BBOA_RS_DISPLAY_USAGE, BBOA_ERR_NO);
+		bboa_print_error(g_bboa_error);
 	}
 	return (bboa_parse_args(&patterns, c, v));
 }

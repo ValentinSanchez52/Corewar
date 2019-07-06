@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 04:11:57 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/04 18:35:14 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/06 04:22:59 by njiall           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@ typedef enum			e_bboa_state
 # define BBOA_MR  BBOA_RS_MULTIPLE_REFS
 
 # define BBOA_EC  BBOA_ERR_CRIT
+# define BBOA_IF  BBOA_ERR_INFO
 
 typedef enum			e_bboa_error_level
 {
+	BBOA_ERR_NO,
 	BBOA_ERR_INFO,
 	BBOA_ERR_WARN,
 	BBOA_ERR_CRIT,
