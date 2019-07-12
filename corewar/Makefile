@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/04 04:17:21 by mbeilles          #+#    #+#              #
-#    Updated: 2019/07/05 23:07:45 by njiall           ###   ########.fr        #
+#    Updated: 2019/07/12 13:32:39 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,12 +55,11 @@ CLIBS = $(foreach dep, $(LIBS), $(dep)/$(notdir $(dep)).a) \
 
 LTOPLUGIN="$(gcc -print-search-dirs | grep install | awk '{print $2 "liblto_plugin.so"}')"
 
-LDFLAGS = -fuse-ld=gold \
+LDFLAGS = \
 
 CFLAGS = -I$(PATH_INC) $(FLAGS) \
 		 $(foreach dep, $(LIBS), -I$(dep)/$(PATH_INC)) \
 		 $(foreach dep, $(LDLIBS), -I$(dep)/$(PATH_INC)) \
-		 -std=c17
 
 #==============================================================================#
 #                                   Various                                    #
