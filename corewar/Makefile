@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/04 04:17:21 by mbeilles          #+#    #+#              #
-#    Updated: 2019/07/04 19:10:35 by mbeilles         ###   ########.fr        #
+#    Updated: 2019/07/05 23:07:45 by njiall           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ NICK = CWR
 PROJECT_COLOR = "\033[38;5;166m"
 PROJECT_COLOR_ALT = "\033[38;5;130m"
 
-CC = gcc
+CC = clang
 
 #==============================================================================#
 #                                   Sources                                    #
@@ -53,11 +53,14 @@ LDLIBS = \
 
 CLIBS = $(foreach dep, $(LIBS), $(dep)/$(notdir $(dep)).a) \
 
-LDFLAGS = \
+LTOPLUGIN="$(gcc -print-search-dirs | grep install | awk '{print $2 "liblto_plugin.so"}')"
+
+LDFLAGS = -fuse-ld=gold \
 
 CFLAGS = -I$(PATH_INC) $(FLAGS) \
 		 $(foreach dep, $(LIBS), -I$(dep)/$(PATH_INC)) \
 		 $(foreach dep, $(LDLIBS), -I$(dep)/$(PATH_INC)) \
+		 -std=c17
 
 #==============================================================================#
 #                                   Various                                    #
