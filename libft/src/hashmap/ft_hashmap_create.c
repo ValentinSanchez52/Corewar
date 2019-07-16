@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 05:06:48 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/03/31 05:06:49 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/14 22:27:04 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ uint32_t			ft_hashmap_destroy(t_hashmap *map)
 
 	i = ~0u;
 	r = 0;
-	while (++i < (2 << 16))
+	while (++i < 0x10000)
 	{
 		e = map->table[i];
 		while (e)

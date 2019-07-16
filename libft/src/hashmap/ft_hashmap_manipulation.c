@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 05:07:31 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/06/14 14:01:39 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/15 01:47:32 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@
 ** Create an entry to use in the hashmap.
 */
 
-t_hash_entry		*ft_hash_entry_create(const uint8_t *key, void *value)
+t_hash_entry		*ft_hash_entry_create(
+		const uint8_t *key,
+		void *value
+)
 {
 	t_hash_entry	*e;
 
@@ -38,8 +41,11 @@ t_hash_entry		*ft_hash_entry_create(const uint8_t *key, void *value)
 ** If the key doesn't match a Null pointer is returned.
 */
 
-bool				ft_hashmap_get(t_hashmap *map
-					, const uint8_t *key, void **value)
+bool				ft_hashmap_get(
+		t_hashmap *map,
+		const uint8_t *key,
+		void **value
+)
 {
 	uint16_t		hash;
 	t_hash_entry	*entry;
@@ -65,8 +71,11 @@ bool				ft_hashmap_get(t_hashmap *map
 ** This will need to be refactored.
 */
 
-void				*ft_hashmap_set(t_hashmap *map
-					, const uint8_t *key, void *value)
+void				*ft_hashmap_set(
+		t_hashmap *map,
+		const uint8_t *key,
+		void *value
+)
 {
 	uint16_t		hash;
 	t_hash_entry	*head;
@@ -99,31 +108,40 @@ void				*ft_hashmap_set(t_hashmap *map
 ** Removes an entry from the hashmap and the returns the value that was stored.
 */
 
-void				*ft_hashmap_remove(t_hashmap *map, const uint8_t *key)
+void				*ft_hashmap_remove(
+		t_hashmap *map,
+		const uint8_t *key
+)
 {
 	t_hash_entry	**indirect;
 	t_hash_entry	*e;
 	void			*data;
+	uint16_t		hash;
 
-	e = map->table[ft_hash_djb2(key)];
+	hash = ft_hash_djb2(key);
+	e = map->table[hash];
 	indirect = &e;
-	while ((*indirect) && !strcmp((const char*)((void*)(*indirect)->key)
-				, (const void*)((void*)key)))
+	while ((*indirect) && !strcmp((const char*)((void*)(*indirect)->key),
+				(const void*)((void*)key)))
 		indirect = &(*indirect)->next;
 	*indirect = e->next;
 	data = (void*)e->value;
 	free(e->key);
 	free(e);
+	map->table[hash] = NULL;
 	return (data);
 }
 
-t_hash_entry		*ft_hashmap_iterate(t_hashmap *map, uint16_t *i,
-										uint32_t *j)
+t_hash_entry		*ft_hashmap_iterate(
+		t_hashmap *map,
+		uint32_t *i,
+		uint32_t *j
+)
 {
 	uint32_t		k;
 	t_hash_entry	*entry;
 
-	while (*i < 0xffff)
+	while (*i < 0x10000)
 	{
 		if (map->table[*i])
 		{
