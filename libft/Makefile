@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/18 08:44:32 by mbeilles          #+#    #+#              #
-#    Updated: 2019/07/04 15:36:58 by mbeilles         ###   ########.fr        #
+#    Updated: 2019/07/16 11:35:27 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -130,6 +130,7 @@ SRCS = \
 	   $(PATH_SRC)/hashmap/ft_hashmap_create.c								\
 	   $(PATH_SRC)/hashmap/ft_hashmap_hash.c								\
 	   $(PATH_SRC)/hashmap/ft_hashmap_manipulation.c						\
+	   $(PATH_SRC)/hashmap/ft_hashmap_print.c								\
 
 INCS = $(PATH_INC)/libft.h													\
 	   $(PATH_INC)/get_next_line.h											\
