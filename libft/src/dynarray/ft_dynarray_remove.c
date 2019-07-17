@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 05:05:03 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/05 15:06:55 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/17 10:56:30 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void				*ft_dynarray_remove(t_dynarray *arr, uint64_t index
 			arr->index - index - size);
 	arr->index -= size;
 	if (arr->index + size < arr->size / 4
-			&& arr->min_size > arr->size / 4
+			&& arr->min_size < arr->size / 4
 			&& !ft_dynarray_resize(arr, arr->size / 2))
 		return (NULL);
 	return (arr->array + arr->index);
@@ -38,7 +38,7 @@ void				*ft_dynarray_remove_address(t_dynarray *arr
 			, arr->index - (address - (void*)arr->array) - size);
 	arr->index -= size;
 	if (arr->index + size < arr->size / 4
-			&& arr->min_size > arr->size / 4
+			&& arr->min_size < arr->size / 4
 			&& !ft_dynarray_resize(arr, arr->size / 2))
 		return (NULL);
 	return (arr->array + arr->index);
