@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 05:07:31 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/19 21:25:37 by njiall           ###   ########.fr       */
+/*   Updated: 2019/07/19 22:45:46 by njiall           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "../../include/hashmap.h"
-#include "../../include/libft.h"
+#include "include/hashmap.h"
+#include "include/libft.h"
 
 /*
 ** Create an entry to use in the hashmap.
