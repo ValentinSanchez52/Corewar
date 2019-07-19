@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 05:07:31 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/15 01:47:32 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/19 21:25:37 by njiall           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "hashmap.h"
-#include "libft.h"
+#include "../../include/hashmap.h"
+#include "../../include/libft.h"
 
 /*
 ** Create an entry to use in the hashmap.
@@ -113,23 +113,30 @@ void				*ft_hashmap_remove(
 		const uint8_t *key
 )
 {
-	t_hash_entry	**indirect;
-	t_hash_entry	*e;
-	void			*data;
 	uint16_t		hash;
+	t_hash_entry	*e;
+	t_hash_entry	*p;
+	void			*old_value;
 
 	hash = ft_hash_djb2(key);
 	e = map->table[hash];
-	indirect = &e;
-	while ((*indirect) && !strcmp((const char*)((void*)(*indirect)->key),
-				(const void*)((void*)key)))
-		indirect = &(*indirect)->next;
-	*indirect = e->next;
-	data = (void*)e->value;
+	p = NULL;
+	while (e && strcmp((const char*)((void*)e->key), (const char*)(key)))
+	{
+		p = e;
+		e = e->next;
+	}
+	if (!e)
+		return (NULL);
+	if (!p)
+		map->table[hash] = e->next;
+	else
+		p->next = e->next;
+	old_value = e->value;
+	map->length--;
 	free(e->key);
 	free(e);
-	map->table[hash] = NULL;
-	return (data);
+	return (old_value);
 }
 
 t_hash_entry		*ft_hashmap_iterate(

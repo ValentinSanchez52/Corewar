@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 14:56:41 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/15 02:07:02 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/19 21:14:27 by njiall           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,9 @@ void					ft_hashmap_print(
 		return ;
 	ft_dynarray_push(string, "Hashmap[", 8);
 	str = ft_ultostr(get_entry_number(map), 10, false);
+	ft_dynarray_push(string, str, ft_strlen(str));
+	ft_dynarray_push(string, "/", 1);
+	str = ft_ultostr(map->length, 10, false);
 	ft_dynarray_push(string, str, ft_strlen(str));
 	ft_dynarray_push(string, "]\n", 2);
 	while ((entry = ft_hashmap_iterate(map, &i, &j)))
