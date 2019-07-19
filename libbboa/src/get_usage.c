@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 16:05:49 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/04 19:32:06 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/19 19:35:55 by njiall           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ char					*bboa_get_usage(
 	t_dynarray			*strs;
 	t_hash_entry		*val;
 	uint32_t			j;
-	uint16_t			i;
+	uint32_t			i;
 
 	if (!(strs = ft_dynarray_create(4096, 4096)))
 		ft_exit(1, "No space left on device.\n", NULL);
