@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 10:42:03 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/06/14 13:27:28 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/21 06:56:12 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,12 @@ char			*ft_strreplace(
 	uint64_t	i;
 
 	i = ft_strlen(src);
-	if (!(str = ft_dynarray_create(i + ft_strlen(replace), 0)))
-		return (NULL);
-	ft_dynarray_push(str, (void*)src, i);
-	ft_dynarray_push(str, "", 1);
-	i = 0;
-	plen = ft_strlen(pattern);
 	rlen = ft_strlen(replace);
+	plen = ft_strlen(pattern);
+	if (!(str = ft_dynarray_create(i + rlen + plen, 0)))
+		return (NULL);
+	ft_dynarray_push(str, (void*)src, i + 1);
+	i = 0;
 	while (ft_dynarray_iterate(str, &i, 1))
 		if (ft_strnequ((char*)str->array + i - 1, pattern, plen))
 		{
