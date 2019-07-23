@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/23 17:05:27 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/23 18:58:27 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdint.h>
 # include <stdbool.h>
+# include "dynarray.h"
 # include "bboa.h"
 
 /*
@@ -54,6 +55,7 @@ typedef struct		s_option
 # define			COR_WARRIOR_SIZE		(COR_ARENA_SIZE / 6)
 # define			COR_CYCLES_DEFAULT		(1536) // Default value for cycles_to_die
 # define			COR_CYCLES_DELTA		(50) // Delta decrease cycles_to_die
+# define			COR_CYCLES_LIVES		(21)
 # define			COR_CYCLES_LEFT			(10)
 
 /*
@@ -66,11 +68,11 @@ typedef union		u_op
 {
 	t_op_code		code;
 	t_op_default	dflt_op; // T_DIR
-	t_op_logic		lgic_op; // T_REG, T_REG, T_REG
-	t_op_bitwise	btws_op; // T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG
-	t_op_load		load_op; // T_IND | T_DIR, T_REG
-	t_op_lindex		lidx_op; // T_REG| T_IND | T_DIR, T_DIR | T_REG, T_REG
-	t_op_sindex		sidx_op; // T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG
+	t_op_logic		lgic_op; // T_REG,  T_REG,  T_REG
+	t_op_bitwise	btws_op; // T_REG | T_IND | T_DIR,  T_REG | T_IND | T_DIR, T_REG
+	t_op_load		load_op; // T_IND | T_DIR,  T_REG
+	t_op_lindex		lidx_op; // T_REG | T_IND | T_DIR,  T_DIR | T_REG,  T_REG
+	t_op_sindex		sidx_op; // T_REG,  T_REG | T_DIR | T_IND,  T_DIR | T_REG
 }					t_op;
 
 /*
@@ -121,10 +123,11 @@ typedef struct		s_warrior
 typedef struct		s_vm
 {
 	uint8_t			arena[COR_ARENA_SIZE];
-	uint32_t		cycles_to_die;
-	uint32_t		cycles_counter;
-	uint32_t		cycles_left;
-	uint32_t		cycles;
+	uint32_t		cycles_to_die; // First clean limit
+	uint32_t		cycles_left; // Cycles until forced clean
+	uint32_t		cycles_counter; // Counts cycles up to cycles_to_die
+	uint32_t		cycles; // Cycles passed so far
+	uint32_t		live_counter; // Number of lives inside a cycles_to_die
 	t_warrior		warriors[4];
 	t_dynarray		process;
 	t_dynarray		instructions;
