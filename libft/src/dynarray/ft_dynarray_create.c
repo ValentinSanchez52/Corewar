@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:05:01 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/06/25 14:09:39 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/23 18:21:32 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 /*
 ** Creates a dynarray with the size passed in the parameter.
+** 		Returns a structure pointer `t_dynarray *`.
 **
 ** - integer 64 bits | size of the default array allocated.
 */
@@ -41,6 +42,28 @@ t_dynarray				*ft_dynarray_create(uint64_t min, uint64_t max)
 	arr->min_size = min;
 	arr->max_size = max;
 	return (arr);
+}
+
+/*
+** Creates a dynarray with the size passed in the parameter.
+** 		Returns a structure `t_dynarray`.
+**
+** - integer 64 bits | size of the default array allocated.
+*/
+
+
+t_dynarray				ft_dynarray_create_loc(uint64_t min, uint64_t max)
+{
+	if (min == 0)
+		min = DYNARRAY_DEFAULT_SIZE;
+	if (max == 0)
+		max = DYNARRAY_DEFAULT_MAX;
+	return ((t_dynarray){
+		.array = malloc(min),
+		.size = min,
+		.min_size = min,
+		.max_size = max
+	});
 }
 
 t_dynarray				*ft_dynarray_duplicate(t_dynarray *dyn)
