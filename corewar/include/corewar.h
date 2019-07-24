@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/23 18:58:27 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/24 11:59:24 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,23 +57,72 @@ typedef struct		s_option
 # define			COR_CYCLES_DELTA		(50) // Delta decrease cycles_to_die
 # define			COR_CYCLES_LIVES		(21)
 # define			COR_CYCLES_LEFT			(10)
+# define			COR_ARG_NUMBER_MAX		(4)
 
 /*
 ** =============================================================================
 ** 		Operations
 ** =============================================================================
+** 		Default building blocks
+** =============================================================================
 */
 
-typedef union		u_op
+typedef enum		e_op_code
 {
-	t_op_code		code;
-	t_op_default	dflt_op; // T_DIR
-	t_op_logic		lgic_op; // T_REG,  T_REG,  T_REG
-	t_op_bitwise	btws_op; // T_REG | T_IND | T_DIR,  T_REG | T_IND | T_DIR, T_REG
-	t_op_load		load_op; // T_IND | T_DIR,  T_REG
-	t_op_lindex		lidx_op; // T_REG | T_IND | T_DIR,  T_DIR | T_REG,  T_REG
-	t_op_sindex		sidx_op; // T_REG,  T_REG | T_DIR | T_IND,  T_DIR | T_REG
-}					t_op;
+	COR_OP_LIVE = 1,
+	COR_OP_LOAD,
+	COR_OP_STORE,
+	COR_OP_ADD,
+	COR_OP_SUB,
+	COR_OP_AND,
+	COR_OP_OR,
+	COR_OP_XOR,
+	COR_OP_ZJUMP,
+	COR_OP_LOAD_IDX,
+	COR_OP_STORE_IDX,
+	COR_OP_FORK,
+	COR_OP_LONG_LOAD,
+	COR_OP_LONG_LOAD_IDX,
+	COR_OP_LONG_FORK,
+	COR_OP_AFF,
+	COR_OP_MAX
+}					t_op_code;
+
+typedef enum		e_op_type
+{
+	COR_T_NONE,
+	COR_T_REG = 1 << 0,
+	COR_T_DIR = 1 << 1,
+	COR_T_IND = 1 << 2,
+	COR_T_LAB = 1 << 3,
+	COR_T_MAX = 5,
+}					t_op_type;
+
+typedef enum		e_op_arg_code
+{
+	COR_ARG_IND = 1,
+	COR_ARG_REG,
+	COR_ARG_DIR,
+}					t_op_arg_code;
+
+typedef enum		e_op_arg_size
+{
+	COR_ARG_SIZ_IND = 2,
+	COR_ARG_SIZ_REG = 4,
+	COR_ARG_SIZ_DIR = 4,
+}					t_op_arg_size;
+
+/*
+** =============================================================================
+** 		Operation intergrity verification struct
+** =============================================================================
+*/
+
+typedef struct		s_op_check
+{
+	uint8_t			len;
+	t_op_type		args[COR_ARG_NUMBER_MAX];
+}					t_op_check;
 
 /*
 ** =============================================================================
@@ -85,24 +134,51 @@ typedef struct		s_process
 {
 	uint32_t		registers[16];
 	uint32_t		pc : 12; // 12 bit counter
-	uint8_t			id : 4;
+	uint32_t		global_offset;
 	bool			carry : 1;
 	bool			living : 1;
 	bool			waiting : 1;
 }					t_process;
 
-typedef struct		s_instruction
+/*
+** =============================================================================
+** 		Operation struct
+** =============================================================================
+** Some of the possible combinations:
+**
+** T_DIR
+** T_REG
+** T_IND | T_DIR
+** T_DIR | T_REG
+** T_REG | T_IND | T_DIR
+** T_REG | T_DIR | T_IND
+*/
+
+typedef struct		s_op
 {
-	t_process		*process;
+	t_op_code		code;
 	uint32_t		timeout;
-	t_op			op;
-}					t_instruction;
+	uint32_t		param_count; // Should be <= COR_ARG_NUMBER_MAX
+	t_op_type		types[COR_ARG_NUMBER_MAX];
+	uint32_t		args[COR_ARG_NUMBER_MAX];
+	t_process		*process;
+}					t_op;
 
 /*
 ** =============================================================================
 ** 		Warriors
 ** =============================================================================
 */
+
+typedef enum		e_arena_own
+{
+	COR_ARN_NO_CLAIM,
+	COR_ARN_W1_CLAIM,
+	COR_ARN_W2_CLAIM,
+	COR_ARN_W3_CLAIM,
+	COR_ARN_W4_CLAIM,
+	COR_ARN_MAX
+}					t_arena_own;
 
 typedef struct		s_warrior
 {
@@ -123,9 +199,10 @@ typedef struct		s_warrior
 typedef struct		s_vm
 {
 	uint8_t			arena[COR_ARENA_SIZE];
+	t_arena_own		arena_claim[COR_ARENA_SIZE];
 	uint32_t		cycles_to_die; // First clean limit
-	uint32_t		cycles_left; // Cycles until forced clean
 	uint32_t		cycles_counter; // Counts cycles up to cycles_to_die
+	uint32_t		cycles_left; // Cycles until forced clean
 	uint32_t		cycles; // Cycles passed so far
 	uint32_t		live_counter; // Number of lives inside a cycles_to_die
 	t_warrior		warriors[4];
@@ -134,5 +211,15 @@ typedef struct		s_vm
 }					t_vm;
 
 extern t_vm			vm;
+
+/*
+** =============================================================================
+** 		Functions
+** =============================================================================
+*/
+
+void				run_instruction_frame(t_vm *vm, t_op *instruction);
+void				run_process_frame(t_vm *vm, t_process *process);
+void				run_process_cleaner(t_vm *vm);
 
 #endif

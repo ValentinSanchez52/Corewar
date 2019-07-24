@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/04 04:17:21 by mbeilles          #+#    #+#              #
-#    Updated: 2019/07/12 13:32:39 by mbeilles         ###   ########.fr        #
+#    Updated: 2019/07/24 12:11:04 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,10 @@ CC = clang
 #==============================================================================#
 
 SRCS = $(PATH_SRC)/main.c													\
+	   $(PATH_SRC)/automaton.c												\
+	   $(PATH_SRC)/instruction.c											\
+	   $(PATH_SRC)/process.c												\
+	   $(PATH_SRC)/process_cleaner.c										\
 
 INCS = $(PATH_INC)/corewar.h												\
 

@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:55:44 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/23 19:17:21 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/24 11:58:53 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,23 +49,26 @@ static inline void	automaton_update_counters(t_vm *vm)
 void				automaton_run(t_vm *vm)
 {
 	t_process		*process;
-	t_instruction	*instruction;
+	t_op			*instruction;
 	uint64_t		i;
 
-	while (cycles_to_die <= COR_CYCLES_DEFAULT)
+	while (vm->cycles_to_die <= COR_CYCLES_DEFAULT)
 	{
 		i = 0;
-		while ((process = ft_dynarray_iterate(vm->process, &i,
+		while ((process = ft_dynarray_iterate(&vm->process, &i,
 						sizeof(t_process))))
 			if (!process->waiting)
 				run_process_frame(vm, process);
 		i = 0;
-		while ((instruction = ft_dynarray_iterate(vm->instructions, &i,
-						sizeof(t_instruction))))
+		while ((instruction = ft_dynarray_iterate(&vm->instructions, &i,
+						sizeof(t_op))))
 			if (instruction->timeout > 0)
 				--instruction->timeout;
 			else
+			{
 				run_instruction_frame(vm, instruction);
+				--i;
+			}
 		automaton_update_counters(vm);
 	}
 }
