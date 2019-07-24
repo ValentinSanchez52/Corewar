@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 09:30:45 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/24 12:00:10 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/24 18:59:58 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ inline void			run_instruction_frame(
 		t_op *op
 )
 {
-	g_ops_exec[op->code](vm, op);
+	if (g_ops_exec[op->code])
+		g_ops_exec[op->code](vm, op);
+	else
 	op->process->waiting = false;
 	ft_dynarray_remove(&vm->instructions, (uint8_t*)op - vm->instructions.array, sizeof(t_op));
 }
