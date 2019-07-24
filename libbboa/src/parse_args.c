@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/28 14:36:18 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/06 01:39:10 by njiall           ###   ########.fr       */
+/*   Updated: 2019/07/24 17:49:01 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,27 +100,28 @@ t_arg_array				*generate_tokens(
 char				**bboa_parse_args(t_opt_patterns *options
 									, int argc, char **argv)
 {
-	uint32_t		arg;
-	t_bboa_state	st;
-	char			**last_args;
+	t_bboa_parse_args	a;
 
-	arg = ~0u;
-	st = BBOA_RS_OK;
-	last_args = argv;
+	a = (t_bboa_parse_args){.arg = 0, .st = BBOA_RS_OK, .last_args = argv};
 	*mtch() = options;
-	while (last_args - argv < argc && st == BBOA_RS_OK)
+	while (a.arg < argc && a.st == BBOA_RS_OK)
 	{
-		arg = last_args - argv;
-		if (bboa_is_double(argv[arg]) && (last_args = argv + arg + 1))
-			st = parse_double_arg(&last_args, arg, argc, argv + arg);
-		else if (bboa_is_single(argv[arg]) && (last_args = argv + arg + 1))
-			if ((st = parse_long_single_arg(&last_args, arg, argc, argv + arg))
-					== BBOA_RS_UNKNOWN_OPT)
-				st = parse_single_arg(&last_args, arg, argc, argv + arg);
+		printf("argv[arg]: '%s'\n", argv[a.arg]);
+		if (bboa_is_double(argv[a.arg]) && (a.last_args = argv + a.arg + 1))
+			a.st = parse_double_arg(&a.last_args, a.arg, argc, argv + a.arg);
+		else if (bboa_is_single(argv[a.arg]) && (a.last_args = argv + a.arg + 1)
+				&& (a.st = parse_long_single_arg(&a.last_args,
+						a.arg, argc, argv + a.arg))
+				== BBOA_RS_UNKNOWN_OPT)
+			a.st = parse_single_arg(&a.last_args, a.arg, argc, argv + a.arg);
+		if (a.arg >= a.last_args - argv)
+			a.arg++;
+		else
+			a.arg = a.last_args - argv;
 	}
-	if (st <= BBOA_RS_OK)
-		return (last_args);
-	bboa_set_error_usage(*mtch(), ft_strrchr(argv[0], '-') + 1, st,
+	if (a.st <= BBOA_RS_OK)
+		return (a.last_args);
+	bboa_set_error_usage(*mtch(), ft_strrchr(argv[0], '-') + 1, a.st,
 			(g_bboa_error.level) ? BBOA_EC : g_bboa_error.level);
 	bboa_print_error(g_bboa_error);
 	return (NULL);

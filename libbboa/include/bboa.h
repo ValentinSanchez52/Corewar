@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 04:11:57 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/06 04:22:59 by njiall           ###   ########.fr       */
+/*   Updated: 2019/07/24 17:38:34 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,13 @@ typedef enum			e_bboa_error_level
 	BBOA_ERR_CRIT,
 	BBOA_ERR_MAX_LEVEL
 }						t_bboa_error_level;
+
+typedef struct			s_bboa_parse_args
+{
+	uint32_t			arg;
+	t_bboa_state		st;
+	char				**last_args;
+}						t_bboa_parse_args;
 
 typedef struct			s_bboa_error
 {
