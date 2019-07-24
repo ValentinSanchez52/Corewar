@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 18:28:42 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/24 16:00:16 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/07/24 17:24:01 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 static inline
 void				load_warriors_in_arena(void)
 {
+	t_process		process;
 	static uint8_t	spawn_i;
 	uint8_t			warrior_i;
 
@@ -26,15 +27,41 @@ void				load_warriors_in_arena(void)
 	while (warrior_i < 4 && spawn_i < 4)
 	{
 		if (vm.warriors[warrior_i].id)
-			ft_memcpy(&(vm.arena[spawn_i++ * COR_ARENA_SIZE / vm.warriors_nb]),
+		{
+			ft_memcpy(&(vm.arena[spawn_i * COR_ARENA_SIZE / vm.warriors_nb]),
 					vm.warriors[warrior_i].assembly,
 					vm.warriors[warrior_i].assembly_size);
+			process = (t_process){
+					.registers[0] = vm.warriors[warrior_i].id,
+					.global_offset = spawn_i * COR_ARENA_SIZE / vm.warriors_nb};
+			ft_dynarray_insert(&vm.process, 0, &process,
+					sizeof(t_process));
+			spawn_i++;
+		}
 		warrior_i++;
 	}
 }
 
 /*
-** Prints a 64 * 64 map representing the Arena
+**	Prints all processes
+*/
+void				print_processes(void)
+{
+	t_process		*process;
+	uint64_t		process_i;
+
+	printf(YEL"Processes:"NRM"\n");
+	process_i = 0;
+	while ((process = ft_dynarray_iterate(&(vm.process), &process_i,
+					sizeof(t_process))))
+	{
+		//printf ce que tu veux
+		printf("process: r1: %llx\n", process->registers[0]);
+	}
+}
+
+/*
+**	Prints a 64 * 64 map representing the Arena
 */
 
 void				print_arena(void)
@@ -42,6 +69,7 @@ void				print_arena(void)
 	uint8_t			line_i;
 	uint8_t			column_i;
 
+	printf(YEL"Arena:"NRM"\n");
 	line_i = -1;
 	while (++line_i < 64)
 		{
@@ -61,4 +89,5 @@ void				corewar_load_arena(void)
 	load_warriors_in_arena();
 	print_warriors();
 	print_arena();
+	print_processes();
 }
