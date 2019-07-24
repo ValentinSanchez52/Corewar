@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/24 18:15:24 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/24 18:17:50 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stdint.h>
 # include <stdbool.h>
 # include "bboa.h"
+# include "libft.h"
+# include "../../libft/include/dynarray.h"
 
 /*
 ** Struct for ease of use for Libboa.
@@ -36,5 +38,107 @@ typedef struct		s_option
 	uint32_t		length;
 	t_opt_match		match;
 }					t_option;
+
+/*
+** =============================================================================
+**
+** 		Data structure for corewar's vm.
+**
+** =============================================================================
+*/
+# define			WARRIOR_MAGIC			(4)
+# define			WARRIOR_NAME			(128)
+# define			WARRIOR_PADDING			(4)
+# define			WARRIOR_SIZE			(4)
+# define			WARRIOR_COMMENT			(2048)
+# define			WARRIOR_MAX_SIZE		(4096/6)
+
+# define			COR_NAME_LENGTH			(128)
+# define			COR_COMMENT_LENGTH		(2048)
+# define			COR_EXEC_MAGIC			(0xea83f3)
+# define			COR_MAGIC_SIZE			(4)
+
+# define			COR_ARENA_SIZE			(1 << 12) // 4096
+# define			COR_WARRIOR_SIZE		(COR_ARENA_SIZE / 6)
+# define			COR_CYCLES_DEFAULT		(1536) // Default value for cycles_to_die
+# define			COR_CYCLES_DELTA		(50) // Delta decrease cycles_to_die
+# define			COR_CYCLES_LEFT			(10)
+
+/*
+** =============================================================================
+** 		Operations
+** =============================================================================
+*/
+
+//typedef union		u_op
+//{
+//	t_op_code		code;
+//	t_op_default	dflt_op; // T_DIR
+//	t_op_logic		lgic_op; // T_REG, T_REG, T_REG
+//	t_op_bitwise	btws_op; // T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG
+//	t_op_load		load_op; // T_IND | T_DIR, T_REG
+//	t_op_lindex		lidx_op; // T_REG| T_IND | T_DIR, T_DIR | T_REG, T_REG
+//	t_op_sindex		sidx_op; // T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG
+//}					t_op;
+
+/*
+** =============================================================================
+** 		Processes
+** =============================================================================
+*/
+
+typedef struct		s_process
+{
+	uint32_t		registers[16];
+	uint32_t		pc : 12; // 12 bit counter
+	uint8_t			id : 4;
+	bool			carry : 1;
+	bool			living : 1;
+	bool			waiting : 1;
+}					t_process;
+
+/*
+** =============================================================================
+** 		Warriors
+** =============================================================================
+*/
+
+typedef struct		s_warrior
+{
+	uint32_t		id;
+	char			name[WARRIOR_NAME + 1];
+	char			comment[WARRIOR_COMMENT + 1];
+	uint8_t			assembly[WARRIOR_MAX_SIZE + 1];
+	uint32_t		assembly_size;
+	uint32_t		cycle_last;
+	uint32_t		magic;
+	bool			living: 1;
+}					t_warrior;
+
+/*
+** =============================================================================
+** 		Vm
+** =============================================================================
+*/
+
+typedef struct		s_vm
+{
+	uint8_t			arena[COR_ARENA_SIZE];
+	uint32_t		cycles_to_die;
+	uint32_t		cycles_counter;
+	uint32_t		cycles_left;
+	uint32_t		cycles;
+	uint8_t			warriors_nb;
+	t_warrior		warriors[4];
+	t_dynarray		process;
+	t_dynarray		instructions;
+}					t_vm;
+
+extern t_vm			vm;
+
+void				print_warriors(void);
+void				print_arena(void);
+void				corewar_load_warriors(int c, char **v);
+void				corewar_load_arena(void);
 
 #endif
