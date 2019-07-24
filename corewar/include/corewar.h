@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/24 15:21:37 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/07/24 17:24:28 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,16 @@ typedef struct		s_option
 ** =============================================================================
 */
 
-//typedef union		u_op
-//{
-//	t_op_code		code;
-//	t_op_default	dflt_op; // T_DIR
-//	t_op_logic		lgic_op; // T_REG, T_REG, T_REG
-//	t_op_bitwise	btws_op; // T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG
-//	t_op_load		load_op; // T_IND | T_DIR, T_REG
-//	t_op_lindex		lidx_op; // T_REG| T_IND | T_DIR, T_DIR | T_REG, T_REG
-//	t_op_sindex		sidx_op; // T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG
-//}					t_op;
+typedef union		u_op
+{
+	t_op_code		code;
+	t_op_default	dflt_op; // T_DIR
+	t_op_logic		lgic_op; // T_REG, T_REG, T_REG
+	t_op_bitwise	btws_op; // T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG
+	t_op_load		load_op; // T_IND | T_DIR, T_REG
+	t_op_lindex		lidx_op; // T_REG| T_IND | T_DIR, T_DIR | T_REG, T_REG
+	t_op_sindex		sidx_op; // T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG
+}					t_op;
 
 /*
 ** =============================================================================
@@ -91,18 +91,19 @@ typedef struct		s_process
 {
 	uint32_t		registers[16];
 	uint32_t		pc : 12; // 12 bit counter
+	uint32_t		global_offset;
 	uint8_t			id : 4;
 	bool			carry : 1;
 	bool			living : 1;
 	bool			waiting : 1;
 }					t_process;
 
-//typedef struct		s_instruction
-//{
-//	t_process		*process;
-//	uint32_t		timeout;
-//	t_op			op;
-//}					t_instruction;
+typedef struct		s_instruction
+{
+	t_process		*process;
+	uint32_t		timeout;
+	t_op			op;
+}					t_instruction;
 
 /*
 ** =============================================================================
