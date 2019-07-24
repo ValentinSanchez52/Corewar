@@ -6,15 +6,15 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 17:29:54 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/24 17:30:38 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/07/24 18:25:22 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 
 #include "corewar.h"
-#include "../../libft/include/libft.h"
-#include "../../libft/include/dynarray.h"
+#include "libft.h"
+#include "dynarray.h"
 
 /*
 **	Prints all processes
@@ -30,7 +30,7 @@ void				print_processes(void)
 					sizeof(t_process))))
 	{
 		//printf ce que tu veux
-		printf("process: r1: %llx\n", process->registers[0]);
+		printf("process: r1: %x\n", process->registers[0]);
 	}
 }
 

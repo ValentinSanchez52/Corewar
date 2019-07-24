@@ -6,15 +6,15 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 18:28:42 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/24 17:30:27 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/07/24 18:26:23 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 
 #include "corewar.h"
-#include "../../libft/include/libft.h"
-#include "../../libft/include/dynarray.h"
+#include "libft.h"
+#include "dynarray.h"
 
 static inline
 void				load_warriors_in_arena(void)
