@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 19:17:28 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/24 17:18:02 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/24 18:06:50 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,8 +235,8 @@ static inline bool		is_valid_instruction(uint8_t *memory)
 	if (g_op_check[*memory].encoding)
 	{
 		encode = memory[1];
-		i = 0;
-		while (i < g_op_check[*memory].count)
+		i = 0xff;
+		while (++i < g_op_check[*memory].count)
 			if (!(get_arg_type(encode, i) & g_op_check[*memory].args[i]))
 				return (false);
 	}
