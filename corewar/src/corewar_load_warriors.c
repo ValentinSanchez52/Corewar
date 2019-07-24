@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 18:28:42 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/24 16:12:18 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/07/24 17:30:40 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,26 +75,6 @@ uint8_t				get_warrior(char *file, t_warrior *warrior)
 	err_code |= (read(fd, &padding, WARRIOR_PADDING) <= 0) << 2;
 	err_code |= (read(fd, &(warrior->assembly), warrior->assembly_size) <= 0) << 5;
 	return (err_code);
-}
-
-inline
-void				print_warriors(void)
-{
-	uint8_t			warrior_i;
-
-	printf(YEL"print_warriors"NRM"\n");
-	warrior_i = 0;
-	while (warrior_i < 4)
-	{
-		if (vm.warriors[warrior_i].id)
-		{
-			printf("warrior %s, id %i, comment %s, assembly %.s, magic %x.\n",
-					vm.warriors[warrior_i].name, vm.warriors[warrior_i].id,
-					vm.warriors[warrior_i].comment, vm.warriors[warrior_i].assembly,
-					vm.warriors[warrior_i].magic);
-		}
-		warrior_i++;
-	}
 }
 
 void				corewar_load_warriors(int c, char **v)
