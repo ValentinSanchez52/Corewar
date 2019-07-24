@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 18:28:42 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/24 17:24:01 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/07/24 17:30:27 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,46 +40,6 @@ void				load_warriors_in_arena(void)
 		}
 		warrior_i++;
 	}
-}
-
-/*
-**	Prints all processes
-*/
-void				print_processes(void)
-{
-	t_process		*process;
-	uint64_t		process_i;
-
-	printf(YEL"Processes:"NRM"\n");
-	process_i = 0;
-	while ((process = ft_dynarray_iterate(&(vm.process), &process_i,
-					sizeof(t_process))))
-	{
-		//printf ce que tu veux
-		printf("process: r1: %llx\n", process->registers[0]);
-	}
-}
-
-/*
-**	Prints a 64 * 64 map representing the Arena
-*/
-
-void				print_arena(void)
-{
-	uint8_t			line_i;
-	uint8_t			column_i;
-
-	printf(YEL"Arena:"NRM"\n");
-	line_i = -1;
-	while (++line_i < 64)
-		{
-			column_i = -1;
-			while (++column_i < 64)
-				printf("%s%3.2x%s", vm.arena[line_i * 64 + column_i] > 0 ? YEL : "",
-						vm.arena[line_i * 64 + column_i],
-						vm.arena[line_i * 64 + column_i] > 0 ? NRM : "");
-			printf("\n");
-		}
 }
 
 void				corewar_load_arena(void)
