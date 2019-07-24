@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/23 17:05:27 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/24 15:21:37 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stdint.h>
 # include <stdbool.h>
 # include "bboa.h"
+# include "libft.h"
+# include "../../libft/include/dynarray.h"
 
 /*
 ** Struct for ease of use for Libboa.
@@ -44,6 +46,12 @@ typedef struct		s_option
 **
 ** =============================================================================
 */
+# define			WARRIOR_MAGIC			(4)
+# define			WARRIOR_NAME			(128)
+# define			WARRIOR_PADDING			(4)
+# define			WARRIOR_SIZE			(4)
+# define			WARRIOR_COMMENT			(2048)
+# define			WARRIOR_MAX_SIZE		(4096/6)
 
 # define			COR_NAME_LENGTH			(128)
 # define			COR_COMMENT_LENGTH		(2048)
@@ -62,16 +70,16 @@ typedef struct		s_option
 ** =============================================================================
 */
 
-typedef union		u_op
-{
-	t_op_code		code;
-	t_op_default	dflt_op; // T_DIR
-	t_op_logic		lgic_op; // T_REG, T_REG, T_REG
-	t_op_bitwise	btws_op; // T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG
-	t_op_load		load_op; // T_IND | T_DIR, T_REG
-	t_op_lindex		lidx_op; // T_REG| T_IND | T_DIR, T_DIR | T_REG, T_REG
-	t_op_sindex		sidx_op; // T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG
-}					t_op;
+//typedef union		u_op
+//{
+//	t_op_code		code;
+//	t_op_default	dflt_op; // T_DIR
+//	t_op_logic		lgic_op; // T_REG, T_REG, T_REG
+//	t_op_bitwise	btws_op; // T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG
+//	t_op_load		load_op; // T_IND | T_DIR, T_REG
+//	t_op_lindex		lidx_op; // T_REG| T_IND | T_DIR, T_DIR | T_REG, T_REG
+//	t_op_sindex		sidx_op; // T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG
+//}					t_op;
 
 /*
 ** =============================================================================
@@ -89,12 +97,12 @@ typedef struct		s_process
 	bool			waiting : 1;
 }					t_process;
 
-typedef struct		s_instruction
-{
-	t_process		*process;
-	uint32_t		timeout;
-	t_op			op;
-}					t_instruction;
+//typedef struct		s_instruction
+//{
+//	t_process		*process;
+//	uint32_t		timeout;
+//	t_op			op;
+//}					t_instruction;
 
 /*
 ** =============================================================================
@@ -104,11 +112,13 @@ typedef struct		s_instruction
 
 typedef struct		s_warrior
 {
-	char			name[COR_NAME_LENGTH];
-	char			comment[COR_COMMENT_LENGTH];
-	uint8_t			*assembly;
+	uint32_t		id;
+	char			name[WARRIOR_NAME + 1];
+	char			comment[WARRIOR_COMMENT + 1];
+	uint8_t			assembly[WARRIOR_MAX_SIZE + 1];
 	uint32_t		assembly_size;
 	uint32_t		cycle_last;
+	uint32_t		magic;
 	bool			living: 1;
 }					t_warrior;
 
@@ -125,11 +135,17 @@ typedef struct		s_vm
 	uint32_t		cycles_counter;
 	uint32_t		cycles_left;
 	uint32_t		cycles;
+	uint8_t			warriors_nb;
 	t_warrior		warriors[4];
 	t_dynarray		process;
 	t_dynarray		instructions;
 }					t_vm;
 
 extern t_vm			vm;
+
+void				print_warriors(void);
+void				print_arena(void);
+void				corewar_load_warriors(int c, char **v);
+void				corewar_load_arena(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 14:39:16 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/06 04:45:59 by njiall           ###   ########.fr       */
+/*   Updated: 2019/07/24 14:01:58 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 #include "corewar.h"
 #include "bboa.h"
 #include "libft.h"
+
+t_vm						vm = (t_vm) {
+		.cycles_to_die = COR_CYCLES_DEFAULT,
+		.cycles_left = COR_CYCLES_LEFT
+};
 
 /*
 ** Generic help function
@@ -79,7 +84,7 @@ static const t_option		g_options[] = {
 		.length = 2,
 		.match = (t_opt_match){
 			.func = &help,
-			.types = {},
+			/*.types = {},*/
 			.arg_count = 0,
 			.desc = "Show this usage."
 		}
@@ -139,12 +144,14 @@ static inline char			**parse_options(int c, char **v, void *data)
 
 int					main(int c, char **v)
 {
-	char			*file;
-	int				i;
-	int				data;
+	/*char			*file;*/
+	/*int				i;*/
+	/*int				data;*/
 
 	v++;
 	c--;
-	i = parse_options(c, v, &data) - v;
+	/*i = parse_options(c, v, &data) - v;*/
+	corewar_load_warriors(c, v);
+	corewar_load_arena();
 	return (0);
 }

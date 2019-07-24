@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/04 04:17:21 by mbeilles          #+#    #+#              #
-#    Updated: 2019/07/12 13:32:39 by mbeilles         ###   ########.fr        #
+#    Updated: 2019/07/24 14:03:04 by vsanchez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,8 @@ CC = clang
 #==============================================================================#
 
 SRCS = $(PATH_SRC)/main.c													\
+	   $(PATH_SRC)/corewar_load_arena.c										\
+	   $(PATH_SRC)/corewar_load_warriors.c									\
 
 INCS = $(PATH_INC)/corewar.h												\
 
