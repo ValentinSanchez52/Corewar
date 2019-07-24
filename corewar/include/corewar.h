@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/24 11:59:24 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/24 17:13:13 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,22 +88,21 @@ typedef enum		e_op_code
 	COR_OP_MAX
 }					t_op_code;
 
+typedef enum		e_op_arg_code
+{
+	COR_ARG_REG = 1,
+	COR_ARG_DIR,
+	COR_ARG_IND,
+	COR_ARG_MAX
+}					t_op_arg_code;
+
 typedef enum		e_op_type
 {
 	COR_T_NONE,
-	COR_T_REG = 1 << 0,
-	COR_T_DIR = 1 << 1,
-	COR_T_IND = 1 << 2,
-	COR_T_LAB = 1 << 3,
-	COR_T_MAX = 5,
+	COR_T_REG = 1 << (COR_ARG_REG - 1),
+	COR_T_DIR = 1 << (COR_ARG_DIR - 1),
+	COR_T_IND = 1 << (COR_ARG_IND - 1),
 }					t_op_type;
-
-typedef enum		e_op_arg_code
-{
-	COR_ARG_IND = 1,
-	COR_ARG_REG,
-	COR_ARG_DIR,
-}					t_op_arg_code;
 
 typedef enum		e_op_arg_size
 {
@@ -120,8 +119,10 @@ typedef enum		e_op_arg_size
 
 typedef struct		s_op_check
 {
-	uint8_t			len;
+	uint8_t			count;
+	uint32_t		cycles;
 	t_op_type		args[COR_ARG_NUMBER_MAX];
+	bool			encoding : 1;
 }					t_op_check;
 
 /*
@@ -144,14 +145,6 @@ typedef struct		s_process
 ** =============================================================================
 ** 		Operation struct
 ** =============================================================================
-** Some of the possible combinations:
-**
-** T_DIR
-** T_REG
-** T_IND | T_DIR
-** T_DIR | T_REG
-** T_REG | T_IND | T_DIR
-** T_REG | T_DIR | T_IND
 */
 
 typedef struct		s_op
@@ -159,7 +152,7 @@ typedef struct		s_op
 	t_op_code		code;
 	uint32_t		timeout;
 	uint32_t		param_count; // Should be <= COR_ARG_NUMBER_MAX
-	t_op_type		types[COR_ARG_NUMBER_MAX];
+	t_op_arg_code	types[COR_ARG_NUMBER_MAX];
 	uint32_t		args[COR_ARG_NUMBER_MAX];
 	t_process		*process;
 }					t_op;
