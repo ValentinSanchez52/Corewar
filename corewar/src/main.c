@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 14:39:16 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/24 17:28:06 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/07/24 19:22:48 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,8 @@ int					main(int c, char **v)
 	v++;
 	c--;
 	/*i = parse_options(c, v, &data) - v;*/
-	corewar_load_warriors(c, v);
+	/*corewar_load_warriors(1, "champs/examples/bigzork.cor");*/
+	/*corewar_load_warriors(3, "champs/examples/bigzork.cor");*/
 	corewar_load_arena();
 	return (0);
 }

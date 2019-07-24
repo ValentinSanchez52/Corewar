@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 18:28:42 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/24 18:26:14 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/24 19:19:29 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,29 +77,15 @@ uint8_t				get_warrior(char *file, t_warrior *warrior)
 	return (err_code);
 }
 
-void				corewar_load_warriors(int c, char **v)
+void				corewar_load_warriors(int c, char *file)
 {
-	t_warrior		warrior;
-	uint64_t		arg_i;
 	uint8_t			err_code;
 
-	vm.process = ft_dynarray_create_loc(0, 0);
-	vm.instructions = ft_dynarray_create_loc(0, 0);
-	arg_i = -1;
-	print_warriors();
-	while (++arg_i < c)
+	if ((err_code = get_warrior(file, &(vm.warriors[c]))))
+		printf("%s", get_error_message(err_code, file));
+	else
 	{
-		if ((err_code = get_warrior(v[arg_i], &(vm.warriors[arg_i]))))
-		{
-			/*vm.warriors[arg_i].id = 0;*/
-			/*printf(RED"%s.id"NRM": 0\n", vm.warriors[arg_i].name);*/
-			printf("%s", get_error_message(err_code, v[arg_i]));
-		}
-		else
-		{
-			vm.warriors[arg_i].id = UINT32_MAX - arg_i;
-			printf(GRN"%s.id"NRM": %llu\n", vm.warriors[arg_i].name, UINT32_MAX - arg_i);
-			vm.warriors_nb++;
-		}
+		vm.warriors[c].id = UINT32_MAX - c;
+		vm.warriors_nb++;
 	}
 }

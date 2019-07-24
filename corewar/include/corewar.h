@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/24 18:24:00 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/24 19:21:27 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,7 +228,7 @@ void				run_process_cleaner(t_vm *vm);
 
 void				print_warriors(void);
 void				print_arena(void);
-void				corewar_load_warriors(int c, char **v);
+void				corewar_load_warriors(int c, char *file);
 void				corewar_load_arena(void);
 
 #endif
