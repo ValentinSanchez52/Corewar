@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/24 18:21:59 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/24 18:24:00 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,7 @@ typedef struct		s_vm
 	uint32_t		cycles; // Cycles passed so far
 	uint32_t		live_counter; // Number of lives inside a cycles_to_die
 	t_warrior		warriors[4];
+	uint32_t		warriors_nb;
 	t_dynarray		process;
 	t_dynarray		instructions;
 }					t_vm;
