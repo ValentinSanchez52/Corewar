@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 18:02:21 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/24 17:43:33 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/24 18:14:03 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,8 @@ t_bboa_state		parse_single_arg(
 
 	s[2] = (char)BBOA_RS_OK;
 	i = 0;
-	printf("av[0]: '%s'\n", av[0]);
 	if ((str = ft_strrchr(av[0] + 2, '=')))
-	{
 		*str++ = '\0';
-		printf("str: '%s'\n", str);
-	}
 	while (s[2] <= BBOA_RS_OK && (s[0] = av[0][++i]))
 		if (ft_hashmap_get((*mtch())->maps, (uint8_t*)s, (void**)&mth) && mth)
 		{

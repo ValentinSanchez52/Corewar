@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/28 14:36:18 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/24 17:49:01 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/24 18:14:06 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ char				**bboa_parse_args(t_opt_patterns *options
 	*mtch() = options;
 	while (a.arg < argc && a.st == BBOA_RS_OK)
 	{
-		printf("argv[arg]: '%s'\n", argv[a.arg]);
 		if (bboa_is_double(argv[a.arg]) && (a.last_args = argv + a.arg + 1))
 			a.st = parse_double_arg(&a.last_args, a.arg, argc, argv + a.arg);
 		else if (bboa_is_single(argv[a.arg]) && (a.last_args = argv + a.arg + 1)
