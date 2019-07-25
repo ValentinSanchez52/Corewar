@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 14:39:16 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/24 18:55:02 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/25 15:57:13 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,5 +152,6 @@ int					main(int c, char **v)
 	i = parse_options(c, v, &data) - v;
 	corewar_load_warriors(c, v);
 	corewar_load_arena();
+	automaton_run(&vm);
 	return (0);
 }

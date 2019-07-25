@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/24 19:10:19 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/25 19:33:51 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ typedef enum		e_op_type
 typedef enum		e_op_arg_size
 {
 	COR_ARG_SIZ_IND = 2,
-	COR_ARG_SIZ_REG = 4,
+	COR_ARG_SIZ_REG = 1,
 	COR_ARG_SIZ_DIR = 4,
 }					t_op_arg_size;
 
@@ -130,7 +130,9 @@ typedef struct		s_op_check
 	uint8_t			count;
 	uint32_t		cycles;
 	t_op_type		args[COR_ARG_NUMBER_MAX];
+	t_op_arg_code	default_types[COR_ARG_NUMBER_MAX];
 	bool			encoding : 1;
+	bool			dir_addr : 1;
 }					t_op_check;
 
 /*
@@ -163,6 +165,7 @@ typedef struct		s_op
 	t_op_arg_code	types[COR_ARG_NUMBER_MAX];
 	uint32_t		args[COR_ARG_NUMBER_MAX];
 	t_process		*process;
+	uint32_t		physical_size;
 }					t_op;
 
 /*
@@ -230,5 +233,7 @@ void				print_warriors(void);
 void				print_arena(void);
 void				corewar_load_warriors(int c, char **v);
 void				corewar_load_arena(void);
+
+void				print_op(t_op *op);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 19:30:46 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/24 20:12:15 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/25 19:20:31 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static const char	*g_op_names[COR_OP_MAX] = {
 	[COR_OP_LOAD_IDX] = "\e[1;33mLoad\e[0;33m index\e[0m",
 	[COR_OP_LONG_LOAD_IDX] = "\e[33mLong \e[1mload\e[0;33m index\e[0m",
 	[COR_OP_STORE] = "\e[1;32mStore\e[0m",
-	[COR_OP_STORE_IDX] = "\e[1;32mStore\e[0m",
+	[COR_OP_STORE_IDX] = "\e[1;32mStore \e[0;32mindex\e[0m",
 	[COR_OP_ZJUMP] = "\e[1;35mZjump\e[0m",
 	[COR_OP_ADD] = "\e[1;34mAdd \e[0;32m+\e[0m",
 	[COR_OP_SUB] = "\e[1;34mSub \e[0;31m-\e[0m",
@@ -32,9 +32,9 @@ static const char	*g_op_names[COR_OP_MAX] = {
 };
 
 static const char	*g_op_arg_names[COR_ARG_MAX] = {
-	[COR_ARG_DIR] = " Direct ",
-	[COR_ARG_IND] = "Indirect",
-	[COR_ARG_REG] = "Register",
+	[COR_ARG_DIR] = "\e[34mDirect\e[0m:  ",
+	[COR_ARG_IND] = "\e[33mIndirect\e[0m:",
+	[COR_ARG_REG] = "\e[32mRegister\e[0m:",
 };
 
 void				print_op(t_op *op)
@@ -54,12 +54,13 @@ void				print_op(t_op *op)
 	{
 		ft_dynarray_push_str(&msg, "[");
 		ft_dynarray_push_str(&msg, (void*)g_op_arg_names[op->types[i]]);
-		ft_dynarray_push_str(&msg, "-");
+		ft_dynarray_push_str(&msg, "\e[33m0x");
 		ft_dynarray_push_str(&msg, ft_ultostr(op->args[i], 16, false));
-		ft_dynarray_push_str(&msg, "]");
+		ft_dynarray_push_str(&msg, "\e[0m]");
+		i++;
 	}
 	ft_dynarray_push_str(&msg, " Remain: ");
 	ft_dynarray_push_str(&msg, ft_ultostr(op->timeout, 10, true));
-	ft_dynarray_push_str(&msg, " cycles.");
+	ft_dynarray_push(&msg, " cycles.\n", 10);
 	print((t_print){.data = msg.array, .printer = printer, .destructor = free});
 }

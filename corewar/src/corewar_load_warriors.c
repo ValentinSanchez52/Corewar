@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 18:28:42 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/24 18:26:14 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/25 15:49:28 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void				corewar_load_warriors(int c, char **v)
 		else
 		{
 			vm.warriors[arg_i].id = UINT32_MAX - arg_i;
-			printf(GRN"%s.id"NRM": %llu\n", vm.warriors[arg_i].name, UINT32_MAX - arg_i);
+			printf(GRN"%s.id"NRM": %llu\n", vm.warriors[arg_i].name, arg_i + 1);
 			vm.warriors_nb++;
 		}
 	}
