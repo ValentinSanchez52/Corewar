@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/04 04:17:21 by mbeilles          #+#    #+#              #
-#    Updated: 2019/07/24 18:22:27 by mbeilles         ###   ########.fr        #
+#    Updated: 2019/07/25 16:00:30 by vsanchez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ CC = clang
 #==============================================================================#
 
 SRCS = $(PATH_SRC)/main.c													\
+	   $(PATH_SRC)/arena_interface.c										\
 \
 	   $(PATH_SRC)/corewar_load_arena.c										\
 	   $(PATH_SRC)/corewar_load_warriors.c									\
@@ -38,6 +39,8 @@ SRCS = $(PATH_SRC)/main.c													\
 	   $(PATH_SRC)/instruction.c											\
 	   $(PATH_SRC)/process.c												\
 	   $(PATH_SRC)/process_cleaner.c										\
+\
+	   $(PATH_SRC)/tools/flip_bytes.c										\
 
 INCS = $(PATH_INC)/corewar.h												\
 
