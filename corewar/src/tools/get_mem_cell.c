@@ -5,16 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/26 06:12:24 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/26 06:12:52 by mbeilles         ###   ########.fr       */
+/*   Created: 2019/07/25 14:31:10 by vsanchez          #+#    #+#             */
+/*   Updated: 2019/07/26 08:33:44 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-inline uint8_t			get_mem_cell(
-		uint32_t index
-)
+inline uint8_t			get_mem_cell(uint32_t index)
 {
 	return (vm.arena[index & 4095]);
 }

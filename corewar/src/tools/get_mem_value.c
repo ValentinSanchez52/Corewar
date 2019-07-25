@@ -6,17 +6,26 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 06:13:10 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/26 06:13:37 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/26 08:34:06 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+/*
+**	returns an uint32_t which contains 
+*/
 
 inline uint32_t		get_mem_value(uint32_t index, uint32_t size)
 {
 	uint32_t		value;
 
 	value = 0;
+	if (size > 4)
+	{
+		printf("WARNING: Use of get_mem_value with wrong size\n");
+		size = 4;
+	}
 	while (size > 0)
 	{
 		value = value << 8;
