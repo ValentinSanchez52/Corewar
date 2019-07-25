@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 18:28:42 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/24 18:26:23 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/25 16:18:15 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 #include "libft.h"
 #include "dynarray.h"
 
-static inline
-void				load_warriors_in_arena(void)
+static inline void	load_warriors_in_arena(void)
 {
 	t_process		process;
 	static uint8_t	spawn_i;

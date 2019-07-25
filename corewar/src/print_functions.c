@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 17:29:54 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/24 18:25:22 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/25 16:20:17 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 /*
 **	Prints all processes
 */
+
 void				print_processes(void)
 {
 	t_process		*process;
@@ -29,7 +30,6 @@ void				print_processes(void)
 	while ((process = ft_dynarray_iterate(&(vm.process), &process_i,
 					sizeof(t_process))))
 	{
-		//printf ce que tu veux
 		printf("process: r1: %x\n", process->registers[0]);
 	}
 }
@@ -46,17 +46,16 @@ void				print_arena(void)
 	printf(YEL"Arena:"NRM"\n");
 	line_i = -1;
 	while (++line_i < 64)
-		{
-			column_i = -1;
-			while (++column_i < 64)
-				printf("%s%3.2x%s", vm.arena[line_i * 64 + column_i] > 0 ? YEL : "",
-						vm.arena[line_i * 64 + column_i],
-						vm.arena[line_i * 64 + column_i] > 0 ? NRM : "");
-			printf("\n");
-		}
+	{
+		column_i = -1;
+		while (++column_i < 64)
+			printf("%s%3.2x%s", vm.arena[line_i * 64 + column_i] > 0
+					? YEL : "", vm.arena[line_i * 64 + column_i],
+					vm.arena[line_i * 64 + column_i] > 0 ? NRM : "");
+		printf("\n");
+	}
 }
 
-inline
 void				print_warriors(void)
 {
 	uint8_t			warrior_i;
@@ -68,8 +67,10 @@ void				print_warriors(void)
 		if (vm.warriors[warrior_i].id)
 		{
 			printf("warrior %s, id %i, comment %s, assembly %.s, magic %x.\n",
-					vm.warriors[warrior_i].name, vm.warriors[warrior_i].id,
-					vm.warriors[warrior_i].comment, vm.warriors[warrior_i].assembly,
+					vm.warriors[warrior_i].name,
+					vm.warriors[warrior_i].id,
+					vm.warriors[warrior_i].comment,
+					vm.warriors[warrior_i].assembly,
 					vm.warriors[warrior_i].magic);
 		}
 		warrior_i++;
