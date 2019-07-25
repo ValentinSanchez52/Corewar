@@ -1,42 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arena_interface.c                                  :+:      :+:    :+:   */
+/*   register.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/25 14:31:10 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/25 19:14:22 by vsanchez         ###   ########.fr       */
+/*   Created: 2019/07/25 18:45:02 by vsanchez          #+#    #+#             */
+/*   Updated: 2019/07/25 18:57:11 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-inline uint8_t		get_mem_cell(uint32_t index)
+void					reg_set_value(t_process *process, uint8_t reg_id,
+		uint32_t value)
 {
-	return (vm.arena[index & 4095]);
+	process->registers[reg_id] = value;
 }
 
-/*
-**	returns an uint32_t which contains 
-*/
-
-inline uint32_t		get_mem_value(uint32_t index, uint32_t size)
+uint32_t				get_reg_value(t_process *process, uint8_t reg_id)
 {
-	uint32_t		value;
+	return ((process->registers[reg_id]));
+}
 
-	value = 0;
-	if (size > 4)
-	{
-		printf("WARNING: Use of get_mem_value with wrong size\n");
-		size = 4;
-	}
-	while (size > 0)
-	{
-		value = value << 8;
-		value += get_mem_cell(index);
-		index++;
-		size--;
-	}
-	return (value);
+uint32_t				*get_register(t_process *process, uint8_t reg_id)
+{
+	return (&(process->registers[reg_id]));
 }

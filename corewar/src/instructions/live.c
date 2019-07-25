@@ -1,42 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arena_interface.c                                  :+:      :+:    :+:   */
+/*   live.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/25 14:31:10 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/25 19:14:22 by vsanchez         ###   ########.fr       */
+/*   Created: 2019/07/25 16:42:21 by vsanchez          #+#    #+#             */
+/*   Updated: 2019/07/25 17:05:57 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-inline uint8_t		get_mem_cell(uint32_t index)
+static inline void	warrior_live(uint32_t id)
 {
-	return (vm.arena[index & 4095]);
+	uint8_t			warrior_i;
+
+	warrior_i = 0;
+	while (warrior_i < COR_WARRIOR_NB_MAX)
+		if (vm.warriors[warrior_i].id == id)
+		{
+			vm.warriors[warrior_i].cycle_last = vm.cycles;
+			vm.warriors[warrior_i].living = 1;
+			break ;
+		}
 }
 
-/*
-**	returns an uint32_t which contains 
-*/
-
-inline uint32_t		get_mem_value(uint32_t index, uint32_t size)
+void				live(t_op *op)
 {
-	uint32_t		value;
-
-	value = 0;
-	if (size > 4)
-	{
-		printf("WARNING: Use of get_mem_value with wrong size\n");
-		size = 4;
-	}
-	while (size > 0)
-	{
-		value = value << 8;
-		value += get_mem_cell(index);
-		index++;
-		size--;
-	}
-	return (value);
+	op->process->living = 1;
+	warrior_live(op->args[0]);
+	vm.live_counter++;
 }

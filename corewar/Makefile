@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/04 04:17:21 by mbeilles          #+#    #+#              #
-#    Updated: 2019/07/25 16:30:24 by vsanchez         ###   ########.fr        #
+#    Updated: 2019/07/25 19:30:47 by vsanchez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,11 @@ SRCS = $(PATH_SRC)/main.c													\
 	   $(PATH_SRC)/process_cleaner.c										\
 \
 	   $(PATH_SRC)/tools/flip_bytes.c										\
+	   $(PATH_SRC)/tools/register.c											\
+\
+	   $(PATH_SRC)/instructions/live.c										\
+	   $(PATH_SRC)/instructions/ld.c										\
+	   $(PATH_SRC)/instructions/st.c										\
 
 INCS = $(PATH_INC)/corewar.h												\
 

@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/25 16:29:50 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/07/25 18:56:39 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,11 @@ typedef struct		s_option
 # define			COR_CYCLES_LIVES		(21)
 # define			COR_CYCLES_LEFT			(10)
 # define			COR_ARG_NUMBER_MAX		(4)
+# define			COR_WARRIOR_NB_MAX		(4)
+# define			COR_IDX_MOD				(COR_ARENA_SIZE / 8)
+# define			COR_REG_SIZE			(4)
 
-# define			WARRIOR_DEFAULT_MAGIC	(0xea83f3)
+# define			WARRIOR_DEFAULT_MAGIC	(0x00ea83f3)
 # define			WARRIOR_MAGIC			(4)
 # define			WARRIOR_NAME			(128)
 # define			WARRIOR_PADDING			(4)
@@ -222,7 +225,13 @@ void				run_instruction_frame(t_vm *vm, t_op *instruction);
 void				run_process_frame(t_vm *vm, t_process *process);
 void				run_process_cleaner(t_vm *vm);
 
-uint8_t				*get_mem_cell(uint32_t index);
+uint32_t			get_mem_value(uint32_t index, uint32_t size);
+uint8_t				get_mem_cell(uint32_t index);
+void				reg_set_value(t_process *process, uint8_t reg_id,
+		uint32_t value);
+uint32_t			get_reg_value(t_process *process, uint8_t reg_id);
+uint32_t			*get_register(t_process *process, uint8_t reg_id);
+
 void				print_warriors(void);
 void				print_arena(void);
 uint32_t			macos_flip_bytes(uint32_t n);

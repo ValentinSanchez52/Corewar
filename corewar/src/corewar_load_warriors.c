@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 18:28:42 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/25 16:17:00 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/07/25 18:30:42 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ static inline char					*get_error_message(uint8_t code,
 
 static inline bool					check_magic_validity(t_warrior *warrior)
 {
-	return ((warrior->magic = macos_flip_bytes(warrior->magic))
-			== WARRIOR_DEFAULT_MAGIC);
+	warrior->magic = macos_flip_bytes(warrior->magic);
+	return (warrior->magic == WARRIOR_DEFAULT_MAGIC);
 }
 
 static inline uint8_t				get_warrior(char *file, t_warrior *wrrr)
