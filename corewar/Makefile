@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/04 04:17:21 by mbeilles          #+#    #+#              #
-#    Updated: 2019/07/25 16:00:30 by vsanchez         ###   ########.fr        #
+#    Updated: 2019/07/25 16:30:24 by vsanchez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,9 @@ CC = clang
 
 SRCS = $(PATH_SRC)/main.c													\
 	   $(PATH_SRC)/arena_interface.c										\
+\
+	   $(PATH_SRC)/printing/print.c											\
+	   $(PATH_SRC)/printing/print_op.c										\
 \
 	   $(PATH_SRC)/corewar_load_arena.c										\
 	   $(PATH_SRC)/corewar_load_warriors.c									\

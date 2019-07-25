@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 14:39:16 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/24 19:22:48 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/07/25 16:29:29 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,13 +144,13 @@ static inline char			**parse_options(int c, char **v, void *data)
 
 int					main(int c, char **v)
 {
-	/*char			*file;*/
-	/*int				i;*/
-	/*int				data;*/
+	int				i;
+	int				data = 0;
 
 	v++;
 	c--;
-	/*i = parse_options(c, v, &data) - v;*/
+	i = parse_options(c, v, &data) - v;
+	/*examples :*/
 	/*corewar_load_warriors(1, "champs/examples/bigzork.cor");*/
 	/*corewar_load_warriors(3, "champs/examples/bigzork.cor");*/
 	corewar_load_arena();

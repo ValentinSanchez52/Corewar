@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/28 14:36:18 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/24 18:14:06 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/24 18:58:38 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_arg_array				*generate_tokens(
 		return (NULL);
 	tkn->len = ~0u;
 	tkn->opt = ft_strdup(opt);
+	tkn->data = (*mtch())->data;
 	tkn->opt_len = ft_strlen(opt);
 	if (gen.first && match->arg_count > 0)
 		tkn->array[++tkn->len] = matrix[match->types[tkn->len]](gen.first);
