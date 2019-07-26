@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 18:28:42 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/25 16:18:15 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/07/26 08:01:53 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,5 @@ void				corewar_load_arena(void)
 	load_warriors_in_arena();
 	print_warriors();
 	print_arena();
-	print_processes();
+	/* print_processes(); */
 }

@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 17:29:54 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/25 16:20:17 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/07/26 08:03:23 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ void				print_warriors(void)
 	{
 		if (vm.warriors[warrior_i].id)
 		{
-			printf("warrior %s, id %i, comment %s, assembly %.s, magic %x.\n",
+			printf("warrior %s, id %i, comment %s, assembly %u, magic %x.\n",
 					vm.warriors[warrior_i].name,
 					vm.warriors[warrior_i].id,
 					vm.warriors[warrior_i].comment,
-					vm.warriors[warrior_i].assembly,
+					vm.warriors[warrior_i].assembly_size,
 					vm.warriors[warrior_i].magic);
 		}
 		warrior_i++;

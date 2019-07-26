@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/25 16:29:50 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/07/26 08:01:33 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,23 +111,9 @@ typedef enum		e_op_type
 typedef enum		e_op_arg_size
 {
 	COR_ARG_SIZ_IND = 2,
-	COR_ARG_SIZ_REG = 4,
+	COR_ARG_SIZ_REG = 1,
 	COR_ARG_SIZ_DIR = 4,
 }					t_op_arg_size;
-
-/*
-** =============================================================================
-** 		Operation intergrity verification struct
-** =============================================================================
-*/
-
-typedef struct		s_op_check
-{
-	uint8_t			count;
-	uint32_t		cycles;
-	t_op_type		args[COR_ARG_NUMBER_MAX];
-	bool			encoding : 1;
-}					t_op_check;
 
 /*
 ** =============================================================================
@@ -159,6 +145,7 @@ typedef struct		s_op
 	t_op_arg_code	types[COR_ARG_NUMBER_MAX];
 	uint32_t		args[COR_ARG_NUMBER_MAX];
 	t_process		*process;
+	uint32_t		physical_size;
 }					t_op;
 
 /*
@@ -195,6 +182,12 @@ typedef struct		s_warrior
 ** =============================================================================
 */
 
+typedef struct		s_vm_flags
+{
+	uint32_t		dump_cycle;
+	bool			dump : 1;
+}					t_vm_flags;
+
 typedef struct		s_vm
 {
 	uint8_t			arena[COR_ARENA_SIZE];
@@ -208,6 +201,7 @@ typedef struct		s_vm
 	uint32_t		warriors_nb;
 	t_dynarray		process;
 	t_dynarray		instructions;
+	t_vm_flags		flags;
 }					t_vm;
 
 extern t_vm			vm;
@@ -218,6 +212,7 @@ extern t_vm			vm;
 ** =============================================================================
 */
 
+void				automaton_run(t_vm *vm);
 void				run_instruction_frame(t_vm *vm, t_op *instruction);
 void				run_process_frame(t_vm *vm, t_process *process);
 void				run_process_cleaner(t_vm *vm);
@@ -228,5 +223,34 @@ void				print_arena(void);
 uint32_t			macos_flip_bytes(uint32_t n);
 void				corewar_load_warriors(int c, char *file);
 void				corewar_load_arena(void);
+
+void				print_dump(t_vm *vm);
+void				print_op(t_op *op);
+void				print_process(t_process *proc);
+
+/*
+** Scheduler
+*/
+
+t_op				get_instruction_from_arena(
+		t_process *proc,
+		uint32_t memadress
+);
+uint32_t			get_instruction_size(
+		t_op *op
+);
+bool				is_instruction_valid_from_arena(
+		uint32_t memadress
+);
+
+/*
+** Tools
+*/
+
+uint8_t				get_mem_cell(uint32_t i);
+uint32_t			get_mem_value(uint32_t index, uint32_t size);
+t_op_arg_code		get_arg_type(uint8_t encode, uint32_t i);
+uint32_t			get_arg_value(uint32_t mem, t_op_arg_code *typ, uint32_t i);
+
 
 #endif

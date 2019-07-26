@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/04 04:17:21 by mbeilles          #+#    #+#              #
-#    Updated: 2019/07/25 16:30:24 by vsanchez         ###   ########.fr        #
+#    Updated: 2019/07/26 08:01:00 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,9 @@ SRCS = $(PATH_SRC)/main.c													\
 	   $(PATH_SRC)/arena_interface.c										\
 \
 	   $(PATH_SRC)/printing/print.c											\
+	   $(PATH_SRC)/printing/print_dump.c									\
 	   $(PATH_SRC)/printing/print_op.c										\
+	   $(PATH_SRC)/printing/print_process.c									\
 \
 	   $(PATH_SRC)/corewar_load_arena.c										\
 	   $(PATH_SRC)/corewar_load_warriors.c									\
@@ -43,7 +45,15 @@ SRCS = $(PATH_SRC)/main.c													\
 	   $(PATH_SRC)/process.c												\
 	   $(PATH_SRC)/process_cleaner.c										\
 \
+	   $(PATH_SRC)/scheduler/is_instruction_valid_from_arena.c				\
+	   $(PATH_SRC)/scheduler/get_instruction_from_arena.c					\
+	   $(PATH_SRC)/scheduler/get_instruction_size.c							\
+\
 	   $(PATH_SRC)/tools/flip_bytes.c										\
+	   $(PATH_SRC)/tools/get_mem_cell.c										\
+	   $(PATH_SRC)/tools/get_mem_value.c									\
+	   $(PATH_SRC)/tools/get_arg_type.c										\
+	   $(PATH_SRC)/tools/get_arg_value.c									\
 
 INCS = $(PATH_INC)/corewar.h												\
 
