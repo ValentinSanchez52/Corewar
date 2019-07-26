@@ -6,11 +6,15 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 04:45:45 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/26 07:45:24 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/07/26 12:18:00 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+/*
+**	Makes pc move to a memory cell no longer than COR_IDX_MOD
+*/
 
 void				op_zjmp(t_op *op)
 {
