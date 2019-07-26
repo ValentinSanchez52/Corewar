@@ -6,13 +6,13 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 07:19:32 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/26 07:19:56 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/07/26 07:46:19 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void					lfork(t_op *op)
+void					op_lfork(t_op *op)
 {
 	t_process			new_process;
 

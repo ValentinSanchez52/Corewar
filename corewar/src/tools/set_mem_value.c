@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ld.c                                               :+:      :+:    :+:   */
+/*   set_mem_value.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/25 17:06:18 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/26 07:44:10 by vsanchez         ###   ########.fr       */
+/*   Created: 2019/07/26 08:42:54 by vsanchez          #+#    #+#             */
+/*   Updated: 2019/07/26 08:47:57 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void				op_ld(t_op *op)
+void				set_mem_value(uint32_t index, uint32_t value,
+		uint32_t size)
 {
-	uint32_t		value;
-	uint32_t		reg_id;
-
-	reg_id = op->args[1];
-	if (op->types[0] == COR_ARG_IND)
+	if (size > 4)
 	{
-		value = op->process->pc + ((uint16_t)op->args[0] % COR_IDX_MOD);
-		reg_set_value(op->process, reg_id, get_mem_value(value, COR_REG_SIZE));
+		printf("WARNING: Use of set_mem_value with wrong size\n");
+		size = 4;
 	}
-	else if (op->types[0] == COR_ARG_DIR)
-		reg_set_value(op->process, reg_id, op->args[0]);
-	op->process->carry = (!get_reg_value(op->process, op->args[0]));
+	while (size > 0)
+	{
+		vm.arena[index + size] = (uint8_t)value;
+		value >>= 8;
+		size--;
+	}
 }

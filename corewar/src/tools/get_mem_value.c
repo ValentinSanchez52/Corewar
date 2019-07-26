@@ -6,14 +6,14 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 14:31:10 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/26 08:39:39 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/07/26 08:43:56 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
 /*
-**	returns an uint32_t which contains 
+**	returns an uint32_t which contains
 */
 
 inline uint32_t		get_mem_value(uint32_t index, uint32_t size)

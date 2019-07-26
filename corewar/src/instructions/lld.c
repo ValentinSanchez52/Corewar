@@ -6,13 +6,13 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 07:12:31 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/26 07:16:28 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/07/26 07:46:08 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void				lld(t_op *op)
+void				op_lld(t_op *op)
 {
 	uint32_t		value;
 	uint32_t		reg_id;

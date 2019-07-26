@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/04 04:17:21 by mbeilles          #+#    #+#              #
-#    Updated: 2019/07/26 08:37:55 by vsanchez         ###   ########.fr        #
+#    Updated: 2019/07/26 08:47:39 by vsanchez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ SRCS = $(PATH_SRC)/main.c													\
 	   $(PATH_SRC)/tools/flip_bytes.c										\
 	   $(PATH_SRC)/tools/get_mem_cell.c										\
 	   $(PATH_SRC)/tools/get_mem_value.c									\
+	   $(PATH_SRC)/tools/set_mem_value.c									\
 	   $(PATH_SRC)/tools/get_arg_type.c										\
 	   $(PATH_SRC)/tools/get_arg_value.c									\
 	   $(PATH_SRC)/tools/register.c											\
