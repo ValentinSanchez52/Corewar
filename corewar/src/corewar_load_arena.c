@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 18:28:42 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/26 08:01:53 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/26 08:38:58 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ static inline void	load_warriors_in_arena(void)
 			process = (t_process){
 					.registers[0] = vm.warriors[warrior_i].id,
 					.global_offset = spawn_i * COR_ARENA_SIZE / vm.warriors_nb};
-			ft_dynarray_insert(&vm.process, 0, &process,
-					sizeof(t_process));
+			ft_dynarray_push(&vm.process, &process, sizeof(t_process));
 			spawn_i++;
 		}
 		warrior_i++;

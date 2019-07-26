@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/04 04:17:21 by mbeilles          #+#    #+#              #
-#    Updated: 2019/07/26 08:35:05 by vsanchez         ###   ########.fr        #
+#    Updated: 2019/07/26 08:37:55 by vsanchez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,19 @@ SRCS = $(PATH_SRC)/main.c													\
 	   $(PATH_SRC)/instructions/live.c										\
 	   $(PATH_SRC)/instructions/ld.c										\
 	   $(PATH_SRC)/instructions/st.c										\
+	   $(PATH_SRC)/instructions/add.c										\
+	   $(PATH_SRC)/instructions/sub.c										\
+	   $(PATH_SRC)/instructions/and.c										\
+	   $(PATH_SRC)/instructions/or.c										\
+	   $(PATH_SRC)/instructions/xor.c										\
+	   $(PATH_SRC)/instructions/zjmp.c										\
+	   $(PATH_SRC)/instructions/ldi.c										\
+	   $(PATH_SRC)/instructions/sti.c										\
+	   $(PATH_SRC)/instructions/fork.c										\
+	   $(PATH_SRC)/instructions/lld.c										\
+	   $(PATH_SRC)/instructions/lldi.c										\
+	   $(PATH_SRC)/instructions/lfork.c										\
+	   $(PATH_SRC)/instructions/aff.c										\
 
 INCS = $(PATH_INC)/corewar.h												\
 

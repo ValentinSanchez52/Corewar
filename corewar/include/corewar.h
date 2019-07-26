@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/26 08:36:20 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/07/26 08:38:43 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,29 @@ extern t_vm			vm;
 
 /*
 ** =============================================================================
+** 		Instructions
+** =============================================================================
+*/
+
+void				live(t_op *op);
+void				ld(t_op *op);
+void				st(t_op *op);
+void				add(t_op *op);
+void				sub(t_op *op);
+void				and(t_op *op);
+void				or(t_op *op);
+void				xor(t_op *op);
+void				zjmp(t_op *op);
+void				ldi(t_op *op);
+void				sti(t_op *op);
+void				fork(t_op *op);
+void				lld(t_op *op);
+void				lldi(t_op *op);
+void				lfork(t_op *op);
+void				aff(t_op *op);
+
+/*
+** =============================================================================
 ** 		Functions
 ** =============================================================================
 */
@@ -253,8 +276,12 @@ void				reg_set_value(t_process *process, uint8_t reg_id,
 		uint32_t value);
 uint32_t			get_reg_value(t_process *process, uint8_t reg_id);
 uint32_t			*get_register(t_process *process, uint8_t reg_id);
+
+void				set_mem_value(uint32_t index, uint32_t value,
+		uint32_t size);
 uint32_t			get_mem_value(uint32_t index, uint32_t size);
 uint8_t				get_mem_cell(uint32_t index);
+
 t_op_arg_code		get_arg_type(uint8_t encode, uint32_t i);
 uint32_t			get_arg_value(uint32_t mem, t_op_arg_code *typ, uint32_t i);
 
