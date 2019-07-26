@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 18:28:42 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/26 08:56:40 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/07/26 09:31:39 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,28 @@ static const char					*g_messages[0xff] = {
 	[0b00000001] = "Wrong magic number in <path>.\n",
 	[0b01111111] = "Error reading magic in <path>.\n",
 	[0b01111110] = "Error reading name in <path>.\n",
-	[0b01111100] = "Error reading padding in <path>.\n",
-	[0b01111000] = "Error reading code size in <path>.\n",
-	[0b01110000] = "Error reading comment in <path>.\n",
-	[0b01100000] = "Error reading padding in <path>.\n",
-	[0b01000000] = "Error reading code in <path>.\n",
+	[0b01111100] = "Error reading padding of <warrior> in <path>.\n",
+	[0b01111000] = "Error reading code size of <warrior> in <path>.\n",
+	[0b01110000] = "Error reading comment of <warrior> in <path>.\n",
+	[0b01100000] = "Error reading padding of <warrior> in <path>.\n",
+	[0b01000000] = "Error reading code of <warrior> in <path>.\n",
 	[0b10000000] = "Error opening <path>.\n",
-	[0b10001000] = "Size of warrior is too big in <path>.\n"
+	[0b10001000] = "Size of <warrior> is too big in <path>.\n"
 };
 
 static inline char					*get_error_message(uint8_t code,
-		char *wname)
+		char *wname, char *path)
 {
+	char							*s1;
+	char							*s2;
+
 	if (g_messages[code])
-		return (ft_strreplace(g_messages[code], "<path>", wname));
+	{
+		s1 = ft_strreplace(g_messages[code], "<path>", path);
+		s2 = ft_strreplace(s1, "<warrior>", wname);
+		free(s1);
+		return (s2);
+	}
 	return (NULL);
 }
 
@@ -51,7 +59,7 @@ static inline uint8_t				get_warrior(char *file, t_warrior *wrrr)
 	char			padding[WARRIOR_PADDING];
 	int				ret;
 
-	if ((fd = open(file, O_RDONLY)) <= 0)
+	if ((fd = open(file, O_RDONLY)) < 0)
 		return (0b10000000);
 	err_code = ((read(fd, &(wrrr->magic), WARRIOR_MAGIC)) <= 0) << 0;
 	if (!check_magic_validity(wrrr))
@@ -78,7 +86,7 @@ void								corewar_load_warriors(int c, char *file)
 	uint8_t			err_code;
 
 	if ((err_code = get_warrior(file, &(vm.warriors[c]))))
-		printf("%s", get_error_message(err_code, file));
+		printf("%s", get_error_message(err_code, (vm.warriors + c)->name, file));
 	else
 	{
 		vm.warriors[c].id = UINT32_MAX - c;

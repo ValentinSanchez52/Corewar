@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/26 08:56:00 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/07/26 09:30:28 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ typedef struct		s_op
 
 typedef enum		e_arena_own
 {
-	COR_ARN_NO_CLAIM,
+	COR_ARN_NO_CLAIM = 0,
 	COR_ARN_W1_CLAIM,
 	COR_ARN_W2_CLAIM,
 	COR_ARN_W3_CLAIM,
@@ -189,12 +189,13 @@ typedef struct		s_vm_flags
 {
 	uint32_t		dump_cycle;
 	bool			dump : 1;
+	bool			visualizer : 1;
 }					t_vm_flags;
 
 typedef struct		s_vm
 {
 	uint8_t			arena[COR_ARENA_SIZE];
-	t_arena_own		arena_claim[COR_ARENA_SIZE];
+	uint8_t			arena_claim[COR_ARENA_SIZE];
 	uint32_t		cycles_to_die; // First clean limit
 	uint32_t		cycles_counter; // Counts cycles up to cycles_to_die
 	uint32_t		cycles_left; // Cycles until forced clean

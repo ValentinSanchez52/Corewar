@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 14:39:16 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/26 08:55:18 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/07/26 09:32:14 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,9 +151,8 @@ int					main(int c, char **v)
 	c--;
 	i = parse_options(c, v, &data) - v;
 	/*examples :*/
-	/*corewar_load_warriors(1, "champs/examples/bigzork.cor");*/
-	/*corewar_load_warriors(3, "champs/examples/bigzork.cor");*/
-	/*corewar_load_warriors(0, "test.cor");*/
+	corewar_load_warriors(1, "zork.cor");
+	corewar_load_warriors(3, "zork.cor");
 	corewar_load_arena();
 	automaton_run(&vm);
 	print_dump(&vm);
