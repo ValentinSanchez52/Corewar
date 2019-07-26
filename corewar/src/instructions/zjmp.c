@@ -6,13 +6,13 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 04:45:45 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/26 04:50:46 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/07/26 07:45:24 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void				zjmp(t_op *op)
+void				op_zjmp(t_op *op)
 {
 	if (op->process->carry)
 		op->process->pc += ((uint16_t)op->args[0] % COR_IDX_MOD);

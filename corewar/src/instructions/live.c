@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 16:42:21 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/25 17:05:57 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/07/26 07:43:59 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static inline void	warrior_live(uint32_t id)
 		}
 }
 
-void				live(t_op *op)
+void				op_live(t_op *op)
 {
 	op->process->living = 1;
 	warrior_live(op->args[0]);
