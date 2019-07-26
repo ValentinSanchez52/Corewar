@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 05:10:09 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/26 11:17:17 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/07/26 11:33:25 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void				op_sti(t_op *op)
 		value_2 = get_reg_value(op->process, op->args[2]);
 	else if (op->types[2] == COR_ARG_DIR)
 		value_2 = (uint16_t)op->args[2];
-	set_mem_value(op->process->pc + (value_1 + value_2) % COR_IDX_MOD,
+	set_mem_value(op->process->global_offset + op->process->pc
+			+ (value_1 + value_2) % COR_IDX_MOD,
 			get_reg_value(op->process, op->args[0]), COR_REG_SIZE);
 }
