@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/26 08:01:33 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/26 08:04:22 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,6 @@ void				run_instruction_frame(t_vm *vm, t_op *instruction);
 void				run_process_frame(t_vm *vm, t_process *process);
 void				run_process_cleaner(t_vm *vm);
 
-uint8_t				*get_mem_cell(uint32_t index);
 void				print_warriors(void);
 void				print_arena(void);
 uint32_t			macos_flip_bytes(uint32_t n);

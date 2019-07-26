@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/04 04:17:21 by mbeilles          #+#    #+#              #
-#    Updated: 2019/07/26 08:01:00 by mbeilles         ###   ########.fr        #
+#    Updated: 2019/07/26 08:05:38 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,6 @@ CC = clang
 #==============================================================================#
 
 SRCS = $(PATH_SRC)/main.c													\
-	   $(PATH_SRC)/arena_interface.c										\
 \
 	   $(PATH_SRC)/printing/print.c											\
 	   $(PATH_SRC)/printing/print_dump.c									\
