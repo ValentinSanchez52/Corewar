@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/04 04:17:21 by mbeilles          #+#    #+#              #
-#    Updated: 2019/07/24 20:10:33 by mbeilles         ###   ########.fr        #
+#    Updated: 2019/07/26 06:20:25 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,15 @@ SRCS = $(PATH_SRC)/main.c													\
 	   $(PATH_SRC)/instruction.c											\
 	   $(PATH_SRC)/process.c												\
 	   $(PATH_SRC)/process_cleaner.c										\
+\
+	   $(PATH_SRC)/scheduler/is_instruction_valid_from_arena.c				\
+	   $(PATH_SRC)/scheduler/get_instruction_from_arena.c					\
+	   $(PATH_SRC)/scheduler/get_instruction_size.c							\
+\
+	   $(PATH_SRC)/tools/get_mem_cell.c										\
+	   $(PATH_SRC)/tools/get_mem_value.c									\
+	   $(PATH_SRC)/tools/get_arg_type.c										\
+	   $(PATH_SRC)/tools/get_arg_value.c									\
 
 INCS = $(PATH_INC)/corewar.h												\
 

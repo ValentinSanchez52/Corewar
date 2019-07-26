@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:55:44 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/25 19:05:41 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/26 06:33:59 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ static inline void	debug_automaton_states(t_vm *vm)
 	nums[1] = ft_strdup(ft_ultostr(vm->cycles_to_die, 10, true));
 	nums[2] = ft_strdup(ft_ultostr(COR_CYCLES_DELTA, 10, true));
 	print((t_print){
-			.data = ft_strajoin(7, "Stack frame: [C: ",
-					nums[0], "] [C💀: ", nums[1], "] [CΔ:", nums[2], "]\n"),
+			.data = ft_strajoin(7, "Stack frame: [\e[34mC: ",
+					nums[0], "\e[0m] [\e[31mCtd: ",
+					nums[1], "\e[0m] [\e[32mCd:", nums[2], "\e[0m]\n"),
 			.printer = printer,
 			.destructor = &free
 	});
@@ -69,7 +70,7 @@ void				automaton_run(t_vm *vm)
 	t_op			*instruction;
 	uint64_t		i;
 
-	while (vm->cycles_to_die <= COR_CYCLES_DEFAULT && vm->cycles < 2)
+	while (vm->cycles_to_die <= COR_CYCLES_DEFAULT/*  && vm->cycles < 50 */)
 	{
 		debug_automaton_states(vm);
 		i = 0;
