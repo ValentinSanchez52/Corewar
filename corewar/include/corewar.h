@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/26 07:01:36 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/26 07:44:07 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,12 @@ typedef struct		s_warrior
 ** =============================================================================
 */
 
+typedef struct		s_vm_flags
+{
+	uint32_t		dump_cycle;
+	bool			dump : 1;
+}					t_vm_flags;
+
 typedef struct		s_vm
 {
 	uint8_t			arena[COR_ARENA_SIZE];
@@ -199,6 +205,7 @@ typedef struct		s_vm
 	uint32_t		warriors_nb;
 	t_dynarray		process;
 	t_dynarray		instructions;
+	t_vm_flags		flags;
 }					t_vm;
 
 extern t_vm			vm;
@@ -219,7 +226,9 @@ void				print_arena(void);
 void				corewar_load_warriors(int c, char **v);
 void				corewar_load_arena(void);
 
+void				print_dump(t_vm *vm);
 void				print_op(t_op *op);
+void				print_process(t_process *proc);
 
 /*
 ** Scheduler

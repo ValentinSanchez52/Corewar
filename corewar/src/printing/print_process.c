@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 06:36:34 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/26 06:43:06 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/26 07:09:24 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,16 @@ void				print_process(t_process *proc)
 	while (i < 16)
 	{
 		ft_dynarray_push_str(&msg, "[r");
-		ft_dynarray_push_str(&msg, ft_ultostr(i, 16, false));
+		ft_dynarray_push_str(&msg, ft_ultostr(i + 1, 10, false));
 		ft_dynarray_push_str(&msg, ":\e[34m0x");
-		ft_dynarray_push_str(&msg, ft_ultostr(proc->registers, 16, false));
+		ft_dynarray_push_str(&msg, ft_ultostr(proc->registers[i], 16, false));
 		ft_dynarray_push_str(&msg, "\e[0m]");
 		i++;
 	}
-	ft_dynarray_push_str(&msg, proc->carry ? "[Carry: \e[32mtrue\e[0m] "
-			: "[Carry: \e[35mfalse\e[0m] ");
-	ft_dynarray_push_str(&msg, proc->living ? "Alive" : "Dying");
+	ft_dynarray_push_str(&msg, proc->carry ? "[Carry:\e[1;32mtrue\e[0m] "
+			: "[Carry:\e[1;35mfalse\e[0m] ");
+	ft_dynarray_push_str(&msg, proc->living ? "Alive, " : "Dying, ");
 	ft_dynarray_push_str(&msg, proc->waiting ? "Executing..." : "Idle");
+	ft_dynarray_push(&msg, "\n", 2);
 	print((t_print){.data = msg.array, .printer = printer, .destructor = free});
 }

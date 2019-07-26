@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:55:44 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/26 06:33:59 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/26 07:36:46 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static inline void	automaton_update_counters(t_vm *vm)
 			vm->cycles_left = COR_CYCLES_LEFT;
 			vm->cycles_counter = 0;
 			vm->live_counter = 0;
+			vm->cycles_to_die -= COR_CYCLES_DELTA;
 		}
 		else if (vm->live_counter < COR_CYCLES_LIVES)
 			--vm->cycles_left;
@@ -70,9 +71,9 @@ void				automaton_run(t_vm *vm)
 	t_op			*instruction;
 	uint64_t		i;
 
-	while (vm->cycles_to_die <= COR_CYCLES_DEFAULT/*  && vm->cycles < 50 */)
+	while (vm->cycles_to_die <= COR_CYCLES_DEFAULT
+			&& !(vm->flags.dump && vm->flags.dump_cycle < vm->cycles))
 	{
-		debug_automaton_states(vm);
 		i = 0;
 		while ((process = ft_dynarray_iterate(&vm->process, &i,
 						sizeof(t_process))))
@@ -81,7 +82,6 @@ void				automaton_run(t_vm *vm)
 		i = 0;
 		while ((instruction = ft_dynarray_iterate(&vm->instructions, &i,
 						sizeof(t_op))))
-		{
 			if (instruction->timeout > 0)
 				--instruction->timeout;
 			else
@@ -90,7 +90,6 @@ void				automaton_run(t_vm *vm)
 				run_instruction_frame(vm, instruction);
 				--i;
 			}
-		}
 		automaton_update_counters(vm);
 	}
 }
