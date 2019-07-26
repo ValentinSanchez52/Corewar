@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:55:44 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/26 07:36:46 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/26 09:28:22 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void				automaton_run(t_vm *vm)
 			{
 				print_op(instruction);
 				run_instruction_frame(vm, instruction);
-				--i;
+				i = 0;
 			}
 		automaton_update_counters(vm);
 	}
