@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 06:09:40 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/26 07:00:17 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/26 10:40:15 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ inline bool				is_instruction_valid_from_arena(
 						& g_op_check[cell].args[i]))
 				return (false);
 	}
+	/* printf("Valid\n"); */
 	return (true);
 }

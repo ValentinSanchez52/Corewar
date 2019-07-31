@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 19:17:28 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/26 09:28:38 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/26 10:39:24 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ inline void				run_process_frame(
 		print_op(&op);
 		ft_dynarray_insert(&vm->instructions, 0, &op, sizeof(t_op));
 		process->waiting = true;
-		process->pc += get_instruction_size(&op);
 		return ;
 	}
 	else

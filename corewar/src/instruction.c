@@ -6,30 +6,14 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 09:30:45 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/26 09:39:42 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/29 17:29:55 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include "corewar.h"
 
-static const void	(*g_ops_exec[COR_OP_MAX])(t_op *op) = {
-	[COR_OP_LIVE] = NULL,
-	[COR_OP_LOAD] = NULL,
-	[COR_OP_STORE] = NULL,
-	[COR_OP_ADD] = NULL,
-	[COR_OP_SUB] = NULL,
-	[COR_OP_AND] = NULL,
-	[COR_OP_OR] = NULL,
-	[COR_OP_XOR] = NULL,
-	[COR_OP_ZJUMP] = NULL,
-	[COR_OP_LOAD_IDX] = NULL,
-	[COR_OP_STORE_IDX] = NULL,
-	[COR_OP_FORK] = NULL,
-	[COR_OP_LONG_LOAD] = NULL,
-	[COR_OP_LONG_LOAD_IDX] = NULL,
-	[COR_OP_LONG_FORK] = NULL,
-
+static void			(*g_ops_exec[COR_OP_MAX])(t_op *op) = {
 	[COR_OP_LIVE] = op_live,
 	[COR_OP_LOAD] = op_ld,
 	[COR_OP_STORE] = op_st,
@@ -53,6 +37,7 @@ inline void			run_instruction_frame(
 		t_op *op
 )
 {
+		/* print_dump(vm); */
 	if (g_ops_exec[op->code])
 		g_ops_exec[op->code](op);
 	op->process->waiting = false;

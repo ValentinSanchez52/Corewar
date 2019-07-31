@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 14:39:16 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/26 09:32:14 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/29 17:28:46 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,9 +152,9 @@ int					main(int c, char **v)
 	i = parse_options(c, v, &data) - v;
 	/*examples :*/
 	corewar_load_warriors(1, "zork.cor");
-	corewar_load_warriors(3, "zork.cor");
+	/* corewar_load_warriors(3, "zork.cor"); */
 	corewar_load_arena();
-	automaton_run(&vm);
 	print_dump(&vm);
+	automaton_run(&vm);
 	return (0);
 }
