@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/29 21:15:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/01 05:53:25 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/01 06:03:10 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ t_arg_token		bboa_parse_integer(char *v)
 	len[1] = ft_strlen(v);
 	while (s[len[0]])
 		len[0]++;
-	printf("i: %lld, '%s' == '%s'\n", i, s, v);
 	if (ft_islong(s) && ft_strnequ(s, v, len[0] < len[1] ? len[0] : len[1]))
 		return ((t_arg_token){
 				.integer_token = {

@@ -6,7 +6,7 @@
 /*   By: mbeilles <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/24 04:03:39 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/01 05:58:14 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/01 06:06:59 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ long long				ft_strtol(const char *str, char **endptr, int base)
 	*endptr = (char*)str;
 	while (**endptr && ft_isspace(**endptr))
 		(*endptr)++;
-	if ((sign = (**endptr == '-')) || *endptr == '+')
+	if ((sign = (**endptr == '-')) || **endptr == '+')
 		(*endptr)++;
 	while (**endptr && ft_isbase(**endptr, base))
 	{
