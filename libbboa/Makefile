@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/18 08:44:32 by mbeilles          #+#    #+#              #
-#    Updated: 2019/07/05 23:07:39 by njiall           ###   ########.fr        #
+#    Updated: 2019/08/01 06:42:49 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,35 +87,6 @@ DEPS := $(patsubst %.c, $(PATH_DEP)/%.d, $(SRCS))
 #                                    Rules                                     #
 #==============================================================================#
 
-$(NAME): $(CLIBS) $(OBJS)
-	@printf $(START_MSG)
-	@printf $(MAKING_PROGRESS)
-	@ar -rc $@ $(OBJS); \
-		if [ "$$?" != "1" ]; then \
-			printf $(MAKING_SUCCESS); \
-			exit 0; \
-		else \
-			printf $(MAKING_FAILURE); \
-			exit 2; \
-		fi
-	@ranlib $(NAME)
-	@chmod +x $(NAME)
-
-all: $(NAME)
-
-clean:
-	@-rm -rf $(PATH_OBJ)
-	@printf $(CLEANING_OBJS)
-
-fclean: clean
-	@-rm -f $(NAME)
-	@printf $(CLEANING_BINS)
-
-re: fclean all
-
-FORCE:
-
-.PHONY: debug depend all fclean clean re FORCE
-
+include ../makefiles/lib.mk
 include ../makefiles/strings.mk
 include ../makefiles/depend.mk

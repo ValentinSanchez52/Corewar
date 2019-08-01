@@ -6,7 +6,7 @@
 /*   By: mbeilles <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/24 04:03:39 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/05/25 13:33:07 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/01 06:06:59 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,18 @@ static inline long		ft_isbase(int c, int base)
 	return (0);
 }
 
-long					ft_strtol(const char *str, char **endptr, int base)
+long long				ft_strtol(const char *str, char **endptr, int base)
 {
-	long				l;
+	long long			l;
+	bool				sign;
 
 	if (base <= 0)
 		return (0);
 	l = 0;
 	*endptr = (char*)str;
 	while (**endptr && ft_isspace(**endptr))
+		(*endptr)++;
+	if ((sign = (**endptr == '-')) || **endptr == '+')
 		(*endptr)++;
 	while (**endptr && ft_isbase(**endptr, base))
 	{
@@ -56,7 +59,7 @@ long					ft_strtol(const char *str, char **endptr, int base)
 			l = **endptr - 'A' + (l * base);
 		(*endptr)++;
 	}
-	return (l);
+	return (sign ? -l : l);
 }
 
 #pragma clang diagnostic pop
