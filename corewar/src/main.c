@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 14:39:16 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/06 04:45:59 by njiall           ###   ########.fr       */
+/*   Updated: 2019/08/01 06:07:48 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,16 @@ static t_bboa_state			print_args(t_arg_array *args) {
 				printf("\e[1;4mArg\e[0m [\e[1;32mSTRG\e[0m]: \e[32m%s\e[0m\n",
 						token.string_token.string);
 				break ;
-			case BBOA_AT_NUMBER:
-				printf("\e[1;4mArg\e[0m [\e[1;34mNMBR\e[0m]: \e[4;34m%d\e[0m-[\e[34m%f\e[0m]\n",
-						(int)token.number_token.number, token.number_token.number);
+			case BBOA_AT_DOUBLE:
+				printf("\e[1;4mArg\e[0m [\e[1;34mDBLE\e[0m]: \e[34m%F\e[0m\n",
+						token.double_token.number);
+				break ;
+			case BBOA_AT_INTEGER:
+				if (token.integer_token.invalid)
+					printf("\e[1;4mArg\e[0m [\e[1;34mINTG\e[0m]: \e[31mInvalid\e[0m\n");
+				else
+					printf("\e[1;4mArg\e[0m [\e[1;34mINTG\e[0m]: \e[34m%lld\e[0m\n",
+							token.integer_token.number);
 				break ;
 			case BBOA_AT_BOOLEAN:
 				printf("\e[1;4mArg\e[0m [\e[1;35mBOOL\e[0m]: \e[35m%s\e[0m\n",
@@ -62,12 +69,13 @@ static t_bboa_state			parse_player(t_arg_array *args) {
 	print_args(args);
 	if (args->len < 2)
 		return (BBOA_RS_NOT_ENOUGH_ARGS);
-	else if (args->array[0].type != BBOA_AT_NUMBER
+	else if (args->array[0].type != BBOA_AT_INTEGER
+			|| args->array[0].integer_token.invalid
 			|| args->array[1].type != BBOA_AT_STRING)
 		return (BBOA_RS_TYPE_MISMATCH);
 	char *player = ft_strbasename(args->array[1].string_token.string);
 	printf("Loading '%s' as player %u...\n", player,
-			(uint32_t)args->array[0].number_token.number);
+			(uint32_t)args->array[0].integer_token.number);
 	free(player);
 	return (BBOA_RS_OK);
 }
@@ -90,7 +98,7 @@ static const t_option		g_options[] = {
 		.length = 2,
 		.match = (t_opt_match){
 			.func = &print_args,
-			.types = {BBOA_AT_NUMBER},
+			.types = {BBOA_AT_INTEGER},
 			.arg_count = 1,
 			.desc = "Dump the arena state after [\e[37mnumber\e[0m] cycles."
 		}
@@ -101,7 +109,7 @@ static const t_option		g_options[] = {
 		.length = 5,
 		.match = (t_opt_match){
 			.func = &parse_player,
-			.types = {BBOA_AT_NUMBER, BBOA_AT_STRING},
+			.types = {BBOA_AT_INTEGER, BBOA_AT_STRING},
 			.arg_count = 2,
 			.desc = "Sets champion's(\e[37margument\e[0m) [\e[37mnumber\e[0m]."
 		}
