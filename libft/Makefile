@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/18 08:44:32 by mbeilles          #+#    #+#              #
-#    Updated: 2019/07/23 15:02:43 by mbeilles         ###   ########.fr        #
+#    Updated: 2019/08/01 05:19:43 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,10 +38,13 @@ SRCS = \
 	   $(PATH_SRC)/types/ft_isalnum.c										\
 	   $(PATH_SRC)/types/ft_isalpha.c										\
 	   $(PATH_SRC)/types/ft_isdigit.c										\
+	   $(PATH_SRC)/types/ft_isdouble.c										\
+	   $(PATH_SRC)/types/ft_islong.c										\
 	   $(PATH_SRC)/types/ft_isascii.c										\
 	   $(PATH_SRC)/types/ft_isprint.c										\
 	   $(PATH_SRC)/types/ft_isset.c											\
 	   $(PATH_SRC)/types/ft_isinf.c											\
+	   $(PATH_SRC)/types/ft_isnan.c											\
 	   $(PATH_SRC)/list/ft_lstadd.c											\
 	   $(PATH_SRC)/list/ft_lstdel.c											\
 	   $(PATH_SRC)/list/ft_lstdelone.c										\

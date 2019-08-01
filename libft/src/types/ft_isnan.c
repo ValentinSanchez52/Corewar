@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ltostr.c                                        :+:      :+:    :+:   */
+/*   ft_isnan.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/31 05:09:46 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/01 05:59:18 by mbeilles         ###   ########.fr       */
+/*   Created: 2019/08/01 04:55:18 by mbeilles          #+#    #+#             */
+/*   Updated: 2019/08/01 04:55:51 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdint.h>
 
-char			*ft_ltostr(int64_t i, uint8_t radix, uint8_t upcase)
+inline int			ft_isnan(double d)
 {
-	char		*s;
-	int			flg;
-
-	flg = 0;
-	if (i < 0)
-	{
-		flg++;
-		i = -i;
-	}
-	s = ft_ultostr((unsigned long long)i, radix, upcase);
-	if (s && flg)
-		*--s = '-';
-	return (s);
+	return (d != d);
 }

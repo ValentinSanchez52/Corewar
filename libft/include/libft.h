@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/13 17:22:36 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/06 04:44:03 by njiall           ###   ########.fr       */
+/*   Updated: 2019/08/01 05:50:43 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,9 @@ int				ft_isalnum(int c);
 int				ft_isspace(int c);
 int				ft_isset(int c, char *set);
 int				ft_isinf(double d);
+int				ft_isnan(double d);
+bool			ft_isdouble(const char *s);
+bool			ft_islong(const char *s);
 
 /*
 ** --- Memblock manipulation ---
@@ -175,7 +178,7 @@ char			*ft_strtrim(char const *s);
 char			**ft_strsplit(char const *s, char c);
 
 double			ft_strtod(const char *str, char **endptr);
-long			ft_strtol(const char *str, char **endptr, int base);
+long long		ft_strtol(const char *str, char **endptr, int base);
 bool			ft_strtob(const char *str, char **endptr, bool *valid);
 
 t_string		*ft_t_string_new(uint32_t capacity);
