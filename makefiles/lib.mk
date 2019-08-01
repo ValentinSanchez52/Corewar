@@ -1,5 +1,4 @@
 $(NAME): $(CLIBS) $(OBJS)
-	@printf $(WOW)"\n"
 	@printf $(START_MSG)
 	@printf $(MAKING_PROGRESS)
 	@ar -rc $@ $(OBJS); \
@@ -10,4 +9,5 @@ $(NAME): $(CLIBS) $(OBJS)
 			printf $(MAKING_FAILURE); \
 			exit 2; \
 		fi
+	@ranlib $(NAME)
 	@chmod +x $(NAME)
