@@ -24,6 +24,9 @@ clean: assembler corewar
 fclean: assembler corewar
 depend: assembler corewar
 
-.PHONY: all corewar assembler
+tags:
+	@command -v ctags &>/dev/null && printf $(MAKING_LIB) ctags && ctags -R || printf $(DEP_NEEDED) ctags
+
+.PHONY: all corewar assembler tags
 
 include ./makefiles/strings.mk
