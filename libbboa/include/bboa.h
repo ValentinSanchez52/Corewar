@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 04:11:57 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/24 17:38:34 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/01 05:20:50 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ typedef enum			e_arg_type
 {
 	BBOA_AT_NONE = 0,
 	BBOA_AT_STRING,
-	BBOA_AT_NUMBER,
+	BBOA_AT_DOUBLE,
+	BBOA_AT_INTEGER,
 	BBOA_AT_BOOLEAN,
 	BBOA_AT_MAX_TYPE
 }						t_arg_type;
@@ -103,12 +104,20 @@ typedef struct			s_arg_token_string
 	uint64_t			len;
 }						t_arg_token_string;
 
-typedef struct			s_arg_token_number
+typedef struct			s_arg_token_double
 {
 	t_arg_type			type;
 	void				*data;
 	double				number;
-}						t_arg_token_number;
+}						t_arg_token_double;
+
+typedef struct			s_arg_token_integer
+{
+	t_arg_type			type;
+	void				*data;
+	long long			number;
+	bool				invalid;
+}						t_arg_token_integer;
 
 typedef struct			s_arg_token_bool
 {
@@ -133,7 +142,8 @@ typedef union			u_arg_token
 {
 	t_arg_type			type;
 	t_arg_token_string	string_token;
-	t_arg_token_number	number_token;
+	t_arg_token_double	double_token;
+	t_arg_token_integer	integer_token;
 	t_arg_token_bool	bool_token;
 	t_arg_token_none	none_token;
 }						t_arg_token;
@@ -229,7 +239,8 @@ t_bboa_state			bboa_set_error_usage(t_opt_patterns *opts, char *match,
 **	This is there for internal functioning of the lib.
 */
 
-t_arg_token				bboa_parse_number(char *v);
+t_arg_token				bboa_parse_double(char *v);
+t_arg_token				bboa_parse_integer(char *v);
 t_arg_token				bboa_parse_boolean(char *v);
 t_arg_token				bboa_parse_void(char *v);
 t_arg_token				bboa_parse_string(char *v);

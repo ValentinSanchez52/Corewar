@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 16:05:49 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/19 19:35:55 by njiall           ###   ########.fr       */
+/*   Updated: 2019/08/01 05:44:45 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ static inline void		gen_option_with_types(
 	static const char	*type_display[BBOA_AT_MAX_TYPE] = {
 		[BBOA_AT_NONE] = "[...]",
 		[BBOA_AT_STRING] = "[argument]",
-		[BBOA_AT_NUMBER] = "[number]",
+		[BBOA_AT_DOUBLE] = "[number]",
+		[BBOA_AT_INTEGER] = "[int]",
 		[BBOA_AT_BOOLEAN] = "[bool]",
 	};
 	const char			*type;

@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/28 14:36:18 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/24 18:14:06 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/01 05:46:24 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ t_arg_array				*generate_tokens(
 	static t_convert_function	matrix[BBOA_AT_MAX_TYPE] = {
 		[BBOA_AT_NONE] = &bboa_parse_void,
 		[BBOA_AT_STRING] = &bboa_parse_string,
-		[BBOA_AT_NUMBER] = &bboa_parse_number,
+		[BBOA_AT_DOUBLE] = &bboa_parse_double,
+		[BBOA_AT_INTEGER] = &bboa_parse_integer,
 		[BBOA_AT_BOOLEAN] = &bboa_parse_boolean,
 	};
 	t_arg_array					*tkn;
@@ -73,8 +74,7 @@ t_arg_array				*generate_tokens(
 	if (gen.first && match->arg_count > 0)
 		tkn->array[++tkn->len] = matrix[match->types[tkn->len]](gen.first);
 	while (++tkn->len < match->arg_count && tkn->len - !!gen.first < args_left
-			&& gen.args[tkn->len - !!gen.first]
-			&& gen.args[tkn->len - !!gen.first][0] != '-')
+			&& gen.args[tkn->len - !!gen.first])
 		tkn->array[tkn->len] = matrix[match->types[tkn->len]](gen.args[tkn->len
 				- !!gen.first]);
 	return (tkn);
