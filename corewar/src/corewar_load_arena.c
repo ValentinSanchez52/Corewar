@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 18:28:42 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/26 09:31:09 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/05 18:15:44 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static inline void	load_warriors_in_arena(void)
 					vm.warriors[warrior_i].assembly,
 					vm.warriors[warrior_i].assembly_size);
 			printf("%u\n", warrior_i);
-			ft_memset(&vm.arena_claim[spawn_i * COR_ARENA_SIZE / vm.warriors_nb], warrior_i, vm.warriors[warrior_i].assembly_size);
+			ft_memset(&vm.arena_claim[spawn_i * COR_ARENA_SIZE / vm.warriors_nb], warrior_i + 1, vm.warriors[warrior_i].assembly_size);
 			process = (t_process){
 					.registers[0] = vm.warriors[warrior_i].id,
 					.global_offset = spawn_i * COR_ARENA_SIZE / vm.warriors_nb};

@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 06:05:18 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/26 06:59:57 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/05 17:36:35 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,8 @@ inline t_op				get_instruction_from_arena(
 	i = UINT32_MAX;
 	if (!properties.encoding)
 	{
-		while (++i < properties.count)
-			args[i] = get_arg_value(memory, properties.default_types, i);
 		types[0] = properties.default_types[0];
-		types[1] = properties.default_types[1];
-		types[2] = properties.default_types[2];
-		types[3] = properties.default_types[3];
+		args[0] = get_arg_value(memory, types, 0);
 	}
 	else
 		while (++i < properties.count)

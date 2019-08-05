@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:55:44 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/26 10:43:14 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/05 16:47:15 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,9 @@ void				automaton_run(t_vm *vm)
 		while ((process = ft_dynarray_iterate(&vm->process, &i,
 						sizeof(t_process))))
 			if (!process->waiting)
+			{
 				run_process_frame(vm, process);
+			}
 		i = 0;
 		while ((instruction = ft_dynarray_iterate(&vm->instructions, &i,
 						sizeof(t_op))))
@@ -86,6 +88,9 @@ void				automaton_run(t_vm *vm)
 				--instruction->timeout;
 			else
 			{
+				/* print_process(instruction->process); */
+				/* if (instruction->code == COR_OP_LIVE) */
+				/*     print_dump(vm); */
 				print_op(instruction);
 				run_instruction_frame(vm, instruction);
 				i = 0;

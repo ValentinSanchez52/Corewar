@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 06:57:06 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/26 06:59:13 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/05 18:18:56 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,15 @@ static const t_op_check	g_op_check[COR_OP_MAX] = {
 		.args = {
 			COR_T_REG | COR_T_IND | COR_T_DIR,
 			COR_T_DIR | COR_T_REG,
+			COR_T_REG
+		},
+	},
+	[COR_OP_STORE] = {
+		.count = 2,
+		.cycles = 5,
+		.encoding = true,
+		.args = {
+			COR_T_IND | COR_T_DIR,
 			COR_T_REG
 		},
 	},

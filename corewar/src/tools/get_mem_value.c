@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 14:31:10 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/26 08:43:56 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/05 17:41:03 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,15 @@ inline uint32_t		get_mem_value(uint32_t index, uint32_t size)
 		printf("WARNING: Use of get_mem_value with wrong size\n");
 		size = 4;
 	}
+	printf("Value reading: %u:%u -> ", index, size);
 	while (size > 0)
 	{
 		value = value << 8;
+		printf("%02hhx ", get_mem_cell(index));
 		value += get_mem_cell(index);
 		index++;
 		size--;
 	}
+	printf("\n");
 	return (value);
 }

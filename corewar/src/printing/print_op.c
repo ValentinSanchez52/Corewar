@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 19:30:46 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/26 05:54:52 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/05 17:00:53 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,20 @@ static const char	*g_op_names[COR_OP_MAX] = {
 	[0] = "WTF?",
 	[COR_OP_LIVE] = "\e[1;31mLive <3\e[0m",
 	[COR_OP_LOAD] = "\e[1;33mLoad\e[0m",
-	[COR_OP_LONG_LOAD] = "\e[33mLong \e[1mload\e[0m",
-	[COR_OP_LOAD_IDX] = "\e[1;33mLoad\e[0;33m index\e[0m",
-	[COR_OP_LONG_LOAD_IDX] = "\e[33mLong \e[1mload\e[0;33m index\e[0m",
 	[COR_OP_STORE] = "\e[1;32mStore\e[0m",
-	[COR_OP_STORE_IDX] = "\e[1;32mStore \e[0;32mindex\e[0m",
-	[COR_OP_ZJUMP] = "\e[1;35mZjump\e[0m",
 	[COR_OP_ADD] = "\e[1;34mAdd \e[0;32m+\e[0m",
 	[COR_OP_SUB] = "\e[1;34mSub \e[0;31m-\e[0m",
 	[COR_OP_AND] = "\e[1;34mAnd \e[0;34m&\e[0m",
-	[COR_OP_XOR] = "\e[1;34mXor \e[0;35m^\e[0m",
 	[COR_OP_OR] = "\e[1;34mOr \e[0;35m|\e[0m",
+	[COR_OP_XOR] = "\e[1;34mXor \e[0;35m^\e[0m",
+	[COR_OP_ZJUMP] = "\e[1;35mZjump\e[0m",
+	[COR_OP_LOAD_IDX] = "\e[1;33mLoad\e[0;33m index\e[0m",
+	[COR_OP_STORE_IDX] = "\e[1;32mStore \e[0;32mindex\e[0m",
 	[COR_OP_FORK] = "\e[1;36mFork\[0m",
+	[COR_OP_LONG_LOAD] = "\e[33mLong \e[1mload\e[0m",
+	[COR_OP_LONG_LOAD_IDX] = "\e[33mLong \e[1mload\e[0;33m index\e[0m",
 	[COR_OP_LONG_FORK] = "\e[36mLong \e[1mfork\e[0m",
+	[COR_OP_AFF] = "\e[1;34mAff\e[0m",
 };
 
 static const char	*g_op_arg_names[COR_ARG_MAX] = {
