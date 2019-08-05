@@ -6,11 +6,15 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 17:06:18 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/26 07:44:10 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/07/26 11:47:51 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+/*
+**	Loads to a register (second arg) a value given (first arg)
+*/
 
 void				op_ld(t_op *op)
 {
@@ -20,7 +24,8 @@ void				op_ld(t_op *op)
 	reg_id = op->args[1];
 	if (op->types[0] == COR_ARG_IND)
 	{
-		value = op->process->pc + ((uint16_t)op->args[0] % COR_IDX_MOD);
+		value = op->process->global_offset + op->process->pc
+			+ ((uint16_t)op->args[0] % COR_IDX_MOD);
 		reg_set_value(op->process, reg_id, get_mem_value(value, COR_REG_SIZE));
 	}
 	else if (op->types[0] == COR_ARG_DIR)

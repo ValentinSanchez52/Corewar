@@ -6,11 +6,16 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 04:42:35 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/26 07:45:06 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/07/26 12:00:40 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+/*
+**	Applies bitwise operator (or/|) between the first and the second arg
+**	Stores it into the register given (third arg)
+*/
 
 void				op_or(t_op *op)
 {
@@ -22,14 +27,14 @@ void				op_or(t_op *op)
 	else if (op->types[0] == COR_ARG_DIR)
 		value_1 = op->args[0];
 	else if (op->types[0] == COR_ARG_IND)
-		value_1 = get_mem_value(op->process->pc
+		value_1 = get_mem_value(op->process->global_offset + op->process->pc
 				+ ((uint16_t)op->args[0] % COR_IDX_MOD), COR_REG_SIZE);
 	if (op->types[1] == COR_ARG_REG)
 		value_2 = get_reg_value(op->process, op->args[1]);
 	else if (op->types[1] == COR_ARG_DIR)
 		value_2 = op->args[1];
 	else if (op->types[1] == COR_ARG_IND)
-		value_2 = get_mem_value(op->process->pc
+		value_2 = get_mem_value(op->process->global_offset + op->process->pc
 				+ ((uint16_t)op->args[1] % COR_IDX_MOD), COR_REG_SIZE);
 	reg_set_value(op->process, op->args[2], value_1 | value_2);
 	op->process->carry = (!get_reg_value(op->process, op->args[2]));

@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/26 09:30:28 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/07/26 12:24:23 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,20 +213,23 @@ extern t_vm			vm;
 /*
 ** =============================================================================
 ** 		Instructions
+** 		IND = 2 bytes (uint16_t)
+** 		DIR = 2/4 bytes (uint16_t/uint32_t)
+**		REG = 1 byte -> get_reg_value | reg_set_value
 ** =============================================================================
 */
 
-void				op_live(t_op *op);
-void				op_ld(t_op *op);
-void				op_st(t_op *op);
-void				op_add(t_op *op);
-void				op_sub(t_op *op);
-void				op_and(t_op *op);
-void				op_or(t_op *op);
-void				op_xor(t_op *op);
-void				op_zjmp(t_op *op);
-void				op_ldi(t_op *op);
-void				op_sti(t_op *op);
+void				op_live(t_op *op);	//OK
+void				op_ld(t_op *op);	//OK
+void				op_st(t_op *op);	//OK
+void				op_add(t_op *op);	//OK
+void				op_sub(t_op *op);	//OK
+void				op_and(t_op *op);	//OK
+void				op_or(t_op *op);	//OK
+void				op_xor(t_op *op);	//OK
+void				op_zjmp(t_op *op);	//KO -> checker la distane < COR_IDX_MOD
+void				op_ldi(t_op *op);	//OK
+void				op_sti(t_op *op);	//OK
 void				op_fork(t_op *op);
 void				op_lld(t_op *op);
 void				op_lldi(t_op *op);
