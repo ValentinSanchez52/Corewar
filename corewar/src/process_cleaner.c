@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 12:04:05 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/24 12:11:40 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/05 21:01:55 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,26 @@ void				run_process_cleaner(
 )
 {
 	t_process		*process;
+	t_op			*op;
 	uint64_t		i;
+	uint64_t		j;
 
 	i = 0;
 	while ((process = ft_dynarray_iterate(&vm->process, &i,
 					sizeof(t_process))))
 		if (!process->living)
 		{
+			j = 0;
+			while ((op = ft_dynarray_iterate(&vm->instructions, &j,
+							sizeof(t_op))))
+			{
+				if (op->process == process)
+				{
+					/* printf("at: %llu\n", j); */
+					/* ft_dynarray_remove(&vm->instructions, j, sizeof(t_op)); */
+					/* --j; */
+				}
+			}
 			ft_dynarray_remove(&vm->process,
 					(uint8_t*)process - vm->process.array, sizeof(t_process));
 			--i;

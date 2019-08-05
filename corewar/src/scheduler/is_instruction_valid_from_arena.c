@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 06:09:40 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/26 10:40:15 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/05 20:43:25 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,22 @@ inline bool				is_instruction_valid_from_arena(
 	if (g_op_check[cell].encoding)
 	{
 		encode = get_mem_cell(memory + 1);
-		i = 0xff;
-		while (++i < g_op_check[cell].count)
-			if (!((1 << (get_arg_type(encode, i) - 1))
-						& g_op_check[cell].args[i]))
+		i = 0;
+		/* printf("Checking[%hhx] %x/%x\n", cell, i, g_op_check[cell].count); */
+		while (i < g_op_check[cell].count)
+		{
+			/* printf("[%x] Arg[%hhu]: %x(%x) & %x\n", */
+			/*         get_mem_cell(memory), */
+			/*         i, */
+			/*         (1 << (get_arg_type(encode, i) - 1)), */
+			/*         get_arg_type(encode, i), */
+			/*         g_op_check[cell].args[0]); */
+
+			if (!((1 << (get_arg_type(encode, i) - 1)) & g_op_check[cell].args[i]))
 				return (false);
+			i++;
+			/* printf("Valid\n"); */
+		}
 	}
-	/* printf("Valid\n"); */
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 17:06:18 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/26 11:47:51 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/05 20:55:11 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ void				op_ld(t_op *op)
 		value = op->process->global_offset + op->process->pc
 			+ ((uint16_t)op->args[0] % COR_IDX_MOD);
 		reg_set_value(op->process, reg_id, get_mem_value(value, COR_REG_SIZE));
+		op->process->carry = (!get_reg_value(op->process, op->args[0]));
 	}
 	else if (op->types[0] == COR_ARG_DIR)
+	{
 		reg_set_value(op->process, reg_id, op->args[0]);
-	op->process->carry = (!get_reg_value(op->process, op->args[0]));
+	}
 }

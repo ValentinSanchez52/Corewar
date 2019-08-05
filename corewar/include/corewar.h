@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/26 12:24:23 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/05 20:27:36 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,9 @@ typedef enum		e_op_arg_code
 typedef enum		e_op_type
 {
 	COR_T_NONE,
-	COR_T_REG = 1 << (COR_ARG_REG - 1),
-	COR_T_DIR = 1 << (COR_ARG_DIR - 1),
-	COR_T_IND = 1 << (COR_ARG_IND - 1),
+	COR_T_REG = 0x1,
+	COR_T_DIR = 0x2,
+	COR_T_IND = 0x4,
 }					t_op_type;
 
 typedef enum		e_op_arg_size

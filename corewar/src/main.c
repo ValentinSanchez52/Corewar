@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 14:39:16 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/05 18:11:28 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/05 21:06:46 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,6 @@ t_vm						vm = (t_vm) {
 		.cycles_to_die = COR_CYCLES_DEFAULT,
 		.cycles_left = COR_CYCLES_LEFT
 };
-
-/*
-** Generic help function
-*/
-static t_bboa_state			help(t_arg_array *args) {
-	return (BBOA_RS_DISPLAY_USAGE);
-}
 
 /*
 ** Use this for debug purposes
@@ -63,6 +56,22 @@ static t_bboa_state			print_args(t_arg_array *args) {
 	return (BBOA_RS_OK);
 }
 
+/*
+** Generic help function
+*/
+static t_bboa_state			help(t_arg_array *args) {
+	return (BBOA_RS_DISPLAY_USAGE);
+}
+
+static t_bboa_state			set_dump(t_arg_array *args) {
+	print_args(args);
+	if (args->len < 1 || args->array[0].type != BBOA_AT_NUMBER)
+		return (BBOA_RS_NOT_ENOUGH_ARGS);
+	vm.flags.dump_cycle = (uint32_t)args->array[0].number_token.number;
+	vm.flags.dump = true;
+	return (BBOA_RS_OK);
+}
+
 static t_bboa_state			parse_player(t_arg_array *args) {
 	print_args(args);
 	if (args->len < 2)
@@ -94,7 +103,7 @@ static const t_option		g_options[] = {
 		.type = {OPT_SINGLE, OPT_SINGLE},
 		.length = 2,
 		.match = (t_opt_match){
-			.func = &print_args,
+			.func = &set_dump,
 			.types = {BBOA_AT_NUMBER},
 			.arg_count = 1,
 			.desc = "Dump the arena state after [\e[37mnumber\e[0m] cycles."
@@ -145,17 +154,19 @@ static inline char			**parse_options(int c, char **v, void *data)
 int					main(int c, char **v)
 {
 	int				i;
+	int				j;
 	int				data = 0;
 
 	v++;
-	c -= (parse_options(--c, v, &data) - v);
+	c--;
+	j = (parse_options(c, v, &data) - v);
 	i = 0;
-	while (i < 4 && i < c)
+	printf("j: %d '%s'\n", j, v[j]);
+	while (i < 4 && i + j < c)
 	{
-		corewar_load_warriors(i, v[i]);
+		corewar_load_warriors(i, v[j + i]);
 		i++;
 	}
-	/* corewar_load_warriors(3, "zork.cor"); */
 	corewar_load_arena();
 	print_dump(&vm);
 	automaton_run(&vm);

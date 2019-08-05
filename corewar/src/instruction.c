@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 09:30:45 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/29 17:29:55 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/05 19:52:22 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ inline void			run_instruction_frame(
 		t_op *op
 )
 {
-		/* print_dump(vm); */
 	if (g_ops_exec[op->code])
 		g_ops_exec[op->code](op);
 	op->process->waiting = false;
