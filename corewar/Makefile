@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/04 04:17:21 by mbeilles          #+#    #+#              #
-#    Updated: 2019/08/08 17:12:06 by mbeilles         ###   ########.fr        #
+#    Updated: 2019/08/08 18:42:32 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,6 +84,10 @@ LIBS =	\
 
 SYSLIBS =	\
 
+TESTS =	\
+		$(PATH_TEST)/ops/ld.c												\
+
+
 #==============================================================================#
 #                                   Paths                                      #
 #==============================================================================#
@@ -156,3 +160,4 @@ re: fclean all
 
 include ../makefiles/strings.mk
 include ../makefiles/depend.mk
+include ../makefiles/test.mk
