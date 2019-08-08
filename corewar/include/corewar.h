@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/08 14:41:08 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/08 17:01:53 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ typedef enum		e_op_arg_size
 ** =============================================================================
 */
 
+typedef uint32_t	t_reg;
+
 typedef struct		s_op
 {
 	t_op_code		code;
@@ -136,7 +138,7 @@ typedef struct		s_op
 
 typedef struct		s_process
 {
-	uint32_t		registers[16];
+	t_reg			registers[16];
 	uint32_t		global_offset;
 	t_op			op;
 	uint32_t		pc : 12; // 12 bit counter
@@ -219,16 +221,16 @@ extern t_vm			vm;
 */
 
 void				op_live (t_process *proc);	//OK
-void				op_ld   (t_process *proc);	//OK
+void				op_ld   (t_process *proc);	//DIR OK
 void				op_st   (t_process *proc);	//OK
-void				op_add  (t_process *proc);	//OK
-void				op_sub  (t_process *proc);	//OK
-void				op_and  (t_process *proc);	//OK
-void				op_or   (t_process *proc);	//OK
-void				op_xor  (t_process *proc);	//OK
-void				op_zjmp (t_process *proc);	//KO -> checker la distane < COR_IDX_MOD
-void				op_ldi  (t_process *proc);	//OK
-void				op_sti  (t_process *proc);	//OK
+void				op_add  (t_process *proc);	//
+void				op_sub  (t_process *proc);	//
+void				op_and  (t_process *proc);	//
+void				op_or   (t_process *proc);	//
+void				op_xor  (t_process *proc);	//
+void				op_zjmp (t_process *proc);	//OK
+void				op_ldi  (t_process *proc);	//
+void				op_sti  (t_process *proc);	//
 void				op_fork (t_process *proc);
 void				op_lld  (t_process *proc);
 void				op_lldi (t_process *proc);
