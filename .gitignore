@@ -1,8 +1,10 @@
 # Prerequisites
 *.d
+*.dep
 
 # Object files
 *.o
+*.obj
 *.ko
 *.obj
 *.elf
@@ -54,3 +56,8 @@ dkms.conf
 # Repo specifics
 corewar/corewar
 asm/asm
+
+# Miscs
+.DS_Store
+*.cor
+tags
