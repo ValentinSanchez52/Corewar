@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 17:29:54 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/08 17:15:02 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/08 18:52:55 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void				print_arena(void)
 	{
 		column_i = -1;
 		while (++column_i < 64)
-			printf("%s%3.2x%s", vm.arena[line_i * 64 + column_i] > 0
-					? YEL : "", vm.arena[line_i * 64 + column_i],
-					vm.arena[line_i * 64 + column_i] > 0 ? NRM : "");
+			printf("%s%3.2x%s", g_vm.arena[line_i * 64 + column_i] > 0
+					? YEL : "", g_vm.arena[line_i * 64 + column_i],
+					g_vm.arena[line_i * 64 + column_i] > 0 ? NRM : "");
 		printf("\n");
 	}
 }
@@ -46,8 +46,8 @@ void				print_warriors(void)
 	write(1, "===================[ Warriors ]===================\n", 51);
 	while (warrior_i < 4)
 	{
-		if (vm.warriors[warrior_i].id)
-			print_warrior(vm.warriors + warrior_i, warrior_i, true);
+		if (g_vm.warriors[warrior_i].id)
+			print_warrior(g_vm.warriors + warrior_i, warrior_i, true);
 		warrior_i++;
 	}
 	write(1, "=====================[ End ]======================\n", 51);

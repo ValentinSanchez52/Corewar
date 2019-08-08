@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 07:19:32 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/08 16:31:00 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/08 18:53:30 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ void					op_lfork(t_process *proc)
 	new_process. pc = 0;
 	new_process.waiting = false;
 	str_uuid_generate(new_process.uuid);
-	ft_dynarray_push(&(vm.process), &new_process, sizeof(t_process));
+	ft_dynarray_push(&(g_vm.process), &new_process, sizeof(t_process));
 }

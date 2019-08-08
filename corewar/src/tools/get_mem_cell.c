@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 14:31:10 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/26 08:33:44 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/08 18:53:04 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 inline uint8_t			get_mem_cell(uint32_t index)
 {
-	return (vm.arena[index & 4095]);
+	return (g_vm.arena[index & 4095]);
 }

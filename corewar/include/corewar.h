@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/08 17:12:42 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/08 18:54:59 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct		s_option
 /*
 ** =============================================================================
 **
-** 		Data structure for corewar's vm.
+** 		Data structure for corewar's g_vm.
 **
 ** =============================================================================
 */
@@ -182,7 +182,7 @@ typedef struct		s_warrior
 
 /*
 ** =============================================================================
-** 		Vm
+** 		g_vm
 ** =============================================================================
 */
 
@@ -208,7 +208,7 @@ typedef struct		s_vm
 	t_vm_flags		flags;
 }					t_vm;
 
-extern t_vm			vm;
+extern t_vm			g_vm;
 
 /*
 ** =============================================================================
@@ -242,10 +242,10 @@ void				op_aff  (t_process *proc);
 ** =============================================================================
 */
 
-void				automaton_run(t_vm *vm);
-void				run_instruction_frame(t_vm *vm, t_process *process);
-void				run_process_frame(t_vm *vm, t_process *process);
-void				run_process_cleaner(t_vm *vm);
+void				automaton_run(t_vm *g_vm);
+void				run_instruction_frame(t_vm *g_vm, t_process *process);
+void				run_process_frame(t_vm *g_vm, t_process *process);
+void				run_process_cleaner(t_vm *g_vm);
 
 void				print_warriors(void);
 void				print_arena(void);
@@ -253,10 +253,10 @@ uint32_t			macos_flip_bytes(uint32_t n);
 void				corewar_load_warriors(int c, char *file);
 void				corewar_load_arena(void);
 
-void				print_dump(t_vm *vm);
+void				print_dump(t_vm *g_vm);
 void				print_op(t_process *proc, bool newline);
 void				print_process(t_process *proc, bool newline);
-void				print_processes(t_vm *vm);
+void				print_processes(t_vm *g_vm);
 void				print_warrior(t_warrior *w, uint32_t index, bool newline);
 
 /*
