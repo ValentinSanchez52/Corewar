@@ -6,15 +6,15 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 07:21:52 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/26 07:43:31 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/08 14:22:24 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void				op_aff(t_op *op)
+void				op_aff(t_process *proc)
 {
 	static char		aff[8] = "Aff: X\n";
-	aff[6] = op->args[0] & 255;
+	aff[6] = proc->op.args[0] & 255;
 	ft_putstr(aff);
 }

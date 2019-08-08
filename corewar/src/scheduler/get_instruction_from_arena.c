@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 06:05:18 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/05 20:41:17 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/08 14:11:36 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ inline t_op				get_instruction_from_arena(
 		}
 	return ((t_op){
 			.code = get_mem_cell(memory), .param_count = prop.count,
-			.timeout = prop.cycles, .process = process,
+			.timeout = prop.cycles,
 			.types = {types[0], types[1], types[2], types[3]},
 			.args = {args[0], args[1], args[2], args[3]},
 	});

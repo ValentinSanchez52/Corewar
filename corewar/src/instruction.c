@@ -6,14 +6,14 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 09:30:45 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/05 19:52:22 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/08 14:10:13 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include "corewar.h"
 
-static void			(*g_ops_exec[COR_OP_MAX])(t_op *op) = {
+static void			(*g_ops_exec[COR_OP_MAX])(t_process *process) = {
 	[COR_OP_LIVE] = op_live,
 	[COR_OP_LOAD] = op_ld,
 	[COR_OP_STORE] = op_st,
@@ -34,14 +34,13 @@ static void			(*g_ops_exec[COR_OP_MAX])(t_op *op) = {
 
 inline void			run_instruction_frame(
 		t_vm *vm,
-		t_op *op
+		t_process *proc
 )
 {
-	if (g_ops_exec[op->code])
-		g_ops_exec[op->code](op);
-	op->process->waiting = false;
-	if (op->code != COR_OP_ZJUMP)
-		op->process->pc += get_instruction_size(op);
-	ft_dynarray_remove(&vm->instructions,
-			(uint8_t*)op - vm->instructions.array, sizeof(t_op));
+	if (g_ops_exec[proc->op.code])
+		g_ops_exec[proc->op.code](proc);
+	proc->waiting = false;
+	if (proc->op.code != COR_OP_ZJUMP)
+		proc->pc += proc->op.physical_size;
+	proc->op = (t_op){};
 }

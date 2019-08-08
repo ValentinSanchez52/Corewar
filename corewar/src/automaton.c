@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:55:44 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/05 16:47:15 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/08 15:56:54 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static inline void	automaton_update_counters(t_vm *vm)
 	{
 		if (vm->live_counter >= COR_CYCLES_LIVES || !vm->cycles_left)
 		{
+			printf("Cleaning processes...\n");
 			run_process_cleaner(vm);
 			vm->cycles_left = COR_CYCLES_LEFT;
 			vm->cycles_counter = 0;
@@ -65,6 +66,7 @@ static inline void	debug_automaton_states(t_vm *vm)
 ** Then it updates the vm's internal counters to wipe dead processes.
 */
 
+#include <stdio.h>
 void				automaton_run(t_vm *vm)
 {
 	t_process		*process;
@@ -79,21 +81,16 @@ void				automaton_run(t_vm *vm)
 						sizeof(t_process))))
 			if (!process->waiting)
 			{
+				/* print_process(process, true); */
 				run_process_frame(vm, process);
 			}
-		i = 0;
-		while ((instruction = ft_dynarray_iterate(&vm->instructions, &i,
-						sizeof(t_op))))
-			if (instruction->timeout > 0)
-				--instruction->timeout;
+			else if (process->op.timeout > 0)
+				--process->op.timeout;
 			else
 			{
-				/* print_process(instruction->process); */
-				/* if (instruction->code == COR_OP_LIVE) */
-				/*     print_dump(vm); */
-				print_op(instruction);
-				run_instruction_frame(vm, instruction);
-				i = 0;
+				print_op(process, true);
+				/* print_process(process, true); */
+				run_instruction_frame(vm, process);
 			}
 		automaton_update_counters(vm);
 	}

@@ -6,19 +6,26 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 06:20:20 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/07/26 07:45:59 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/08 14:41:23 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void					op_fork(t_op *op)
+void					op_fork(t_process *proc)
 {
 	t_process			new_process;
 
-	new_process = *(op->process);
-	new_process.global_offset = op->process->pc
-		+ ((uint16_t)op->args[0] % COR_IDX_MOD);
-	new_process. pc = 0;
+	new_process = *(proc);
+	new_process.global_offset = (proc->pc + (uint16_t)proc->op.args[0])
+		& (COR_ARENA_SIZE - 1);
+	new_process.pc = 0;
+	new_process.waiting = false;
+	new_process.living = false;
 	ft_dynarray_push(&(vm.process), &new_process, sizeof(t_process));
+	printf("Created process\n");
+	uint64_t i = 0;
+	t_process * p;
+	while ((p = ft_dynarray_iterate(&(vm.process), &i, sizeof(t_process))))
+		print_process(p, true);
 }

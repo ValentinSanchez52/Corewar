@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/05 20:27:36 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/08 14:41:08 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,11 +124,22 @@ typedef enum		e_op_arg_size
 ** =============================================================================
 */
 
+typedef struct		s_op
+{
+	t_op_code		code;
+	uint32_t		timeout;
+	uint32_t		param_count; // Should be <= COR_ARG_NUMBER_MAX
+	t_op_arg_code	types[COR_ARG_NUMBER_MAX];
+	uint32_t		args[COR_ARG_NUMBER_MAX];
+	uint32_t		physical_size;
+}					t_op;
+
 typedef struct		s_process
 {
 	uint32_t		registers[16];
-	uint32_t		pc : 12; // 12 bit counter
 	uint32_t		global_offset;
+	t_op			op;
+	uint32_t		pc : 12; // 12 bit counter
 	bool			carry : 1;
 	bool			living : 1;
 	bool			waiting : 1;
@@ -139,17 +150,6 @@ typedef struct		s_process
 ** 		Operation struct
 ** =============================================================================
 */
-
-typedef struct		s_op
-{
-	t_op_code		code;
-	uint32_t		timeout;
-	uint32_t		param_count; // Should be <= COR_ARG_NUMBER_MAX
-	t_op_arg_code	types[COR_ARG_NUMBER_MAX];
-	uint32_t		args[COR_ARG_NUMBER_MAX];
-	t_process		*process;
-	uint32_t		physical_size;
-}					t_op;
 
 /*
 ** =============================================================================
@@ -204,7 +204,6 @@ typedef struct		s_vm
 	t_warrior		warriors[4];
 	uint32_t		warriors_nb;
 	t_dynarray		process;
-	t_dynarray		instructions;
 	t_vm_flags		flags;
 }					t_vm;
 
@@ -219,22 +218,22 @@ extern t_vm			vm;
 ** =============================================================================
 */
 
-void				op_live(t_op *op);	//OK
-void				op_ld(t_op *op);	//OK
-void				op_st(t_op *op);	//OK
-void				op_add(t_op *op);	//OK
-void				op_sub(t_op *op);	//OK
-void				op_and(t_op *op);	//OK
-void				op_or(t_op *op);	//OK
-void				op_xor(t_op *op);	//OK
-void				op_zjmp(t_op *op);	//KO -> checker la distane < COR_IDX_MOD
-void				op_ldi(t_op *op);	//OK
-void				op_sti(t_op *op);	//OK
-void				op_fork(t_op *op);
-void				op_lld(t_op *op);
-void				op_lldi(t_op *op);
-void				op_lfork(t_op *op);
-void				op_aff(t_op *op);
+void				op_live (t_process *proc);	//OK
+void				op_ld   (t_process *proc);	//OK
+void				op_st   (t_process *proc);	//OK
+void				op_add  (t_process *proc);	//OK
+void				op_sub  (t_process *proc);	//OK
+void				op_and  (t_process *proc);	//OK
+void				op_or   (t_process *proc);	//OK
+void				op_xor  (t_process *proc);	//OK
+void				op_zjmp (t_process *proc);	//KO -> checker la distane < COR_IDX_MOD
+void				op_ldi  (t_process *proc);	//OK
+void				op_sti  (t_process *proc);	//OK
+void				op_fork (t_process *proc);
+void				op_lld  (t_process *proc);
+void				op_lldi (t_process *proc);
+void				op_lfork(t_process *proc);
+void				op_aff  (t_process *proc);
 
 /*
 ** =============================================================================
@@ -243,7 +242,7 @@ void				op_aff(t_op *op);
 */
 
 void				automaton_run(t_vm *vm);
-void				run_instruction_frame(t_vm *vm, t_op *instruction);
+void				run_instruction_frame(t_vm *vm, t_process *process);
 void				run_process_frame(t_vm *vm, t_process *process);
 void				run_process_cleaner(t_vm *vm);
 
@@ -255,8 +254,8 @@ void				corewar_load_warriors(int c, char *file);
 void				corewar_load_arena(void);
 
 void				print_dump(t_vm *vm);
-void				print_op(t_op *op);
-void				print_process(t_process *proc);
+void				print_op(t_process *proc, bool newline);
+void				print_process(t_process *proc, bool newline);
 
 /*
 ** Scheduler

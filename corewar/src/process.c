@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 19:17:28 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/05 20:52:08 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/08 14:37:58 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,8 @@ inline void				run_process_frame(
 	instruction_address = process->global_offset + process->pc;
 	if (is_instruction_valid_from_arena(instruction_address))
 	{
-		op = get_instruction_from_arena(process, instruction_address);
-		print_op(&op);
-		ft_dynarray_insert(&vm->instructions, 0, &op, sizeof(t_op));
+		process->op = get_instruction_from_arena(process, instruction_address);
+		process->op.physical_size = get_instruction_size(&process->op);
 		process->waiting = true;
 		return ;
 	}
