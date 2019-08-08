@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/09 15:06:23 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/09 15:10:33 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,12 +138,8 @@ typedef struct		s_op
 
 typedef struct		s_process
 {
-<<<<<<< HEAD
-	t_reg			registers[16];
-=======
 	char			uuid[37];
 	uint32_t		registers[16];
->>>>>>> 8f96f79692bee9f625fdc22f95c07a105ed05c1d
 	uint32_t		global_offset;
 	t_op			op;
 	uint32_t		pc : 12; // 12 bit counter
