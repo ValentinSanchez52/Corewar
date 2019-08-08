@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 06:36:34 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/08 14:40:52 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/08 16:32:37 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void				print_process(t_process *proc, bool newline)
 	uint32_t		i;
 
 	msg = ft_dynarray_create_loc(4096, 1 << 20);
-	ft_dynarray_push_str(&msg, "[id: 0x");
-	ft_dynarray_push_str(&msg, ft_ultostr((uint8_t*)proc - vm.process.array, 16, false));
+	ft_dynarray_push_str(&msg, "[uuid: ");
+	ft_dynarray_push_str(&msg, proc->uuid);
 	ft_dynarray_push_str(&msg, "] [Go:0x");
 	ft_dynarray_push_str(&msg, ft_ultostr(proc->global_offset, 16, false));
 	ft_dynarray_push_str(&msg, "] + [Pc:0x");

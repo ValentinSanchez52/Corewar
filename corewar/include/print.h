@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 19:00:17 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/25 16:09:26 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/08 16:54:18 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 typedef enum			e_print_level
 {
+	LOG_DEBUG,
 	LOG_INFO,
 	LOG_WARN,
 	LOG_CRIT,

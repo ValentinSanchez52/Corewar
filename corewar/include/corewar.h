@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/08 14:41:08 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/08 17:12:42 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ typedef struct		s_op
 
 typedef struct		s_process
 {
+	char			uuid[37];
 	uint32_t		registers[16];
 	uint32_t		global_offset;
 	t_op			op;
@@ -246,7 +247,6 @@ void				run_instruction_frame(t_vm *vm, t_process *process);
 void				run_process_frame(t_vm *vm, t_process *process);
 void				run_process_cleaner(t_vm *vm);
 
-void				print_processes(void);
 void				print_warriors(void);
 void				print_arena(void);
 uint32_t			macos_flip_bytes(uint32_t n);
@@ -256,6 +256,8 @@ void				corewar_load_arena(void);
 void				print_dump(t_vm *vm);
 void				print_op(t_process *proc, bool newline);
 void				print_process(t_process *proc, bool newline);
+void				print_processes(t_vm *vm);
+void				print_warrior(t_warrior *w, uint32_t index, bool newline);
 
 /*
 ** Scheduler
@@ -275,6 +277,8 @@ bool				is_instruction_valid_from_arena(
 /*
 ** Tools
 */
+
+void				str_uuid_generate(char *uuid);
 
 void				reg_set_value(t_process *process, uint8_t reg_id,
 		uint32_t value);
