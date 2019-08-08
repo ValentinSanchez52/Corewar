@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 07:38:46 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/26 10:51:40 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/08 17:24:28 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ void				print_dump(t_vm *vm)
 			ft_dynarray_push(&msg, "\n", 1);
 		if ((i & 31) == 0)
 			append_dump_index(&msg, i);
-		ft_dynarray_push_str(&msg, (void*)g_claim_colors[vm->arena_claim[i]]);
+		if (vm->arena_claim[i] < COR_ARN_MAX)
+			ft_dynarray_push_str(&msg, (void*)g_claim_colors[vm->arena_claim[i]]);
+		else
+			ft_dynarray_push_str(&msg, (void*)g_claim_colors[COR_ARN_NO_CLAIM]);
 		if (vm->arena[i] <= 0xf)
 			ft_dynarray_push(&msg, "0", 1);
 		ft_dynarray_push_str(&msg, ft_ultostr(vm->arena[i], 16, false));
