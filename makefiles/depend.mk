@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 18:36:26 by mbeilles          #+#    #+#              #
-#    Updated: 2019/08/08 18:41:45 by mbeilles         ###   ########.fr        #
+#    Updated: 2019/08/09 19:54:43 by njiall           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,14 @@ else
 CFLAGS += $(SLOW_FLAG)
 START_MSG = $(COMPILING_DBG)
 endif
+
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+CFLAGS+=$(foreach lib, $(SYSLIBS_LINUX), -l$(lib))
+else ifeq ($(UNAME_S),Darwin)
+CFLAGS+=$(foreach lib, $(SYSLIBS_DARWIN), -l$(lib))
+endif
+CFLAGS+=$(foreach lib, $(SYSLIBS), -l$(lib))
 
 debug: $(NAME)
 

@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/04 04:17:21 by mbeilles          #+#    #+#              #
-#    Updated: 2019/08/08 18:42:32 by mbeilles         ###   ########.fr        #
+#    Updated: 2019/08/09 19:48:05 by njiall           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,6 +83,9 @@ LIBS =	\
 		../libft \
 
 SYSLIBS =	\
+
+SYSLIBS_LINUX =	\
+				uuid \
 
 TESTS =	\
 		$(PATH_TEST)/ops/ld.c												\
