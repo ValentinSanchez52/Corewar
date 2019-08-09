@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 04:45:45 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/09 15:15:42 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/09 16:28:17 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ void				op_zjmp(t_process *proc)
 	if (proc->carry && proc->op.args[0])
 		proc->pc += ((int16_t)proc->op.args[0] % COR_IDX_MOD);
 	else
-		proc->pc += 3;
+		proc->pc += proc->op.physical_size;
 	/*printf(" --------> proc_pc %d\n", proc->pc);*/
 }
