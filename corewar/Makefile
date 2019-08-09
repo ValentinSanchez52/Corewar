@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/04 04:17:21 by mbeilles          #+#    #+#              #
-#    Updated: 2019/07/26 08:55:37 by vsanchez         ###   ########.fr        #
+#    Updated: 2019/08/08 18:42:32 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,8 @@ SRCS = $(PATH_SRC)/main.c													\
 	   $(PATH_SRC)/printing/print_dump.c									\
 	   $(PATH_SRC)/printing/print_op.c										\
 	   $(PATH_SRC)/printing/print_process.c									\
+	   $(PATH_SRC)/printing/print_processes.c								\
+	   $(PATH_SRC)/printing/print_warrior.c									\
 \
 	   $(PATH_SRC)/corewar_load_arena.c										\
 	   $(PATH_SRC)/corewar_load_warriors.c									\
@@ -48,6 +50,7 @@ SRCS = $(PATH_SRC)/main.c													\
 	   $(PATH_SRC)/scheduler/get_instruction_from_arena.c					\
 	   $(PATH_SRC)/scheduler/get_instruction_size.c							\
 \
+	   $(PATH_SRC)/tools/str_uuid_generate.c								\
 	   $(PATH_SRC)/tools/flip_bytes.c										\
 	   $(PATH_SRC)/tools/get_mem_cell.c										\
 	   $(PATH_SRC)/tools/get_mem_value.c									\
@@ -75,9 +78,15 @@ SRCS = $(PATH_SRC)/main.c													\
 
 INCS = $(PATH_INC)/corewar.h												\
 
-LIBS = \
-	   ../libbboa							\
-	   ../libft								\
+LIBS =	\
+		../libbboa \
+		../libft \
+
+SYSLIBS =	\
+
+TESTS =	\
+		$(PATH_TEST)/ops/ld.c												\
+
 
 #==============================================================================#
 #                                   Paths                                      #
@@ -103,6 +112,7 @@ LDFLAGS = \
 CFLAGS = -I$(PATH_INC) $(FLAGS) \
 		 $(foreach dep, $(LIBS), -I$(dep)/$(PATH_INC)) \
 		 $(foreach dep, $(LDLIBS), -I$(dep)/$(PATH_INC)) \
+		 $(foreach lib, $(SYSLIBS), -l$(lib))
 
 #==============================================================================#
 #                                   Various                                    #
@@ -150,3 +160,4 @@ re: fclean all
 
 include ../makefiles/strings.mk
 include ../makefiles/depend.mk
+include ../makefiles/test.mk

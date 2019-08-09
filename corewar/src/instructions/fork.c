@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 06:20:20 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/08 14:41:23 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/08 18:55:01 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ void					op_fork(t_process *proc)
 	new_process.pc = 0;
 	new_process.waiting = false;
 	new_process.living = false;
-	ft_dynarray_push(&(vm.process), &new_process, sizeof(t_process));
-	printf("Created process\n");
-	uint64_t i = 0;
-	t_process * p;
-	while ((p = ft_dynarray_iterate(&(vm.process), &i, sizeof(t_process))))
-		print_process(p, true);
+	str_uuid_generate(new_process.uuid);
+	ft_dynarray_push(&(g_vm.process), &new_process, sizeof(t_process));
+	print_processes(&g_vm);
 }

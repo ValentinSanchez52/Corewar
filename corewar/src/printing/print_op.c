@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 19:30:46 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/08 14:56:46 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/08 18:51:27 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ void				print_op(t_process *proc, bool newline)
 
 	msg = ft_dynarray_create_loc(4096, 1 << 20);
 	ft_dynarray_push_str(&msg, "[cl: 0x");
-		ft_dynarray_push_str(&msg, ft_ultostr(vm.cycles, 16, false));
-	ft_dynarray_push_str(&msg, "] [pid: 0x");
-		ft_dynarray_push_str(&msg, ft_ultostr(((uint8_t*)proc - vm.process.array) / sizeof(t_process), 16, false));
+	ft_dynarray_push_str(&msg, ft_ultostr(g_vm.cycles, 16, false));
+	ft_dynarray_push_str(&msg, "] [uuid: ");
+	ft_dynarray_push_str(&msg, proc->uuid);
 	ft_dynarray_push_str(&msg, "] [");
 	ft_dynarray_push_str(&msg, (void*)g_op_names[proc->op.code]);
 	ft_dynarray_push_str(&msg, "] ");

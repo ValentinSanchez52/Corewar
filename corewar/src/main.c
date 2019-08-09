@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 14:39:16 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/05 21:06:46 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/08 18:53:34 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "bboa.h"
 #include "libft.h"
 
-t_vm						vm = (t_vm) {
+t_vm						g_vm = (t_vm) {
 		.cycles_to_die = COR_CYCLES_DEFAULT,
 		.cycles_left = COR_CYCLES_LEFT
 };
@@ -67,8 +67,8 @@ static t_bboa_state			set_dump(t_arg_array *args) {
 	print_args(args);
 	if (args->len < 1 || args->array[0].type != BBOA_AT_NUMBER)
 		return (BBOA_RS_NOT_ENOUGH_ARGS);
-	vm.flags.dump_cycle = (uint32_t)args->array[0].number_token.number;
-	vm.flags.dump = true;
+	g_vm.flags.dump_cycle = (uint32_t)args->array[0].number_token.number;
+	g_vm.flags.dump = true;
 	return (BBOA_RS_OK);
 }
 

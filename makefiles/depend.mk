@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    depend.mk                                          :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/08/08 18:36:26 by mbeilles          #+#    #+#              #
+#    Updated: 2019/08/08 18:41:45 by mbeilles         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 -include ./strings.mk
 .PRECIOUS: $(PATH_OBJ)/. $(PATH_OBJ)%/.
 
@@ -55,7 +67,7 @@ depend:
 ifneq ($(CLIBS), )
 $(CLIBS): $$(strip $$(call libraries,$$(@D)))
 	@printf $(MAKING_LIB) $(basename $(notdir $@))
-	@$(MAKE) -C $(@D) --no-print-directory $(MAKECMDGOALS)
+	@$(MAKE) -C $(@D) --no-print-directory $(filter-out test, $(MAKECMDGOALS))
 endif
 
 $(PATH_OBJ)/%.o: %.c | $$(@D)/. $(PATH_DEP)/$$(*D)/. $$(LDLIBS) $$(CLIBS)

@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 09:30:45 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/08 14:10:13 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/08 18:55:00 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void			(*g_ops_exec[COR_OP_MAX])(t_process *process) = {
 };
 
 inline void			run_instruction_frame(
-		t_vm *vm,
+		t_vm *g_vm,
 		t_process *proc
 )
 {
