@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 18:28:42 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/08 18:52:38 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/09 21:04:22 by njiall           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static inline void	load_warriors_in_arena(void)
 void				corewar_load_arena(void)
 {
 	g_vm.process = ft_dynarray_create_loc(0, 0);
+	g_vm.process_queue = ft_dynarray_create_loc(0, 0);
 	load_warriors_in_arena();
 	print_warriors();
 	/* print_arena(); */

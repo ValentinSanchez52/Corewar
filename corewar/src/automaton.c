@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:55:44 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/08 18:55:00 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/09 21:41:11 by njiall           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,22 +67,22 @@ static inline void	debug_automaton_states(t_vm *g_vm)
 */
 
 #include <stdio.h>
-void				automaton_run(t_vm *g_vm)
+void				automaton_run(t_vm *vm)
 {
 	t_process		*process;
 	t_op			*instruction;
 	uint64_t		i;
 
-	while (g_vm->cycles_to_die <= COR_CYCLES_DEFAULT
-			&& !(g_vm->flags.dump && g_vm->flags.dump_cycle < g_vm->cycles))
+	while (vm->cycles_to_die <= COR_CYCLES_DEFAULT
+			&& !(vm->flags.dump && vm->flags.dump_cycle < vm->cycles))
 	{
 		i = 0;
-		while ((process = ft_dynarray_iterate(&g_vm->process, &i,
+		while ((process = ft_dynarray_iterate(&vm->process, &i,
 						sizeof(t_process))))
 			if (!process->waiting)
 			{
 				/* print_process(process, true); */
-				run_process_frame(g_vm, process);
+				run_process_frame(vm, process);
 			}
 			else if (process->op.timeout > 0)
 				--process->op.timeout;
@@ -90,8 +90,9 @@ void				automaton_run(t_vm *g_vm)
 			{
 				print_op(process, true);
 				/* print_process(process, true); */
-				run_instruction_frame(g_vm, process);
+				run_instruction_frame(vm, process);
 			}
-		automaton_update_counters(g_vm);
+		run_process_spawner(&vm->process, &vm->process_queue);
+		automaton_update_counters(vm);
 	}
 }

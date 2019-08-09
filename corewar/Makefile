@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/04 04:17:21 by mbeilles          #+#    #+#              #
-#    Updated: 2019/08/09 19:48:05 by njiall           ###   ########.fr        #
+#    Updated: 2019/08/09 21:38:43 by njiall           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRCS = $(PATH_SRC)/main.c													\
 	   $(PATH_SRC)/instruction.c											\
 	   $(PATH_SRC)/process.c												\
 	   $(PATH_SRC)/process_cleaner.c										\
+	   $(PATH_SRC)/process_spawner.c										\
 \
 	   $(PATH_SRC)/scheduler/is_instruction_valid_from_arena.c				\
 	   $(PATH_SRC)/scheduler/get_instruction_from_arena.c					\

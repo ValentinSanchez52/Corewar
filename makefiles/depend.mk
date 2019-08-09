@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 18:36:26 by mbeilles          #+#    #+#              #
-#    Updated: 2019/08/09 19:54:43 by njiall           ###   ########.fr        #
+#    Updated: 2019/08/09 21:41:55 by njiall           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,11 +55,11 @@ endif
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
-CFLAGS+=$(foreach lib, $(SYSLIBS_LINUX), -l$(lib))
+LDFLAGS+=$(foreach lib, $(SYSLIBS_LINUX), -l$(lib))
 else ifeq ($(UNAME_S),Darwin)
-CFLAGS+=$(foreach lib, $(SYSLIBS_DARWIN), -l$(lib))
+LDFLAGS+=$(foreach lib, $(SYSLIBS_DARWIN), -l$(lib))
 endif
-CFLAGS+=$(foreach lib, $(SYSLIBS), -l$(lib))
+LDFLAGS+=$(foreach lib, $(SYSLIBS), -l$(lib))
 
 debug: $(NAME)
 

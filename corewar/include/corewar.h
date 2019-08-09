@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/09 19:23:33 by njiall           ###   ########.fr       */
+/*   Updated: 2019/08/09 22:22:15 by njiall           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,7 @@ typedef struct		s_vm
 	t_warrior		warriors[4];
 	uint32_t		warriors_nb;
 	t_dynarray		process;
+	t_dynarray		process_queue;
 	t_vm_flags		flags;
 }					t_vm;
 
@@ -247,6 +248,7 @@ void				op_aff  (t_process *proc);
 void				automaton_run(t_vm *g_vm);
 void				run_instruction_frame(t_vm *g_vm, t_process *process);
 void				run_process_frame(t_vm *g_vm, t_process *process);
+void				run_process_spawner(t_dynarray *pl, t_dynarray *pq);
 void				run_process_cleaner(t_vm *g_vm);
 
 void				print_warriors(void);
@@ -294,6 +296,5 @@ uint8_t				get_mem_cell(uint32_t index);
 
 t_op_arg_code		get_arg_type(uint8_t encode, uint32_t i);
 uint32_t			get_arg_value(uint32_t mem, t_op_arg_code *typ, uint32_t i);
-
 
 #endif
