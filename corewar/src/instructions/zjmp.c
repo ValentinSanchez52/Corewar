@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 04:45:45 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/08 17:01:39 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/09 14:47:09 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,10 @@
 
 void				op_zjmp(t_process *proc)
 {
-	uint32_t		next_pc;
-
-	printf("Process: global_offset %d, pc %d", proc->global_offset, proc->pc);
+	/*printf("Process: global_offset %d, pc %d", proc->global_offset, proc->pc);*/
 	if (proc->carry && proc->op.args[0])
-	{
-		printf("cc");
-		next_pc = proc->global_offset + proc->pc
-			+ (proc->op.args[0] & (COR_IDX_MOD - 1));
-		if (next_pc < COR_ARENA_SIZE / 2)
-			proc->pc = (proc->pc + proc->op.args[0])
-				& (COR_ARENA_SIZE - 1);
-		if (next_pc > COR_ARENA_SIZE / 2)
-			proc->pc = (proc->pc - proc->op.args[0])
-				& (COR_ARENA_SIZE - 1);
-	}
-	printf(" --------> proc_pc %d\n", proc->pc);
+		proc->pc += ((int16_t)proc->op.args[0] % COR_IDX_MOD);
+	else
+		proc->pc += 3;
+	/*printf(" --------> proc_pc %d\n", proc->pc);*/
 }
