@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/28 14:36:18 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/10 17:24:46 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/10 19:28:06 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,24 @@ t_arg_array				*generate_tokens(
 	return (tkn);
 }
 
+static inline int	bboa_find_terminator(
+		char **argv,
+		int argc,
+		char *terminator
+)
+{
+	int				i;
+
+	i = 0;
+	while (i < argc)
+	{
+		if (ft_strequ(argv[i], terminator))
+			return (i);
+		++i;
+	}
+	return (argc);
+}
+
 /*
 **	Loop through the argv, whatch out this doesn't exclude the first argv.
 **		then checks if the argument is:
@@ -90,10 +108,7 @@ t_arg_array				*generate_tokens(
 **		And do the apropriate action.
 **		Then display the error message if an error was catched.
 **
-**	To be noted that double dash are more that one char and simple are one.
-**		The advantage of simple dash is that you can nest them in this manner:
-**
-**	-rwla=[arg4] [arg0] [arg1] [arg2] [arg3]
+**	-rwla=[arg4] [arg0] [arg1] [arg2] [arg3] -- not args
 **
 **	Assuming that each option only takes 1 argument except `a` which takes 2.
 */
@@ -105,6 +120,7 @@ char				**bboa_parse_args(t_opt_patterns *options
 
 	a = (t_bboa_parse_args){.arg = 0, .st = BBOA_RS_OK, .last_args = argv};
 	*mtch() = options;
+	argc = bboa_find_terminator(argv, argc, "--");
 	while (a.arg < argc && a.st == BBOA_RS_OK)
 	{
 		if (bboa_is_double(argv[a.arg]) && (a.last_args = argv + a.arg + 1))

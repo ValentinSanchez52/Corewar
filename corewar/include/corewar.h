@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/10 17:36:21 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/10 19:51:11 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,7 +256,7 @@ void				run_process_cleaner(t_vm *g_vm);
 void				print_warriors(void);
 void				print_arena(void);
 uint32_t			macos_flip_bytes(uint32_t n);
-void				corewar_load_warriors(int c, char *file);
+bool				corewar_load_warriors(int c, char *file);
 void				corewar_load_arena(void);
 
 void				print_dump(t_vm *g_vm);

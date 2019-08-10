@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 14:39:16 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/10 17:40:47 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/10 20:11:33 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,25 +189,47 @@ static inline char			**parse_options(int c, char **v, void *data)
 	return (bboa_parse_args(&patterns, c, v));
 }
 
+bool				append_champion(char *path)
+{
+	int				i;
+
+	i = 0;
+	while (i < 4)
+		if (!g_vm.warriors[i].id)
+		{
+			if (corewar_load_warriors(i, path))
+				return (false);
+			else
+				i++;
+		}
+		else
+			i++;
+	return (i < 4);
+}
+
 int					main(int c, char **v)
 {
 	int				i;
-	int				j;
-	int				data = 0;
+	bool			error;
 
-	v++;
-	c--;
-	j = (parse_options(c, v, &data) - v);
-	i = 0;
-	printf("j: %d '%s'\n", j, v[j]);
-	while (i < 4 && i + j < c)
-	{
-		corewar_load_warriors(i, v[j + i]);
+	++v;
+	i = parse_options(--c, v, &g_vm) - v;
+	if (i < c && ft_strequ(v[i], "--"))
 		i++;
+	int j = 0;
+	error = false;
+	while (!error && i + j < c)
+	{
+		if ((error = append_champion(v[i + j])))
+			break ;
+		j++;
 	}
+	if (error)
+		print((t_print){.level = LOG_WARN, .printer = printer,
+				.data = "Too much champions passed as argument, ignoring...\n"});
 	corewar_load_arena();
-	print_dump(&g_vm);
-	automaton_run(&g_vm);
-	print_dump(&g_vm);
+	/* print_dump(&g_vm); */
+	/* automaton_run(&g_vm); */
+	/* print_dump(&g_vm); */
 	return (0);
 }
