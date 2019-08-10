@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/10 18:54:30 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/10 19:19:30 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,9 +292,10 @@ uint32_t			get_reg_value(t_process *process, uint8_t reg_id);
 uint32_t			*get_register(t_process *process, uint8_t reg_id);
 
 void				set_mem_value(uint32_t index, uint32_t value,
-		uint32_t size);
+		uint32_t size, t_arena_own claim_id);
 uint32_t			get_mem_value(uint32_t index, uint32_t size);
 uint8_t				get_mem_cell(uint32_t index);
+t_arena_own			get_cell_claim(uint32_t index);
 
 t_op_arg_code		get_arg_type(uint8_t encode, uint32_t i);
 uint32_t			get_arg_value(uint32_t mem, t_op_arg_code *typ, uint32_t i);
