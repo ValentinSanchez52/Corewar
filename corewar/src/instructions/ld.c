@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 17:06:18 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/09 15:15:16 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/10 14:04:49 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,7 @@ void				op_ld(t_process *proc)
 		reg_set_value(proc, reg_id, get_mem_value(value, sizeof(t_reg)));
 	}
 	else if (type == COR_ARG_DIR)
-	{
 		reg_set_value(proc, reg_id, proc->op.args[0]);
-	}
 	/*printf("get_reg_value: %d\n", get_reg_value(proc, proc->op.args[1]));*/
 	/*printf("!get_reg_value: %d\n", !get_reg_value(proc, proc->op.args[1]));*/
 	proc->carry = (!get_reg_value(proc, reg_id));
