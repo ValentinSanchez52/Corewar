@@ -18,15 +18,7 @@ t_vm				g_vm = {
 	},
 };
 
-void				print_mem(char *addr, size_t len)
-{
-	for (size_t i = 0; i < len; i ++) {
-		printf("%02x", addr[i]);
-	}
-	printf("\e[0m\n");
-}
-
-void				utest_ld(void)
+bool				utest_ld(void)
 {
 	struct ld_test	processes[] = {
 
@@ -77,6 +69,28 @@ void				utest_ld(void)
 			},
 		},
 
+		(struct ld_test){
+			.desc = "Load 46 in register 4",
+			.value = (t_process){
+				.uuid = "none",
+				.registers = {},
+				.op = (t_op){
+					.code = COR_OP_LOAD,
+					.types = {COR_ARG_DIR, COR_ARG_REG},
+					.args = {46, 0x4},
+				},
+			},
+			.result = (t_process){
+				.uuid = "none",
+				.registers = {[3] = 46},
+				.op = (t_op){
+					.code = COR_OP_LOAD,
+					.types = {COR_ARG_DIR, COR_ARG_REG},
+					.args = {46, 0x4},
+				},
+			},
+		},
+
 	};
 	bool	error = false;
 
@@ -92,26 +106,19 @@ void				utest_ld(void)
 				printf("\n");
 			printf("[%02zx] \e[1;31mFailed:\e[0m %s\n", i + 1, processes[i].desc);
 
-			printf("\e[31m-");
+			printf("\e[31m- ");
 			fflush(stdout);
-			print_mem(&processes[i].result, sizeof(t_process));
-			printf("\e[32m+");
+			print_op(&processes[i].result, true);
+			printf("\e[32m+ ");
 			fflush(stdout);
-			print_mem(&processes[i].value, sizeof(t_process));
-
-			/* printf("\e[31m- "); */
-			/* fflush(stdout); */
-			/* print_op(&processes[i].result, true); */
-			/* printf("\e[32m+ "); */
-			/* fflush(stdout); */
-			/* print_op(&processes[i].value, true); */
-			/* printf("\e[31m- "); */
-			/* fflush(stdout); */
-			/* print_process(&processes[i].result, true); */
-			/* printf("\e[32m+ "); */
-			/* fflush(stdout); */
-			/* print_process(&processes[i].value, true); */
+			print_op(&processes[i].value, true);
+			printf("\e[31m- ");
+			fflush(stdout);
+			print_process(&processes[i].result, true);
+			printf("\e[32m+ ");
+			fflush(stdout);
+			print_process(&processes[i].value, true);
 		}
 	}
-	assert(!error);
+	return (error);
 }

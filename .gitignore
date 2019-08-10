@@ -61,3 +61,4 @@ asm/asm
 .DS_Store
 *.cor
 tags
+test

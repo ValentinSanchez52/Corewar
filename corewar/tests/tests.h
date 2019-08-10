@@ -1,7 +1,9 @@
 #ifndef TESTS_H
 #define TESTS_H
 
-typedef void (t_utest)(void);
+#include <stdbool.h>
+
+typedef bool (t_utest)(void);
 
 t_utest		utest_ld;
 

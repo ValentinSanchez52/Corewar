@@ -9,6 +9,9 @@ static t_utest		*tests[] = {
 
 int				main(void)
 {
+	bool		error = false;
+
 	for (size_t i = 0; i < sizeof(tests) / sizeof(void (*)(void)); i++)
-		tests[i]();
+		error |= tests[i]();
+	assert(!error);
 }
