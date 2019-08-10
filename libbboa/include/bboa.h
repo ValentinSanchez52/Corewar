@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 04:11:57 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/01 05:20:50 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/10 17:27:17 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef enum			e_bboa_state
 	BBOA_RS_GENERIC_ERROR,
 	BBOA_RS_TYPE_MISMATCH,
 	BBOA_RS_MULTIPLE_REFS,
+	BBOA_RS_INVALID_ARG,
 	BBOA_RS_MAX_STATE
 }						t_bboa_state;
 

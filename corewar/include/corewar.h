@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/10 15:28:46 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/10 17:36:21 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdint.h>
 # include <stdbool.h>
+# include "print.h"
 # include "dynarray.h"
 # include "bboa.h"
 # include "libft.h"
@@ -191,6 +192,7 @@ typedef struct		s_warrior
 typedef struct		s_vm_flags
 {
 	uint32_t		dump_cycle;
+	t_dump_size		dump_size;
 	bool			dump : 1;
 	bool			visualizer : 1;
 }					t_vm_flags;

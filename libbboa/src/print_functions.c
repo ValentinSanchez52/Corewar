@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 14:34:20 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/06 04:25:57 by njiall           ###   ########.fr       */
+/*   Updated: 2019/08/10 17:38:17 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ static const char *const		get_template(t_bboa_state state)
 		[BBOA_RS_NOT_ENOUGH_ARGS] = "Not enough arguments",
 		[BBOA_RS_GENERIC_ERROR] = "An error has occured",
 		[BBOA_RS_TYPE_MISMATCH] = "Type mismatch",
-		[BBOA_RS_MULTIPLE_REFS] = "Multiple references to option"
+		[BBOA_RS_MULTIPLE_REFS] = "Multiple references to option",
+		[BBOA_RS_INVALID_ARG] = "Invalid Argument refer to usage",
 	};
 
 	return (templates[state]);

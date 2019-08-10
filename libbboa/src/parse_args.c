@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/28 14:36:18 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/01 07:19:42 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/10 17:24:46 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ char				**bboa_parse_args(t_opt_patterns *options
 	}
 	if (a.st <= BBOA_RS_OK)
 		return (a.last_args);
-	bboa_set_error_usage(*mtch(), ft_strrchr(argv[0], '-') + 1, a.st,
+	bboa_set_error_usage(*mtch(), argv[0] + 1 + (argv[0][1] == '-'), a.st,
 			(g_bboa_error.level) ? BBOA_EC : g_bboa_error.level);
 	bboa_print_error(g_bboa_error);
 	return (NULL);

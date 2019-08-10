@@ -6,13 +6,14 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 14:39:16 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/10 15:30:29 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/10 17:40:47 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include <stdio.h>
 #include "corewar.h"
+#include "print.h"
 #include "bboa.h"
 #include "libft.h"
 
@@ -79,6 +80,24 @@ static t_bboa_state			set_dump(t_arg_array *args) {
 	return (BBOA_RS_OK);
 }
 
+static t_bboa_state			set_dump_size(t_arg_array *args) {
+	uint32_t				arg;
+
+	print_args(args);
+	if (args->len < 1)
+		return (BBOA_RS_NOT_ENOUGH_ARGS);
+	if (args->array[0].type != BBOA_AT_INTEGER)
+		return (BBOA_RS_TYPE_MISMATCH);
+	arg = (uint32_t)args->array[0].integer_token.number;
+	if (arg == 64)
+		g_vm.flags.dump_size = DMP_SIZE_64;
+	else if (arg == 128)
+		g_vm.flags.dump_size = DMP_SIZE_128;
+	else if (arg != 32)
+		return (BBOA_RS_INVALID_ARG);
+	return (BBOA_RS_OK);
+}
+
 static t_bboa_state			parse_player(t_arg_array *args) {
 	print_args(args);
 	if (args->len < 2)
@@ -115,6 +134,17 @@ static const t_option		g_options[] = {
 			.types = {BBOA_AT_INTEGER},
 			.arg_count = 1,
 			.desc = "Dump the arena state after [\e[37mnumber\e[0m] cycles."
+		}
+	},
+	(t_option){
+		.option = {"dump-size", "ds"},
+		.type = {OPT_DOUBLE, OPT_SINGLE},
+		.length = 2,
+		.match = (t_opt_match){
+			.func = &set_dump_size,
+			.types = {BBOA_AT_INTEGER},
+			.arg_count = 1,
+			.desc = "Determines dump width in bytes [32|64|128]. Defaults to 32."
 		}
 	},
 	(t_option){
