@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:55:44 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/09 21:41:11 by njiall           ###   ########.fr       */
+/*   Updated: 2019/08/10 16:01:17 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void				automaton_run(t_vm *vm)
 			&& !(vm->flags.dump && vm->flags.dump_cycle < vm->cycles))
 	{
 		i = 0;
+		/* debug_automaton_states(vm); */
 		while ((process = ft_dynarray_iterate(&vm->process, &i,
 						sizeof(t_process))))
 			if (!process->waiting)
