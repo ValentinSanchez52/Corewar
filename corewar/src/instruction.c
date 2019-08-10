@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 09:30:45 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/09 16:36:43 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/10 16:27:18 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,9 @@ inline void			run_instruction_frame(
 		t_process *proc
 )
 {
-	t_process		loc;
-
-	loc = *proc;
 	proc->waiting = false;
-	if (loc.op.code == COR_OP_FORK)
-		proc->pc += proc->op.physical_size;
 	if (g_ops_exec[proc->op.code])
 		g_ops_exec[proc->op.code](proc);
-	if (loc.op.code != COR_OP_ZJUMP && loc.op.code != COR_OP_FORK)
+	if (proc->op.code != COR_OP_ZJUMP)
 		proc->pc += proc->op.physical_size;
 }
