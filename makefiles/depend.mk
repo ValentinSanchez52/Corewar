@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 18:36:26 by mbeilles          #+#    #+#              #
-#    Updated: 2019/08/08 18:41:45 by mbeilles         ###   ########.fr        #
+#    Updated: 2019/08/10 14:57:55 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,21 +53,62 @@ CFLAGS += $(SLOW_FLAG)
 START_MSG = $(COMPILING_DBG)
 endif
 
-debug: $(NAME)
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+LDFLAGS+=$(foreach lib, $(SYSLIBS_LINUX), -l$(lib))
+else ifeq ($(UNAME_S),Darwin)
+LDFLAGS+=$(foreach lib, $(SYSLIBS_DARWIN), -l$(lib))
+endif
+LDFLAGS+=$(foreach lib, $(SYSLIBS), -l$(lib))
 
 FORCE:
 
+all: $(NAME)
+
+debug: $(NAME)
+
+clean:
+	@-rm -rf $(PATH_OBJ)
+	@printf $(CLEANING_OBJS)
+
+fclean: clean
+	@-rm -f $(NAME)
+	@printf $(CLEANING_BINS)
+
+re: fclean
+	@$(MAKE) all
+
+ifeq ($(filter re,$(MAKECMDGOALS)),re)
+MAKECMDGOALS:=$(filter-out re,$(MAKECMDGOALS)) fclean all
+endif
+ifeq ($(filter-out depend,$(MAKECMDGOALS)), )
+MAKECMDGOALS+=all
 depend:
-	@for lib in $(foreach clib,$(CLIBS),$(dir $(clib))); do \
-		printf $(MAKING_LIB) $${lib%/} ; \
-		$(MAKE) -C $$lib $(MAKECMDGOALS) --no-print-directory MASTERLIBS="$(MASTERLIBS)$(CLIBS)"; \
+	@for cmd in $(filter-out depend,$(MAKECMDGOALS)); do \
+		for lib in $(foreach clib,$(CLIBS),$(dir $(clib))); do \
+			printf $(MAKING_LIB) " $${lib%/} "; \
+			$(MAKE) -C $$lib --no-print-directory depend $$cmd ; \
+		done \
 	done
 	@printf $(MADE_LIB)
+	@$(MAKE) -C .
+else
+depend:
+	@for cmd in $(filter-out depend,$(MAKECMDGOALS)); do \
+		for lib in $(foreach clib,$(CLIBS),$(dir $(clib))); do \
+			printf $(MAKING_LIB) "$${lib%/}"; \
+			$(MAKE) -C $$lib --no-print-directory depend $$cmd ; \
+		done \
+	done
+	@printf $(MADE_LIB)
+endif
 
+ifneq ($(filter depend,$(MAKECMDGOALS)),depend)
 ifneq ($(CLIBS), )
 $(CLIBS): $$(strip $$(call libraries,$$(@D)))
 	@printf $(MAKING_LIB) $(basename $(notdir $@))
 	@$(MAKE) -C $(@D) --no-print-directory $(filter-out test, $(MAKECMDGOALS))
+endif
 endif
 
 $(PATH_OBJ)/%.o: %.c | $$(@D)/. $(PATH_DEP)/$$(*D)/. $$(LDLIBS) $$(CLIBS)
@@ -78,6 +119,7 @@ $(PATH_OBJ)/%.o: %.c $(PATH_DEP)/%.d | $$(@D)/. $(PATH_DEP)/$$(*D)/. $$(LDLIBS) 
 		else \
 			printf $(COMPILING_KO); exit 2; \
 		fi
-	@mv -f $(PATH_DEP)/$*.Td $(PATH_DEP)/$*.d
+	@mv -f $(PATH_DEP)/$*.Td $(PATH_DEP)/$*.d &>/dev/null
 	@touch $@
 
+.PHONY: debug depend all fclean clean re FORCE

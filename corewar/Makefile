@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/04 04:17:21 by mbeilles          #+#    #+#              #
-#    Updated: 2019/08/08 18:42:32 by mbeilles         ###   ########.fr        #
+#    Updated: 2019/08/10 14:56:37 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRCS = $(PATH_SRC)/main.c													\
 	   $(PATH_SRC)/instruction.c											\
 	   $(PATH_SRC)/process.c												\
 	   $(PATH_SRC)/process_cleaner.c										\
+	   $(PATH_SRC)/process_spawner.c										\
 \
 	   $(PATH_SRC)/scheduler/is_instruction_valid_from_arena.c				\
 	   $(PATH_SRC)/scheduler/get_instruction_from_arena.c					\
@@ -83,6 +84,9 @@ LIBS =	\
 		../libft \
 
 SYSLIBS =	\
+
+SYSLIBS_LINUX =	\
+				uuid \
 
 TESTS =	\
 		$(PATH_TEST)/ops/ld.c												\
@@ -131,33 +135,7 @@ DEPS := $(patsubst %.c, $(PATH_DEP)/%.d, $(SRCS))
 #                                    Rules                                     #
 #==============================================================================#
 
-$(NAME): $(OBJS) $(CLIBS)
-	@printf $(START_MSG)
-	@printf $(MAKING_PROGRESS)
-	@$(CC) $(LDFLAGS) $(LDLIBS) $(CFLAGS) -o $(NAME) $^; \
-		if [ "$$?" != "1" ]; then \
-			printf $(MAKING_SUCCESS); \
-			exit 0; \
-		else \
-			printf $(MAKING_FAILURE); \
-			exit 2; \
-		fi
-	@chmod +x $(NAME)
-
-all: $(NAME)
-
-clean:
-	@-rm -rf $(PATH_OBJ)
-	@printf $(CLEANING_OBJS)
-
-fclean: clean
-	@-rm -f $(NAME)
-	@printf $(CLEANING_BINS)
-
-re: fclean all
-
-.PHONY: depend debug all fclean clean re FORCE
-
+include ../makefiles/bin.mk
 include ../makefiles/strings.mk
 include ../makefiles/depend.mk
 include ../makefiles/test.mk

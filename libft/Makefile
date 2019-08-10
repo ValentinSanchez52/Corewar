@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/18 08:44:32 by mbeilles          #+#    #+#              #
-#    Updated: 2019/07/23 15:02:43 by mbeilles         ###   ########.fr        #
+#    Updated: 2019/08/01 06:42:59 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,10 +38,13 @@ SRCS = \
 	   $(PATH_SRC)/types/ft_isalnum.c										\
 	   $(PATH_SRC)/types/ft_isalpha.c										\
 	   $(PATH_SRC)/types/ft_isdigit.c										\
+	   $(PATH_SRC)/types/ft_isdouble.c										\
+	   $(PATH_SRC)/types/ft_islong.c										\
 	   $(PATH_SRC)/types/ft_isascii.c										\
 	   $(PATH_SRC)/types/ft_isprint.c										\
 	   $(PATH_SRC)/types/ft_isset.c											\
 	   $(PATH_SRC)/types/ft_isinf.c											\
+	   $(PATH_SRC)/types/ft_isnan.c											\
 	   $(PATH_SRC)/list/ft_lstadd.c											\
 	   $(PATH_SRC)/list/ft_lstdel.c											\
 	   $(PATH_SRC)/list/ft_lstdelone.c										\
@@ -180,35 +183,6 @@ DEPS := $(patsubst %.c, $(PATH_DEP)/%.d, $(SRCS))
 #                                    Rules                                     #
 #==============================================================================#
 
-$(NAME): $(CLIBS) $(OBJS)
-	@printf $(START_MSG)
-	@printf $(MAKING_PROGRESS)
-	@ar -rc $@ $(OBJS); \
-		if [ "$$?" != "1" ]; then \
-			printf $(MAKING_SUCCESS); \
-			exit 0; \
-		else \
-			printf $(MAKING_FAILURE); \
-			exit 2; \
-		fi
-	@ranlib $(NAME)
-	@chmod +x $(NAME)
-
-all: $(NAME)
-
-clean:
-	@-rm -rf $(PATH_OBJ)
-	@printf $(CLEANING_OBJS)
-
-fclean: clean
-	@-rm -f $(NAME)
-	@printf $(CLEANING_BINS)
-
-re: fclean all
-
-FORCE:
-
-.PHONY: debug depend all fclean clean re FORCE
-
+include ../makefiles/lib.mk
 include ../makefiles/strings.mk
 include ../makefiles/depend.mk

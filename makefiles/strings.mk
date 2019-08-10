@@ -32,6 +32,8 @@ COMPILING_TEST = $(HD)$(PROJECT_COLOR)$(NAME)" is compiling in "$(WARNING_COLOR)
 CREATE_DIR = $(HD)$(WN)$(PRIMARY_COLOR_ALT)"%s"$(WARNING_COLOR)"%s"$(NRM)"\n"
 CREATE_SUBDIR = $(CREATE_DIR)
 
+DEP_NEEDED = $(HD)$(WN)$(WARNING_COLOR)"%s"$(PRIMARY_COLOR_ALT)" is needed to make, aborting...\n"
+
 CLEANING_OBJS = $(HD)$(OK)$(PROJECT_COLOR)"Files cleaned\n"$(NRM)
 CLEANING_BINS = $(HD)$(OK)$(PROJECT_COLOR)"Binary cleaned\n"$(NRM)
 

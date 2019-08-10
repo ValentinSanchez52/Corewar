@@ -7,6 +7,7 @@
 *.obj
 *.ko
 *.obj
+*.dep
 *.elf
 
 # Linker output
@@ -52,6 +53,7 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+.DS_Store
 
 # Repo specifics
 corewar/corewar
@@ -61,3 +63,4 @@ asm/asm
 .DS_Store
 *.cor
 tags
+test
