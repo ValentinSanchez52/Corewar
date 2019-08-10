@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/09 15:14:56 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/10 15:24:42 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,21 +222,21 @@ extern t_vm			g_vm;
 */
 
 void				op_live (t_process *proc);	//OK
-void				op_ld   (t_process *proc);	//IDX ->
-void				op_st   (t_process *proc);	//IDX ->
-void				op_add  (t_process *proc);	//
-void				op_sub  (t_process *proc);	//
-void				op_and  (t_process *proc);	//
-void				op_or   (t_process *proc);	//
-void				op_xor  (t_process *proc);	//
-void				op_zjmp (t_process *proc);	//IDX -> OK
-void				op_ldi  (t_process *proc);	//IDX
-void				op_sti  (t_process *proc);	//IDX ->
+void				op_ld   (t_process *proc);	//IDX -> OK
+void				op_st   (t_process *proc);	//IDX -> OK
+void				op_add  (t_process *proc);	//OK SURE
+void				op_sub  (t_process *proc);	//OK SURE
+void				op_and  (t_process *proc);	//OK SURE
+void				op_or   (t_process *proc);	//OK SURE
+void				op_xor  (t_process *proc);	//OK SURE
+void				op_zjmp (t_process *proc);	//IDX -> OK SURE
+void				op_ldi  (t_process *proc);	//IDX -> OK
+void				op_sti  (t_process *proc);	//IDX -> OK
 void				op_fork (t_process *proc);	//IDX
-void				op_lld  (t_process *proc);
-void				op_lldi (t_process *proc);
-void				op_lfork(t_process *proc);
-void				op_aff  (t_process *proc);
+void				op_lld  (t_process *proc);	//OK
+void				op_lldi (t_process *proc);	//OK
+void				op_lfork(t_process *proc);	//
+void				op_aff  (t_process *proc);	//OK
 
 /*
 ** =============================================================================
