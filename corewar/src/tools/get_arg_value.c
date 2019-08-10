@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 06:18:59 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/26 07:00:34 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/05 17:36:53 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ inline uint32_t			get_arg_value(
 	uint32_t			j;
 	uint32_t			len;
 
-	i = 0;
-	j = 2;
 	code = get_mem_cell(memory);
+	i = 0;
+	j = 1 + g_op_check[code].encoding;
 	while (i < index)
 	{
 		if (g_op_check[code].dir_addr && types[i] == COR_ARG_DIR)

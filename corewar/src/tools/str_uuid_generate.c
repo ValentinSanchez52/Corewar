@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_cleaner.c                                  :+:      :+:    :+:   */
+/*   str_uuid_generate.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/24 12:04:05 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/08 13:04:44 by mbeilles         ###   ########.fr       */
+/*   Created: 2019/08/08 16:22:32 by mbeilles          #+#    #+#             */
+/*   Updated: 2019/08/08 16:26:58 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include <uuid/uuid.h>
 
-void				run_process_cleaner(
-		t_vm *vm
-)
+/*
+** Generates a uuid in a string passed in args of length 36 + 1 (`\0`)
+*/
+
+void				str_uuid_generate(char *uuid)
 {
-	t_process		*process;
-	t_op			*op;
-	uint64_t		i;
-	uint64_t		j;
+	uuid_t binuuid;
 
-	i = 0;
-	while ((process = ft_dynarray_iterate(&vm->process, &i,
-					sizeof(t_process))))
-		if (!process->living)
-		{
-			ft_dynarray_remove(&vm->process,
-					(uint8_t*)process - vm->process.array, sizeof(t_process));
-			--i;
-		}
-		else
-			process->living = false;
+	uuid_generate_random(binuuid);
+	uuid_unparse_lower(binuuid, uuid);
 }

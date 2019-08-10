@@ -27,6 +27,7 @@ COMPILING_OK = $(HD)$(OK)$(PRIMARY_COLOR)$(PRIMARY_COLOR_ALT)$(dir $<)$(PRIMARY_
 COMPILING_KO = $(HD)$(KO)$(ERROR_COLOR)"* "$(PRIMARY_COLOR_ALT)$(dir $<)$(PRIMARY_COLOR)$(notdir $<)"\n"$(NRM)
 COMPILING_DBG = $(HD)$(PROJECT_COLOR)$(NAME)" is compiling in "$(ERROR_COLOR)"debug"$(PROJECT_COLOR)" mode... \'make re\' to compile in production mode\n"$(NRM)
 COMPILING_PRD = $(HD)$(PROJECT_COLOR)$(NAME)" is compiling in "$(SUCCESS_COLOR_ALT)"production"$(PROJECT_COLOR)" mode...\n"$(NRM)
+COMPILING_TEST = $(HD)$(PROJECT_COLOR)$(NAME)" is compiling in "$(WARNING_COLOR)"test"$(PROJECT_COLOR)" mode...\n"$(NRM)
 
 CREATE_DIR = $(HD)$(WN)$(PRIMARY_COLOR_ALT)"%s"$(WARNING_COLOR)"%s"$(NRM)"\n"
 CREATE_SUBDIR = $(CREATE_DIR)
@@ -35,3 +36,5 @@ DEP_NEEDED = $(HD)$(WN)$(WARNING_COLOR)"%s"$(PRIMARY_COLOR_ALT)" is needed to ma
 
 CLEANING_OBJS = $(HD)$(OK)$(PROJECT_COLOR)"Files cleaned\n"$(NRM)
 CLEANING_BINS = $(HD)$(OK)$(PROJECT_COLOR)"Binary cleaned\n"$(NRM)
+
+TESTING = $(HD)$(PROJECT_COLOR)"Launching tests\n"$(NRM)

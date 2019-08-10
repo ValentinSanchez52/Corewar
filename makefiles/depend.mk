@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    depend.mk                                          :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/08/08 18:36:26 by mbeilles          #+#    #+#              #
+#    Updated: 2019/08/10 14:57:55 by mbeilles         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 -include ./strings.mk
 .PRECIOUS: $(PATH_OBJ)/. $(PATH_OBJ)%/.
 
@@ -41,9 +53,18 @@ CFLAGS += $(SLOW_FLAG)
 START_MSG = $(COMPILING_DBG)
 endif
 
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+LDFLAGS+=$(foreach lib, $(SYSLIBS_LINUX), -l$(lib))
+else ifeq ($(UNAME_S),Darwin)
+LDFLAGS+=$(foreach lib, $(SYSLIBS_DARWIN), -l$(lib))
+endif
+LDFLAGS+=$(foreach lib, $(SYSLIBS), -l$(lib))
+
 FORCE:
 
 all: $(NAME)
+
 debug: $(NAME)
 
 clean:
@@ -85,8 +106,8 @@ endif
 ifneq ($(filter depend,$(MAKECMDGOALS)),depend)
 ifneq ($(CLIBS), )
 $(CLIBS): $$(strip $$(call libraries,$$(@D)))
-	@printf $(MAKING_LIB) $(basename $(notdir $@)) $(MAKECMDGOALS)
-	@$(MAKE) -C $(@D) --no-print-directory $(MAKECMDGOALS)
+	@printf $(MAKING_LIB) $(basename $(notdir $@))
+	@$(MAKE) -C $(@D) --no-print-directory $(filter-out test, $(MAKECMDGOALS))
 endif
 endif
 

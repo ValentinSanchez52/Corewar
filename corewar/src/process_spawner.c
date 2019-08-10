@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_mem_cell.c                                     :+:      :+:    :+:   */
+/*   process_spawner.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
+/*   By: njiall </var/spool/mail/njiall>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/25 14:31:10 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/08 18:53:04 by mbeilles         ###   ########.fr       */
+/*   Created: 2019/08/09 21:08:00 by njiall            #+#    #+#             */
+/*   Updated: 2019/08/09 21:38:26 by njiall           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-inline uint8_t			get_mem_cell(uint32_t index)
+void				run_process_spawner(
+		t_dynarray *plist,
+		t_dynarray *pqueue
+)
 {
-	return (g_vm.arena[index & 4095]);
+	if (!pqueue->index)
+		return ;
+	ft_dynarray_insert(plist, 0, pqueue->array, pqueue->index);
+	ft_dynarray_purge(pqueue);
 }

@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_mem_cell.c                                     :+:      :+:    :+:   */
+/*   set_mem_value.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/25 14:31:10 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/08 18:53:04 by mbeilles         ###   ########.fr       */
+/*   Created: 2019/07/26 08:42:54 by vsanchez          #+#    #+#             */
+/*   Updated: 2019/08/08 18:53:11 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-inline uint8_t			get_mem_cell(uint32_t index)
+void				set_mem_value(uint32_t index, uint32_t value,
+		uint32_t size)
 {
-	return (g_vm.arena[index & 4095]);
+	if (size > 4)
+	{
+		printf("WARNING: Use of set_mem_value with wrong size\n");
+		size = 4;
+	}
+	while (size > 0)
+	{
+		g_vm.arena[index + size - 1] = (uint8_t)value;
+		value >>= 8;
+		size--;
+	}
 }

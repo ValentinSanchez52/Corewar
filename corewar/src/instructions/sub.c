@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_mem_cell.c                                     :+:      :+:    :+:   */
+/*   sub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/25 14:31:10 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/08 18:53:04 by mbeilles         ###   ########.fr       */
+/*   Created: 2019/07/26 04:31:26 by vsanchez          #+#    #+#             */
+/*   Updated: 2019/08/08 14:17:15 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-inline uint8_t			get_mem_cell(uint32_t index)
+void				op_sub(t_process *proc)
 {
-	return (g_vm.arena[index & 4095]);
+	reg_set_value(proc, proc->op.args[2],
+			get_reg_value(proc, proc->op.args[0])
+			- get_reg_value(proc, proc->op.args[1]));
+	proc->carry = (!get_reg_value(proc, proc->op.args[2]));
 }

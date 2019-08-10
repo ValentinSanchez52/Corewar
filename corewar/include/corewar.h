@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/26 09:02:48 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/09 22:22:15 by njiall           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct		s_option
 /*
 ** =============================================================================
 **
-** 		Data structure for corewar's vm.
+** 		Data structure for corewar's g_vm.
 **
 ** =============================================================================
 */
@@ -54,8 +54,11 @@ typedef struct		s_option
 # define			COR_CYCLES_LIVES		(21)
 # define			COR_CYCLES_LEFT			(10)
 # define			COR_ARG_NUMBER_MAX		(4)
+# define			COR_WARRIOR_NB_MAX		(4)
+# define			COR_IDX_MOD				(COR_ARENA_SIZE / 8)
+# define			COR_REG_SIZE			(4)
 
-# define			WARRIOR_DEFAULT_MAGIC	(0xea83f3)
+# define			WARRIOR_DEFAULT_MAGIC	(0x00ea83f3)
 # define			WARRIOR_MAGIC			(4)
 # define			WARRIOR_NAME			(128)
 # define			WARRIOR_PADDING			(4)
@@ -103,9 +106,9 @@ typedef enum		e_op_arg_code
 typedef enum		e_op_type
 {
 	COR_T_NONE,
-	COR_T_REG = 1 << (COR_ARG_REG - 1),
-	COR_T_DIR = 1 << (COR_ARG_DIR - 1),
-	COR_T_IND = 1 << (COR_ARG_IND - 1),
+	COR_T_REG = 0x1,
+	COR_T_DIR = 0x2,
+	COR_T_IND = 0x4,
 }					t_op_type;
 
 typedef enum		e_op_arg_size
@@ -121,11 +124,25 @@ typedef enum		e_op_arg_size
 ** =============================================================================
 */
 
+typedef uint32_t	t_reg;
+
+typedef struct		s_op
+{
+	t_op_code		code;
+	uint32_t		timeout;
+	uint32_t		param_count; // Should be <= COR_ARG_NUMBER_MAX
+	t_op_arg_code	types[COR_ARG_NUMBER_MAX];
+	uint32_t		args[COR_ARG_NUMBER_MAX];
+	uint32_t		physical_size;
+}					t_op;
+
 typedef struct		s_process
 {
+	char			uuid[37];
 	uint32_t		registers[16];
-	uint32_t		pc : 12; // 12 bit counter
 	uint32_t		global_offset;
+	t_op			op;
+	uint32_t		pc : 12; // 12 bit counter
 	bool			carry : 1;
 	bool			living : 1;
 	bool			waiting : 1;
@@ -136,17 +153,6 @@ typedef struct		s_process
 ** 		Operation struct
 ** =============================================================================
 */
-
-typedef struct		s_op
-{
-	t_op_code		code;
-	uint32_t		timeout;
-	uint32_t		param_count; // Should be <= COR_ARG_NUMBER_MAX
-	t_op_arg_code	types[COR_ARG_NUMBER_MAX];
-	uint32_t		args[COR_ARG_NUMBER_MAX];
-	t_process		*process;
-	uint32_t		physical_size;
-}					t_op;
 
 /*
 ** =============================================================================
@@ -178,7 +184,7 @@ typedef struct		s_warrior
 
 /*
 ** =============================================================================
-** 		Vm
+** 		g_vm
 ** =============================================================================
 */
 
@@ -201,11 +207,37 @@ typedef struct		s_vm
 	t_warrior		warriors[4];
 	uint32_t		warriors_nb;
 	t_dynarray		process;
-	t_dynarray		instructions;
+	t_dynarray		process_queue;
 	t_vm_flags		flags;
 }					t_vm;
 
-extern t_vm			vm;
+extern t_vm			g_vm;
+
+/*
+** =============================================================================
+** 		Instructions
+** 		IND = 2 bytes (uint16_t)
+** 		DIR = 2/4 bytes (uint16_t/uint32_t)
+**		REG = 1 byte -> get_reg_value | reg_set_value
+** =============================================================================
+*/
+
+void				op_live (t_process *proc);	//OK
+void				op_ld   (t_process *proc);	//DIR OK
+void				op_st   (t_process *proc);	//OK
+void				op_add  (t_process *proc);	//
+void				op_sub  (t_process *proc);	//
+void				op_and  (t_process *proc);	//
+void				op_or   (t_process *proc);	//
+void				op_xor  (t_process *proc);	//
+void				op_zjmp (t_process *proc);	//OK
+void				op_ldi  (t_process *proc);	//
+void				op_sti  (t_process *proc);	//
+void				op_fork (t_process *proc);
+void				op_lld  (t_process *proc);
+void				op_lldi (t_process *proc);
+void				op_lfork(t_process *proc);
+void				op_aff  (t_process *proc);
 
 /*
 ** =============================================================================
@@ -213,10 +245,11 @@ extern t_vm			vm;
 ** =============================================================================
 */
 
-void				automaton_run(t_vm *vm);
-void				run_instruction_frame(t_vm *vm, t_op *instruction);
-void				run_process_frame(t_vm *vm, t_process *process);
-void				run_process_cleaner(t_vm *vm);
+void				automaton_run(t_vm *g_vm);
+void				run_instruction_frame(t_vm *g_vm, t_process *process);
+void				run_process_frame(t_vm *g_vm, t_process *process);
+void				run_process_spawner(t_dynarray *pl, t_dynarray *pq);
+void				run_process_cleaner(t_vm *g_vm);
 
 void				print_warriors(void);
 void				print_arena(void);
@@ -224,9 +257,11 @@ uint32_t			macos_flip_bytes(uint32_t n);
 void				corewar_load_warriors(int c, char *file);
 void				corewar_load_arena(void);
 
-void				print_dump(t_vm *vm);
-void				print_op(t_op *op);
-void				print_process(t_process *proc);
+void				print_dump(t_vm *g_vm);
+void				print_op(t_process *proc, bool newline);
+void				print_process(t_process *proc, bool newline);
+void				print_processes(t_vm *g_vm);
+void				print_warrior(t_warrior *w, uint32_t index, bool newline);
 
 /*
 ** Scheduler
@@ -247,10 +282,19 @@ bool				is_instruction_valid_from_arena(
 ** Tools
 */
 
-uint8_t				get_mem_cell(uint32_t i);
+void				str_uuid_generate(char *uuid);
+
+void				reg_set_value(t_process *process, uint8_t reg_id,
+		uint32_t value);
+uint32_t			get_reg_value(t_process *process, uint8_t reg_id);
+uint32_t			*get_register(t_process *process, uint8_t reg_id);
+
+void				set_mem_value(uint32_t index, uint32_t value,
+		uint32_t size);
 uint32_t			get_mem_value(uint32_t index, uint32_t size);
+uint8_t				get_mem_cell(uint32_t index);
+
 t_op_arg_code		get_arg_type(uint8_t encode, uint32_t i);
 uint32_t			get_arg_value(uint32_t mem, t_op_arg_code *typ, uint32_t i);
-
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 06:09:40 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/26 07:00:17 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/08 17:57:29 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,13 @@ inline bool				is_instruction_valid_from_arena(
 	if (g_op_check[cell].encoding)
 	{
 		encode = get_mem_cell(memory + 1);
-		i = 0xff;
-		while (++i < g_op_check[cell].count)
-			if (!((1 << (get_arg_type(encode, i) - 1))
-						& g_op_check[cell].args[i]))
+		i = 0;
+		while (i < g_op_check[cell].count)
+		{
+			if (!((1 << (get_arg_type(encode, i) - 1)) & g_op_check[cell].args[i]))
 				return (false);
+			i++;
+		}
 	}
 	return (true);
 }

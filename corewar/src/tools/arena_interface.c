@@ -1,19 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_mem_value.c                                    :+:      :+:    :+:   */
+/*   arena_interface.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 14:31:10 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/05 18:37:40 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/08 18:53:42 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
+inline void			set_mem_value(uint32_t index, uint32_t value, uint32_t size)
+{
+	if (size > 4)
+	{
+		printf("WARNING: Use of set_mem_value with wrong size\n");
+		size = 4;
+	}
+	while (size > 0)
+	{
+		printf("CC\n");
+		g_vm.arena[(index + size) & 4095] = (uint16_t)value;
+		value = value >> 8;
+		size--;
+	}
+}
+
+inline uint8_t		get_mem_cell(uint32_t index)
+{
+	return (g_vm.arena[index & 4095]);
+}
+
 /*
-**	returns an uint32_t which contains
+**	returns an uint32_t which contains 
 */
 
 inline uint32_t		get_mem_value(uint32_t index, uint32_t size)
@@ -26,15 +47,12 @@ inline uint32_t		get_mem_value(uint32_t index, uint32_t size)
 		printf("WARNING: Use of get_mem_value with wrong size\n");
 		size = 4;
 	}
-	/* printf("Value reading: %u:%u -> ", index, size); */
 	while (size > 0)
 	{
 		value = value << 8;
-		/* printf("%02hhx ", get_mem_cell(index)); */
 		value += get_mem_cell(index);
 		index++;
 		size--;
 	}
-	/* printf("\n"); */
 	return (value);
 }

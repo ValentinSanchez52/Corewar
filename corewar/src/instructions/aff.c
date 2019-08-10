@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_mem_cell.c                                     :+:      :+:    :+:   */
+/*   aff.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/25 14:31:10 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/08 18:53:04 by mbeilles         ###   ########.fr       */
+/*   Created: 2019/07/26 07:21:52 by vsanchez          #+#    #+#             */
+/*   Updated: 2019/08/08 14:22:24 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-inline uint8_t			get_mem_cell(uint32_t index)
+void				op_aff(t_process *proc)
 {
-	return (g_vm.arena[index & 4095]);
+	static char		aff[8] = "Aff: X\n";
+	aff[6] = proc->op.args[0] & 255;
+	ft_putstr(aff);
 }
