@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 04:31:26 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/08 14:17:15 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/10 12:10:17 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,14 @@
 
 void				op_sub(t_process *proc)
 {
-	reg_set_value(proc, proc->op.args[2],
-			get_reg_value(proc, proc->op.args[0])
-			- get_reg_value(proc, proc->op.args[1]));
-	proc->carry = (!get_reg_value(proc, proc->op.args[2]));
+	if (proc->op.args[0] && proc->op.args[1] && proc->op.args[2]
+			&& proc->op.args[0] <= 16 && proc->op.args[1] <= 16
+			&& proc->op.args[2] <= 16)
+	{
+		reg_set_value(proc, proc->op.args[2],
+				get_reg_value(proc, proc->op.args[0])
+				- get_reg_value(proc, proc->op.args[1]));
+		proc->carry = (!get_reg_value(proc, proc->op.args[2]));
+	}
+	print_process(proc, true);
 }
