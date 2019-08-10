@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 05:10:09 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/10 18:41:54 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/10 19:15:09 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,6 @@ void				op_sti(t_process *proc)
 		return ;
 	set_mem_value(proc->global_offset + proc->pc
 			+ (int16_t)(value_1 + value_2) % COR_IDX_MOD,
-			get_reg_value(proc, proc->op.args[0]), COR_REG_SIZE);
+			get_reg_value(proc, proc->op.args[0]), COR_REG_SIZE,
+			get_cell_claim(proc->global_offset + proc->pc));
 }

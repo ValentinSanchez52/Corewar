@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/04 04:17:21 by mbeilles          #+#    #+#              #
-#    Updated: 2019/08/10 14:56:37 by mbeilles         ###   ########.fr        #
+#    Updated: 2019/08/10 19:20:14 by vsanchez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ SRCS = $(PATH_SRC)/main.c													\
 	   $(PATH_SRC)/tools/str_uuid_generate.c								\
 	   $(PATH_SRC)/tools/flip_bytes.c										\
 	   $(PATH_SRC)/tools/get_mem_cell.c										\
+	   $(PATH_SRC)/tools/get_cell_claim.c									\
 	   $(PATH_SRC)/tools/get_mem_value.c									\
 	   $(PATH_SRC)/tools/set_mem_value.c									\
 	   $(PATH_SRC)/tools/get_arg_type.c										\
