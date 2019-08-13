@@ -6,11 +6,26 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 16:02:50 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/13 16:03:02 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/13 18:25:48 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visu.h"
+
+static inline char		*cell_format(char *str)
+{
+	static char			cell[3];
+
+	cell[0] = '0';
+	if (ft_strlen(str) == 1)
+		cell[1] = *str;
+	if (ft_strlen(str) == 2)
+	{
+		cell[0] = str[0];
+		cell[1] = str[1];
+	}
+	return (cell);
+}
 
 inline void				visu_arena(void)
 {
@@ -24,7 +39,7 @@ inline void				visu_arena(void)
 			color_id = 6;
 		attron(COLOR_PAIR(color_id));
 		mvprintw(VISU_ARENA_TB + index / 64, VISU_ARENA_LB + ((index % 64) * 3),
-				ft_ultostr(get_mem_cell(index), 16, 0));
+				cell_format(ft_ultostr(get_mem_cell(index), 16, 0)));
 		index++;
 	}
 	attroff(COLOR_PAIR(color_id));

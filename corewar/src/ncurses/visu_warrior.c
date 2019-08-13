@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   visu_clock.c                                       :+:      :+:    :+:   */
+/*   visu_warrior.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/13 15:50:57 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/13 19:36:14 by vsanchez         ###   ########.fr       */
+/*   Created: 2019/08/13 19:11:17 by vsanchez          #+#    #+#             */
+/*   Updated: 2019/08/13 19:41:15 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visu.h"
 
-inline void				visu_clock(void)
+void				visu_warrior(void)
 {
-	static uint8_t	index;
+	uint8_t			warrior_id;
 
-	mvprintw(VISU_ARENA_TB + 2, VISU_VS + 3,
-			"[----------------------------------------------------]");
-	mvprintw(VISU_ARENA_TB + 2, VISU_VS + 4 + index, "o");
-	index = (index + 1) % 52;
+	mvprintw(VISU_WARRIOR, VISU_VS + 3,
+			"[-------------------- WARRIORS ----------------------]");
+	warrior_id = 0;
+	/*while (warrior_id < COR_WARRIOR_NB_MAX)*/
+		/*g_vm.warriors[c].id = UINT32_MAX - c;*/
+		/*g_vm.warriors_nb++;*/
 }

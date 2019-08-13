@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:17:45 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/13 16:36:23 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/13 19:34:27 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 
 # define			VISU_INFOS		(VISU_VS + 3)
 # define			VISU_HEADER		(VISU_TOP_B + 4)
+# define			VISU_WARRIOR	(VISU_TOP_B + 8)
+# define			VISU_INFO_MID	((VISU_VS + VISU_RIGHT_B) / 2)
 
 # define			VISU_CLR_W1		(COR_ARN_W1_CLAIM)
 # define			VISU_CLR_W2		(COR_ARN_W2_CLAIM)
@@ -41,15 +43,19 @@
 # define			VISU_ARENA_LB	(VISU_LEFT_B + 3)
 # define			VISU_ARENA_BB	(VISU_BOT_B - 2)
 # define			VISU_ARENA_RB	(VISU_VS - 3)
-# define			VISU_ARENA_WDTH	(VISU_ARENA_RB - VISU_ARENA_LB)
+# define			VISU_ARENA_WDTH	(64)
+//# define			VISU_ARENA_WDTH	((VISU_ARENA_RB - 4) / 3)
 
 # define			VISU_RUNNING	(true)
 # define			VISU_PAUSED		(false)
-# define			VISU_CPS_MAX	(100)
+# define			VISU_CPS_MAX	(300)
 
 /*
 **	VIEWER UPDATE FUNCTIONS
 */
+
+void				visu_update(void);
+void				cps_max(void);
 
 void				visu_cps(void);
 void				visu_borders(void);
@@ -57,9 +63,10 @@ void				visu_legend(void);
 void				visu_state(void);
 bool				visu_get_key(void);
 void				visu_clock(void);
-void				cps_max(void);
-void				visu_processes(void);	//CHANGE IT!
+void				visu_processes(void);
 void				visu_arena(void);
-void				visu_update(void);
+void				visu_end_wait(void);
+void				visu_warrior(void);
+void				visu_live(void);
 
 #endif

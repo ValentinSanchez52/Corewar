@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 04:31:26 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/10 12:10:17 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/13 18:54:46 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,4 @@ void				op_sub(t_process *proc)
 				- get_reg_value(proc, proc->op.args[1]));
 		proc->carry = (!get_reg_value(proc, proc->op.args[2]));
 	}
-	print_process(proc, true);
 }

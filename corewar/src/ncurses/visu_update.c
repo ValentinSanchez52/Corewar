@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 16:34:50 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/13 16:41:50 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/13 18:35:45 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 
 inline void				visu_update(void)
 {
-		visu_arena();
-		visu_processes();
-		visu_clock();
-		refresh();
+	while (g_vm.visu.state == VISU_PAUSED)
+		g_vm.visu.state = visu_get_key();
+	g_vm.visu.state = visu_get_key();
+	visu_arena();
+	visu_processes();
+	visu_clock();
+	refresh();
+	cps_max();
 }
