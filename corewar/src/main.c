@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 14:39:16 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/10 17:40:47 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/13 18:00:41 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,8 +206,11 @@ int					main(int c, char **v)
 		i++;
 	}
 	corewar_load_arena();
-	print_dump(&g_vm);
+	/*print_dump(&g_vm);*/
+	start_visu();
 	automaton_run(&g_vm);
-	print_dump(&g_vm);
+	/*print_dump(&g_vm);*/
+	visu_end_wait();
+	endwin();	//To restore terminal settings
 	return (0);
 }

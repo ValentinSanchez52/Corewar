@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/13 16:45:41 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/13 17:58:54 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,7 @@ typedef struct		s_warrior
 
 typedef struct		s_visu
 {
+	WINDOW			*win;
 	bool			state;
 	uint32_t		speed;
 }					t_visu;

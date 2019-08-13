@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 15:45:29 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/13 16:46:20 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/13 18:36:13 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ bool				visu_get_key(void)
 
 	if ((key = getch()) != ERR)
 	{
-		/*mvprintw(VISU_ARENA_TB, VISU_VS + 3 , ft_ultostr(key, 16, 0));*/
+		mvprintw(VISU_ARENA_TB, VISU_VS + 3, ft_ultostr(key, 16, 0));
 		if (key == 0x70)
 			g_vm.visu.state = false;
 		else if (key == 0x20)

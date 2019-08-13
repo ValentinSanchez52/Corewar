@@ -6,11 +6,12 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:55:44 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/10 16:01:17 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/13 18:49:21 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+#include "visu.h"
 #include "print.h"
 
 /*
@@ -24,7 +25,7 @@ static inline void	automaton_update_counters(t_vm *g_vm)
 	{
 		if (g_vm->live_counter >= COR_CYCLES_LIVES || !g_vm->cycles_left)
 		{
-			printf("Cleaning processes...\n");
+			/*printf("Cleaning processes...\n");*/
 			run_process_cleaner(g_vm);
 			g_vm->cycles_left = COR_CYCLES_LEFT;
 			g_vm->cycles_counter = 0;
@@ -89,11 +90,12 @@ void				automaton_run(t_vm *vm)
 				--process->op.timeout;
 			else
 			{
-				print_op(process, true);
+				/*print_op(process, true);*/
 				/* print_process(process, true); */
 				run_instruction_frame(vm, process);
 			}
 		run_process_spawner(&vm->process, &vm->process_queue);
+		visu_update();
 		automaton_update_counters(vm);
 	}
 }

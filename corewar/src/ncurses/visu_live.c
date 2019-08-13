@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   visu_clock.c                                       :+:      :+:    :+:   */
+/*   visu_live.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/13 15:50:57 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/13 19:36:14 by vsanchez         ###   ########.fr       */
+/*   Created: 2019/08/13 19:12:09 by vsanchez          #+#    #+#             */
+/*   Updated: 2019/08/13 19:12:22 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visu.h"
 
-inline void				visu_clock(void)
+void				visu_live(void)
 {
-	static uint8_t	index;
 
-	mvprintw(VISU_ARENA_TB + 2, VISU_VS + 3,
-			"[----------------------------------------------------]");
-	mvprintw(VISU_ARENA_TB + 2, VISU_VS + 4 + index, "o");
-	index = (index + 1) % 52;
 }
