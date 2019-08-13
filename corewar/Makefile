@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/04 04:17:21 by mbeilles          #+#    #+#              #
-#    Updated: 2019/08/15 00:06:18 by njiall           ###   ########.fr        #
+#    Updated: 2019/08/15 00:06:44 by njiall           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,6 +77,18 @@ SRCS = $(PATH_SRC)/main.c													\
 	   $(PATH_SRC)/instructions/lldi.c										\
 	   $(PATH_SRC)/instructions/lfork.c										\
 	   $(PATH_SRC)/instructions/aff.c										\
+\
+	   $(PATH_SRC)/ncurses/visu_cps.c										\
+	   $(PATH_SRC)/ncurses/visu_borders.c									\
+	   $(PATH_SRC)/ncurses/visu_legend.c									\
+	   $(PATH_SRC)/ncurses/visu_state.c										\
+	   $(PATH_SRC)/ncurses/visu_get_key.c									\
+	   $(PATH_SRC)/ncurses/visu_clock.c										\
+	   $(PATH_SRC)/ncurses/visu_cps_max.c									\
+	   $(PATH_SRC)/ncurses/visu_processes.c									\
+	   $(PATH_SRC)/ncurses/visu_arena.c										\
+	   $(PATH_SRC)/ncurses/visu_update.c									\
+
 
 INCS = $(PATH_INC)/corewar.h												\
 
