@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/10 19:19:30 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/13 16:45:41 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "bboa.h"
 # include "libft.h"
 # include "dynarray.h"
+# include "visu.h"
 
 /*
 ** Struct for ease of use for Libboa.
@@ -189,6 +190,12 @@ typedef struct		s_warrior
 ** =============================================================================
 */
 
+typedef struct		s_visu
+{
+	bool			state;
+	uint32_t		speed;
+}					t_visu;
+
 typedef struct		s_vm_flags
 {
 	uint32_t		dump_cycle;
@@ -211,6 +218,7 @@ typedef struct		s_vm
 	t_dynarray		process;
 	t_dynarray		process_queue;
 	t_vm_flags		flags;
+	t_visu			visu;
 }					t_vm;
 
 extern t_vm			g_vm;
@@ -299,5 +307,12 @@ t_arena_own			get_cell_claim(uint32_t index);
 
 t_op_arg_code		get_arg_type(uint8_t encode, uint32_t i);
 uint32_t			get_arg_value(uint32_t mem, t_op_arg_code *typ, uint32_t i);
+
+
+/*
+**	Ncurses visu
+*/
+
+void				start_visu(void);
 
 #endif
