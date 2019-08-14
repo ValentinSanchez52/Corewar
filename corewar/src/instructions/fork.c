@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 06:20:20 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/10 16:51:40 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/14 15:16:30 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void					op_fork(t_process *proc)
 	t_process			new_process;
 
 	new_process = *(proc);
-	new_process.global_offset = (proc->pc + (uint16_t)proc->op.args[0])
-		& (COR_ARENA_SIZE - 1);
+	new_process.global_offset = (proc->global_offset + proc->pc
+			+ (uint16_t)proc->op.args[0]) & (COR_ARENA_SIZE - 1);
 	new_process.pc = 0;
 	new_process.waiting = false;
 	new_process.living = false;
