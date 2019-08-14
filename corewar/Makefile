@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/04 04:17:21 by mbeilles          #+#    #+#              #
-#    Updated: 2019/08/15 00:07:34 by njiall           ###   ########.fr        #
+#    Updated: 2019/08/15 00:11:44 by njiall           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,7 +101,7 @@ LIBS =	\
 		../libbboa \
 		../libft \
 
-SYSLIBS =	ncurses\
+SYSLIBS =	ncurses \
 
 SYSLIBS_LINUX =	\
 				uuid \
@@ -127,8 +127,6 @@ LDLIBS = \
 
 CLIBS = $(foreach dep, $(LIBS), $(dep)/$(notdir $(dep)).a) \
 
-LTOPLUGIN="$(clang -print-search-dirs | grep install | awk '{print $2 "liblto_plugin.so"}')"
-
 LDFLAGS =
 LDFLAGS_DARWIN =
 LDFLAGS_LINUX = -fuse-ld=lld # Don't forget to install lld as ld don't use .a files
@@ -136,7 +134,6 @@ LDFLAGS_LINUX = -fuse-ld=lld # Don't forget to install lld as ld don't use .a fi
 CFLAGS = -I$(PATH_INC) \
 		 $(foreach dep, $(LIBS), -I$(dep)/$(PATH_INC)) \
 		 $(foreach dep, $(LDLIBS), -I$(dep)/$(PATH_INC)) \
-		 $(foreach lib, $(SYSLIBS), -l$(lib))
 
 #==============================================================================#
 #                                   Various                                    #
