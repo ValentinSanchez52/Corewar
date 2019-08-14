@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:17:45 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/13 19:34:27 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/14 19:38:41 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,21 @@
 
 # define			VISU_INFOS		(VISU_VS + 3)
 # define			VISU_HEADER		(VISU_TOP_B + 4)
-# define			VISU_WARRIOR	(VISU_TOP_B + 8)
+# define			VISU_WARRIOR	(VISU_TOP_B + 12)
+# define			VISU_NB_WINFO	(3)
 # define			VISU_INFO_MID	((VISU_VS + VISU_RIGHT_B) / 2)
+# define			VISU_DBG_INFO	(VISU_WARRIOR + 5 + (1 + VISU_NB_WINFO) * 4)
 
 # define			VISU_CLR_W1		(COR_ARN_W1_CLAIM)
 # define			VISU_CLR_W2		(COR_ARN_W2_CLAIM)
 # define			VISU_CLR_W3		(COR_ARN_W3_CLAIM)
 # define			VISU_CLR_W4		(COR_ARN_W4_CLAIM)
+
+# define			VISU_GREEN		(VISU_CLR_W1)
+# define			VISU_BLUE		(VISU_CLR_W2)
+# define			VISU_RED		(VISU_CLR_W3)
+# define			VISU_CYAN		(VISU_CLR_W4)
+
 
 # define			VISU_ARENA_TB	(VISU_TOP_B + 2)
 # define			VISU_ARENA_LB	(VISU_LEFT_B + 3)
@@ -48,7 +56,7 @@
 
 # define			VISU_RUNNING	(true)
 # define			VISU_PAUSED		(false)
-# define			VISU_CPS_MAX	(300)
+# define			VISU_CPS_MAX	(151)
 
 /*
 **	VIEWER UPDATE FUNCTIONS
@@ -68,5 +76,6 @@ void				visu_arena(void);
 void				visu_end_wait(void);
 void				visu_warrior(void);
 void				visu_live(void);
+ void				visu_debug(void);
 
 #endif

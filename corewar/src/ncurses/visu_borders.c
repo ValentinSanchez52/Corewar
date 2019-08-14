@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 15:43:09 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/13 19:26:31 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/14 17:08:57 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ inline void				visu_borders(void)
 		mvprintw(y, VISU_VS, "*");
 	mvprintw(VISU_HEADER, VISU_VS + 1, "*");
 	mvprintw(VISU_HEADER, VISU_RIGHT_B - 1, "*");
-	mvprintw(VISU_WARRIOR, VISU_VS + 1, "*");
-	mvprintw(VISU_WARRIOR, VISU_RIGHT_B - 1, "*");
+	mvprintw(VISU_WARRIOR - 2, VISU_VS + 1,
+			"**********************************************************");
+	mvprintw(VISU_WARRIOR + 2 + ((1 + VISU_NB_WINFO) * 4), VISU_VS + 1,
+			"**********************************************************");
 	attroff(COLOR_PAIR(5));
 }
