@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/13 17:58:54 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/14 17:11:35 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,7 @@ typedef struct		s_vm
 	uint32_t		cycles_to_die; // First clean limit
 	uint32_t		cycles_counter; // Counts cycles up to cycles_to_die
 	uint32_t		cycles_left; // Cycles until forced clean
+	uint32_t		last_clear;
 	uint32_t		cycles; // Cycles passed so far
 	uint32_t		live_counter; // Number of lives inside a cycles_to_die
 	t_warrior		warriors[4];
