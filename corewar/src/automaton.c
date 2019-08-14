@@ -6,13 +6,26 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:55:44 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/14 19:09:57 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/14 19:17:49 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "visu.h"
 #include "print.h"
+
+static inline void	reset_warriors_state(void)
+{
+	uint8_t			warrior_id;
+
+	warrior_id = 0;
+	while (warrior_id < COR_WARRIOR_NB_MAX)
+	{
+		if (g_vm.warriors[warrior_id].id)
+			g_vm.warriors[warrior_id].living = false;
+		warrior_id++;
+	}
+}
 
 /*
 ** Updates the g_vm's internal counters to know when to kill process that didn't
@@ -27,6 +40,7 @@ static inline void	automaton_update_counters(t_vm *g_vm)
 		{
 			/*printf("Cleaning processes...\n");*/
 			g_vm->last_clear = g_vm->cycles;
+			reset_warriors_state();
 			run_process_cleaner(g_vm);
 			g_vm->cycles_left = COR_CYCLES_LEFT;
 			g_vm->live_counter = 0;
