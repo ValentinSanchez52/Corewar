@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:55:44 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/13 18:49:21 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/14 19:09:57 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,17 @@ static inline void	automaton_update_counters(t_vm *g_vm)
 		if (g_vm->live_counter >= COR_CYCLES_LIVES || !g_vm->cycles_left)
 		{
 			/*printf("Cleaning processes...\n");*/
+			g_vm->last_clear = g_vm->cycles;
 			run_process_cleaner(g_vm);
 			g_vm->cycles_left = COR_CYCLES_LEFT;
-			g_vm->cycles_counter = 0;
 			g_vm->live_counter = 0;
 			g_vm->cycles_to_die -= COR_CYCLES_DELTA;
 		}
 		else if (g_vm->live_counter < COR_CYCLES_LIVES)
+		{
 			--g_vm->cycles_left;
+		}
+		g_vm->cycles_counter = 0;
 	}
 	else
 	{
