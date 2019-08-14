@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 04:44:37 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/10 17:37:28 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/14 16:21:18 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ void				op_xor(t_process *proc)
 	if (proc->op.types[0] == COR_ARG_REG && proc->op.args[0]
 			&& proc->op.args[0] <= 16)
 		value_1 = get_reg_value(proc, proc->op.args[0]);
-	else if (!(value_1 = get_value(proc, 0)))
-		return ;
+	else
+		value_1 = get_value(proc, 0);
 	if (proc->op.types[1] == COR_ARG_REG && proc->op.args[1]
 			&& proc->op.args[1] <= 16)
 		value_2 = get_reg_value(proc, proc->op.args[1]);
-	else if (!(value_2 = get_value(proc, 1)))
-		return ;
+	else
+		value_2 = get_value(proc, 1);
 	reg_set_value(proc, reg_id, value_1 ^ value_2);
 	proc->carry = (!get_reg_value(proc, reg_id));
 }
