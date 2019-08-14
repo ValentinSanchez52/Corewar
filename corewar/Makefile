@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/04 04:17:21 by mbeilles          #+#    #+#              #
-#    Updated: 2019/08/10 14:56:37 by mbeilles         ###   ########.fr        #
+#    Updated: 2019/08/14 23:35:02 by njiall           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -109,11 +109,13 @@ LDLIBS = \
 
 CLIBS = $(foreach dep, $(LIBS), $(dep)/$(notdir $(dep)).a) \
 
-LTOPLUGIN="$(gcc -print-search-dirs | grep install | awk '{print $2 "liblto_plugin.so"}')"
+LTOPLUGIN="$(clang -print-search-dirs | grep install | awk '{print $2 "liblto_plugin.so"}')"
 
-LDFLAGS = \
+LDFLAGS =
+LDFLAGS_DARWIN =
+LDFLAGS_LINUX = -fuse-ld=lld # Don't forget to install lld as ld don't use .a files
 
-CFLAGS = -I$(PATH_INC) $(FLAGS) \
+CFLAGS = -I$(PATH_INC) \
 		 $(foreach dep, $(LIBS), -I$(dep)/$(PATH_INC)) \
 		 $(foreach dep, $(LDLIBS), -I$(dep)/$(PATH_INC)) \
 		 $(foreach lib, $(SYSLIBS), -l$(lib))
@@ -136,6 +138,6 @@ DEPS := $(patsubst %.c, $(PATH_DEP)/%.d, $(SRCS))
 #==============================================================================#
 
 include ../makefiles/bin.mk
+include ../makefiles/test.mk
 include ../makefiles/strings.mk
 include ../makefiles/depend.mk
-include ../makefiles/test.mk
