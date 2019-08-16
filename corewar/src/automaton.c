@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:55:44 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/14 19:17:49 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/16 08:39:52 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,16 +103,17 @@ void				automaton_run(t_vm *vm)
 				/* print_process(process, true); */
 				run_process_frame(vm, process);
 			}
-			else if (process->op.timeout > 0)
+			else if (process->op.timeout > 2)
 				--process->op.timeout;
 			else
 			{
-				/*print_op(process, true);*/
-				/* print_process(process, true); */
+				print_op(process, true);
+				print_process(process, true);
 				run_instruction_frame(vm, process);
 			}
 		run_process_spawner(&vm->process, &vm->process_queue);
-		visu_update();
 		automaton_update_counters(vm);
+		if (g_vm.visu.used)
+			visu_update();
 	}
 }
