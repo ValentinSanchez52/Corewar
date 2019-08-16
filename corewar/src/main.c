@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 14:39:16 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/13 18:00:41 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/16 08:03:48 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,16 @@ static const t_option		g_options[] = {
 			.desc = "Sets champion's(\e[37margument\e[0m) [\e[37mnumber\e[0m]."
 		}
 	},
+	(t_option){
+		.option = {"v", "visu"},
+		.type = {OPT_SINGLE, OPT_DOUBLE},
+		.length = 2,
+		.match = (t_opt_match){
+			.func = &load_visu,
+			.arg_count = 0,
+			.desc = "Sets viewer mode"
+		}
+	},
 };
 
 static inline char			**parse_options(int c, char **v, void *data)
@@ -207,10 +217,11 @@ int					main(int c, char **v)
 	}
 	corewar_load_arena();
 	/*print_dump(&g_vm);*/
-	start_visu();
+	if (g_vm.visu.used)
+		start_visu();
 	automaton_run(&g_vm);
 	/*print_dump(&g_vm);*/
-	visu_end_wait();
-	endwin();	//To restore terminal settings
+	if (g_vm.visu.used)
+		visu_end_wait();
 	return (0);
 }

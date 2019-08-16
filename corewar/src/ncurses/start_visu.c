@@ -6,11 +6,17 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 17:28:47 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/14 18:08:41 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/16 08:01:27 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visu.h"
+
+t_bboa_state			load_visu(t_arg_array *args)
+{
+	g_vm.visu.used = true;
+	return (BBOA_RS_OK);
+}
 
 /*
 **	initscr();	//To init visu

@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/14 17:11:35 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/16 08:00:15 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,7 @@ typedef struct		s_warrior
 
 typedef struct		s_visu
 {
+	bool			used;
 	WINDOW			*win;
 	bool			state;
 	uint32_t		speed;
@@ -316,5 +317,6 @@ uint32_t			get_arg_value(uint32_t mem, t_op_arg_code *typ, uint32_t i);
 */
 
 void				start_visu(void);
+t_bboa_state		load_visu(t_arg_array *args);
 
 #endif

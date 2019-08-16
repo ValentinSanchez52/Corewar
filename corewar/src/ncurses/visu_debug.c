@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/14 17:10:06 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/14 19:26:32 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/16 07:15:02 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,7 @@ inline void				visu_debug(void)
 	mvprintw(VISU_DBG_INFO + 10, VISU_INFOS, "Current check:       ");
 	mvprintw(VISU_DBG_INFO + 10, VISU_INFOS + 15,
 			ft_ultostr(COR_CYCLES_LEFT + 1 - g_vm.cycles_left, 10, 0));
+	mvprintw(VISU_DBG_INFO + 12, VISU_INFOS, "Process counter:       ");
+	mvprintw(VISU_DBG_INFO + 12, VISU_INFOS + 17,
+			ft_ultostr(g_vm.process.index / sizeof(t_process), 10, 0));
 }
