@@ -15,11 +15,11 @@ endif
 
 corewar:
 	@printf $(MAKING_COMMAND) corewar
-	@$(MAKE) -C corewar $(CMD)
+	@$(MAKE) -C corewar --no-print-directory $(CMD)
 
 assembler:
 	@printf $(MAKING_COMMAND) asm
-	@$(MAKE) -C asm $(CMD)
+	@$(MAKE) -C asm --no-print-directory $(CMD)
 
 all: assembler corewar
 re: assembler corewar
