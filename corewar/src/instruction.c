@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 09:30:45 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/10 16:27:18 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/18 11:57:34 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void			(*g_ops_exec[COR_OP_MAX])(t_process *process) = {
 	[COR_OP_LONG_LOAD] = op_lld,
 	[COR_OP_LONG_LOAD_IDX] = op_lldi,
 	[COR_OP_LONG_FORK] = op_lfork,
-	[COR_OP_AFF] = op_aff,
+	[COR_OP_AFF] = op_aff
 };
 
 inline void			run_instruction_frame(
@@ -38,8 +38,14 @@ inline void			run_instruction_frame(
 )
 {
 	proc->waiting = false;
-	if (g_ops_exec[proc->op.code])
+	proc->op = get_instruction_from_arena(proc, proc->global_offset + proc->pc);
+	proc->op.physical_size = get_instruction_size(&proc->op);
+	if (proc->op.code < COR_OP_MAX && g_ops_exec[proc->op.code])
+	{
 		g_ops_exec[proc->op.code](proc);
+	}
 	if (proc->op.code != COR_OP_ZJUMP)
+	{
 		proc->pc += proc->op.physical_size;
+	}
 }

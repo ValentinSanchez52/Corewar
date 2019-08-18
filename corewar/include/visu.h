@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:17:45 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/14 19:38:41 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/18 11:22:44 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define			VISU_INFOS		(VISU_VS + 3)
 # define			VISU_HEADER		(VISU_TOP_B + 4)
 # define			VISU_WARRIOR	(VISU_TOP_B + 12)
-# define			VISU_NB_WINFO	(3)
+# define			VISU_NB_WINFO	(4)
 # define			VISU_INFO_MID	((VISU_VS + VISU_RIGHT_B) / 2)
 # define			VISU_DBG_INFO	(VISU_WARRIOR + 5 + (1 + VISU_NB_WINFO) * 4)
 

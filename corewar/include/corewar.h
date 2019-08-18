@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/16 08:00:15 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/18 11:26:01 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ typedef struct		s_warrior
 	uint8_t			assembly[WARRIOR_MAX_SIZE + 1];
 	uint32_t		assembly_size;
 	uint32_t		cycle_last;
+	uint32_t		period_lives;
 	uint32_t		magic;
 	bool			living: 1;
 }					t_warrior;

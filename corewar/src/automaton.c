@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:55:44 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/16 08:39:52 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/18 11:57:43 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ static inline void	reset_warriors_state(void)
 	while (warrior_id < COR_WARRIOR_NB_MAX)
 	{
 		if (g_vm.warriors[warrior_id].id)
+		{
 			g_vm.warriors[warrior_id].living = false;
+			g_vm.warriors[warrior_id].period_lives = 0;
+		}
 		warrior_id++;
 	}
 }
@@ -107,8 +110,8 @@ void				automaton_run(t_vm *vm)
 				--process->op.timeout;
 			else
 			{
-				print_op(process, true);
-				print_process(process, true);
+				/*print_op(process, true);*/
+				/*print_process(process, true);*/
 				run_instruction_frame(vm, process);
 			}
 		run_process_spawner(&vm->process, &vm->process_queue);
