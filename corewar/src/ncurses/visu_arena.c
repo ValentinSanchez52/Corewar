@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 16:02:50 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/13 18:25:48 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/18 13:12:05 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ inline void				visu_arena(void)
 	index = 0;
 	while (index < 4096)
 	{
-		if (!(color_id = get_cell_claim(index)))
+		if (!(color_id = get_cell_claim(index)) || color_id > 6)
 			color_id = 6;
 		attron(COLOR_PAIR(color_id));
 		mvprintw(VISU_ARENA_TB + index / 64, VISU_ARENA_LB + ((index % 64) * 3),
