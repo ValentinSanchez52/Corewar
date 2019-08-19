@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/19 18:35:42 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/19 19:41:19 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,32 @@ typedef struct		s_option
 ** =============================================================================
 */
 
-# define			COR_ARENA_SIZE			(1 << 12) // 4096
-# define			COR_CYCLES_DEFAULT		(1536) // Default value for cycles_to_die
-# define			COR_CYCLES_DELTA		(50) // Delta decrease cycles_to_die
-# define			COR_CYCLES_LIVES		(21)
-# define			COR_CYCLES_LEFT			(10)
-# define			COR_ARG_NUMBER_MAX		(4)
-# define			COR_WARRIOR_NB_MAX		(4)
-# define			COR_IDX_MOD				(COR_ARENA_SIZE / 8)
-# define			COR_REG_SIZE			(4)
+# define COR_ARENA_SIZE			(1 << 12)
+# define COR_CYCLES_DEFAULT		(1536)
+# define COR_CYCLES_DELTA		(50)
+# define COR_CYCLES_LIVES		(21)
+# define COR_CYCLES_LEFT		(10)
+# define COR_ARG_NUMBER_MAX		(4)
+# define COR_WARRIOR_NB_MAX		(4)
+# define COR_IDX_MOD			(COR_ARENA_SIZE / 8)
+# define COR_REG_SIZE			(4)
 
-# define			WARRIOR_DEFAULT_MAGIC	(0x00ea83f3)
-# define			WARRIOR_MAGIC			(4)
-# define			WARRIOR_NAME			(128)
-# define			WARRIOR_PADDING			(4)
-# define			WARRIOR_SIZE			(4)
-# define			WARRIOR_COMMENT			(2048)
-# define			WARRIOR_MAX_SIZE		(COR_ARENA_SIZE/6)
+# define WARRIOR_DEFAULT_MAGIC	(0x00ea83f3)
+# define WARRIOR_MAGIC			(4)
+# define WARRIOR_NAME			(128)
+# define WARRIOR_PADDING		(4)
+# define WARRIOR_SIZE			(4)
+# define WARRIOR_COMMENT		(2048)
+# define WARRIOR_MAX_SIZE		(COR_ARENA_SIZE/6)
+
+# define DESC_DUMP_1			"Dump the arena state after"
+# define DESC_DUMP_2			" [\e[37mnumber\e[0m] cycles. "
+# define DESC_DS_1				"Determines dump width in bytes"
+# define DESC_DS_2				" [\e[37m32|64|128\e[0m]."
+# define DESC_DS_3				" Defaults to 32."
+
+# define DESC_DUMP				DESC_DUMP_1 DESC_DUMP_2
+# define DESC_DS				DESC_DS_1 DESC_DS_2 DESC_DS_3
 
 /*
 ** =============================================================================
@@ -120,23 +129,29 @@ typedef enum		e_op_arg_size
 	COR_ARG_SIZ_DIR = 4,
 }					t_op_arg_size;
 
+typedef uint32_t	t_reg;
+
 /*
 ** =============================================================================
-** 		Processes
+** 		Operation struct
 ** =============================================================================
 */
-
-typedef uint32_t	t_reg;
 
 typedef struct		s_op
 {
 	t_op_code		code;
 	uint32_t		timeout;
-	uint32_t		param_count; // Should be <= COR_ARG_NUMBER_MAX
+	uint32_t		param_count;
 	t_op_arg_code	types[COR_ARG_NUMBER_MAX];
 	uint32_t		args[COR_ARG_NUMBER_MAX];
 	uint32_t		physical_size;
 }					t_op;
+
+/*
+** =============================================================================
+** 		Processes
+** =============================================================================
+*/
 
 typedef struct		s_process
 {
@@ -144,17 +159,11 @@ typedef struct		s_process
 	uint32_t		registers[16];
 	uint32_t		global_offset;
 	t_op			op;
-	uint32_t		pc : 12; // 12 bit counter
+	uint32_t		pc : 12;
 	bool			carry : 1;
 	bool			living : 1;
 	bool			waiting : 1;
 }					t_process;
-
-/*
-** =============================================================================
-** 		Operation struct
-** =============================================================================
-*/
 
 /*
 ** =============================================================================
@@ -204,19 +213,21 @@ typedef struct		s_vm_flags
 	uint32_t		dump_cycle;
 	t_dump_size		dump_size;
 	bool			dump : 1;
+	bool			debug : 1;
 	bool			visualizer : 1;
+	bool			no_print_end_dump : 1;
 }					t_vm_flags;
 
 typedef struct		s_vm
 {
 	uint8_t			arena[COR_ARENA_SIZE];
 	uint8_t			arena_claim[COR_ARENA_SIZE];
-	uint32_t		cycles_to_die; // First clean limit
-	uint32_t		cycles_counter; // Counts cycles up to cycles_to_die
-	uint32_t		cycles_left; // Cycles until forced clean
+	uint32_t		cycles_to_die;
+	uint32_t		cycles_counter;
+	uint32_t		cycles_left;
 	uint32_t		last_clear;
-	uint32_t		cycles; // Cycles passed so far
-	uint32_t		live_counter; // Number of lives inside a cycles_to_die
+	uint32_t		cycles;
+	uint32_t		live_counter;
 	t_warrior		warriors[4];
 	uint32_t		warriors_nb;
 	t_dynarray		process;
@@ -236,22 +247,22 @@ extern t_vm			g_vm;
 ** =============================================================================
 */
 
-void				op_live (t_process *proc);	//OK
-void				op_ld   (t_process *proc);	//IDX -> OK
-void				op_st   (t_process *proc);	//IDX -> OK
-void				op_add  (t_process *proc);	//OK SURE
-void				op_sub  (t_process *proc);	//OK SURE
-void				op_and  (t_process *proc);	//OK SURE
-void				op_or   (t_process *proc);	//OK SURE
-void				op_xor  (t_process *proc);	//OK SURE
-void				op_zjmp (t_process *proc);	//IDX -> OK SURE
-void				op_ldi  (t_process *proc);	//IDX -> OK
-void				op_sti  (t_process *proc);	//IDX -> OK
-void				op_fork (t_process *proc);	//IDX
-void				op_lld  (t_process *proc);	//OK
-void				op_lldi (t_process *proc);	//OK
-void				op_lfork(t_process *proc);	//
-void				op_aff  (t_process *proc);	//OK
+void				op_live(t_process *proc);
+void				op_ld(t_process *proc);
+void				op_st(t_process *proc);
+void				op_add(t_process *proc);
+void				op_sub(t_process *proc);
+void				op_and(t_process *proc);
+void				op_or(t_process *proc);
+void				op_xor(t_process *proc);
+void				op_zjmp(t_process *proc);
+void				op_ldi(t_process *proc);
+void				op_sti(t_process *proc);
+void				op_fork(t_process *proc);
+void				op_lld(t_process *proc);
+void				op_lldi(t_process *proc);
+void				op_lfork(t_process *proc);
+void				op_aff(t_process *proc);
 
 /*
 ** =============================================================================
@@ -268,7 +279,7 @@ void				run_process_cleaner(t_vm *g_vm);
 void				print_warriors(void);
 void				print_arena(void);
 uint32_t			macos_flip_bytes(uint32_t n);
-void				corewar_load_warriors(int c, char *file);
+bool				corewar_load_warriors(int c, char *file);
 void				corewar_load_arena(void);
 
 void				print_dump(t_vm *g_vm);
@@ -314,6 +325,11 @@ t_arena_own			get_cell_claim(uint32_t index);
 t_op_arg_code		get_arg_type(uint8_t encode, uint32_t i);
 uint32_t			get_arg_value(uint32_t mem, t_op_arg_code *typ, uint32_t i);
 
+t_bboa_state		help(t_arg_array *args);
+t_bboa_state		set_dump(t_arg_array *args);
+t_bboa_state		set_vm_debug(t_arg_array *args);
+t_bboa_state		set_dump_size(t_arg_array *args);
+t_bboa_state		parse_player(t_arg_array *args);
 
 /*
 **	Ncurses visu

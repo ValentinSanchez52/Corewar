@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 17:29:54 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/19 13:12:29 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/19 19:09:44 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ void				print_warriors(void)
 	uint8_t			warrior_i;
 
 	warrior_i = 0;
-	write(1, "===================[ Warriors ]===================\n", 51);
+	print_vm((t_print){.printer = printer,
+			.data = "===================[ Warriors ]===================\n"});
 	while (warrior_i < 4)
 	{
 		if (g_vm.warriors[warrior_i].id)
 			print_warrior(g_vm.warriors + warrior_i, warrior_i, true);
 		warrior_i++;
 	}
-	write(1, "=====================[ End ]======================\n", 51);
-	if (!g_vm.visu.used)
-		write(1, "\n", 1);
+	print_vm((t_print){.printer = printer,
+			.data = "=====================[ End ]======================\n"});
 }

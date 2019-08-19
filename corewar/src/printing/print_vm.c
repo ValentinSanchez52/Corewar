@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_processes.c                                  :+:      :+:    :+:   */
+/*   print_vm.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/08 16:33:41 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/19 19:09:46 by mbeilles         ###   ########.fr       */
+/*   Created: 2019/08/19 18:48:03 by mbeilles          #+#    #+#             */
+/*   Updated: 2019/08/19 19:13:38 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 #include "print.h"
 
-void			print_processes(t_vm *vm)
+void				print_vm(t_print msg)
 {
-	t_process	*proc;
-	uint64_t	i;
-
-	i = 0;
-	print_vm((t_print){.printer = printer,
-			.data = "==================[ Proccesses ]==================\n"});
-	while ((proc = ft_dynarray_iterate(&vm->process, &i, sizeof(t_process))))
-		print_process(proc, true);
-	print_vm((t_print){.printer = printer,
-			.data = "=====================[ End ]======================\n"});
+	msg.flags.debug = g_vm.flags.debug;
+	print(msg);
 }

@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 06:36:34 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/10 16:31:47 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/19 19:09:45 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,5 @@ void				print_process(t_process *proc, bool newline)
 	ft_dynarray_push_str(&msg, proc->living ? "\e[32mAlive\e[0m, " : "\e[31mDying\e[0m, ");
 	ft_dynarray_push_str(&msg, proc->waiting ? "Executing..." : "Idle");
 	ft_dynarray_push(&msg, (newline ? "\n" : ""), 1 + newline);
-	print((t_print){.data = msg.array, .printer = printer, .destructor = free});
+	print_vm((t_print){.data = msg.array, .printer = printer, .destructor = free});
 }

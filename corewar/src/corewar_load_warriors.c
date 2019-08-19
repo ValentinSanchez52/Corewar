@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 18:28:42 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/19 19:51:14 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/19 19:52:43 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "dynarray.h"
 
 static const char					*g_messages[0xff] = {
+	[0] = "Loaded <warrior> from '<path>'.\n",
 	[0b00000001] = "Wrong magic number in <path>.\n",
 	[0b01111111] = "Error reading magic in <path>.\n",
 	[0b01111110] = "Error reading name in <path>.\n",
@@ -26,12 +27,15 @@ static const char					*g_messages[0xff] = {
 	[0b01110000] = "Error reading comment of <warrior> in <path>.\n",
 	[0b01100000] = "Error reading padding of <warrior> in <path>.\n",
 	[0b01000000] = "Error reading code of <warrior> in <path>.\n",
-	[0b10000000] = "Error opening <path>.\n",
+	[0b10000000] = "Error opening file: '<path>'.\n",
 	[0b10001000] = "Size of <warrior> is too big in <path>.\n"
 };
 
-static inline char					*get_error_message(uint8_t code,
-		char *wname, char *path)
+static inline char					*get_message(
+		uint8_t code,
+		char *wname,
+		char *path
+)
 {
 	char							*s1;
 	char							*s2;
@@ -81,17 +85,22 @@ static inline uint8_t				get_warrior(char *file, t_warrior *wrrr)
 	return (err_code);
 }
 
-void								corewar_load_warriors(int c, char *file)
+bool								corewar_load_warriors(int c, char *file)
 {
 	uint8_t			err_code;
 
 	if ((err_code = get_warrior(file, &(g_vm.warriors[c]))))
-		printf("%s", get_error_message(err_code,
+		print_vm((t_print){.level = LOG_WARN, .printer = printer,
+				.data = get_message(err_code, 
 					(g_vm.warriors + c)->name,
-					file));
+					file)});
 	else
 	{
 		g_vm.warriors[c].id = UINT32_MAX - c;
 		g_vm.warriors_nb++;
+		print_vm((t_print){.printer = printer, .data = get_message(0,
+					(g_vm.warriors + c)->name, file)});
+		return (true);
 	}
+	return (false);
 }

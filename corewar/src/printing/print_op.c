@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 19:30:46 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/08 18:51:27 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/19 19:09:45 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,5 @@ void				print_op(t_process *proc, bool newline)
 	ft_dynarray_push_str(&msg, " Remain: ");
 	ft_dynarray_push_str(&msg, ft_ultostr(proc->op.timeout, 10, true));
 	ft_dynarray_push(&msg, (newline ? " cycles.\n" : " cycles."), 9 + newline);
-	print((t_print){.data = msg.array, .printer = printer, .destructor = free});
+	print_vm((t_print){.data = msg.array, .printer = printer, .destructor = free});
 }

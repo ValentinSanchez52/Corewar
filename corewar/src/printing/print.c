@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 19:07:04 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/08 16:56:15 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/19 19:16:08 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void				printer(t_print print)
 
 void				print(t_print print)
 {
-	if (print.printer && !print.flags.silent)
+	if (print.printer && !print.flags.silent
+			&& !(!print.flags.debug && print.level == LOG_DEBUG))
 		print.printer(print);
 	if (print.data && print.destructor)
 		print.destructor(print.data);
