@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:55:44 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/18 11:57:43 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/19 15:10:07 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ void				automaton_run(t_vm *vm)
 	t_op			*instruction;
 	uint64_t		i;
 
-	while (vm->cycles_to_die <= COR_CYCLES_DEFAULT
+	while (g_vm.process.index / sizeof(t_process)
+			&& vm->cycles_to_die <= COR_CYCLES_DEFAULT
 			&& !(vm->flags.dump && vm->flags.dump_cycle < vm->cycles))
 	{
 		i = 0;

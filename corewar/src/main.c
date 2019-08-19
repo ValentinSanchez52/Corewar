@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 14:39:16 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/19 13:07:06 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/19 14:27:20 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,9 +221,9 @@ int					main(int c, char **v)
 	if (g_vm.visu.used)
 		start_visu();
 	automaton_run(&g_vm);
-	/*print_dump(&g_vm);*/
 	if (g_vm.visu.used)
 		visu_end_wait();
 	print_the_winner();
+	print_dump(&g_vm);
 	return (0);
 }
