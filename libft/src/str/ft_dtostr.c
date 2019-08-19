@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 14:15:06 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/04 16:08:47 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/19 21:19:28 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ char				*ft_dtostr(double d, uint32_t precision, bool force_sign)
 {
 	static char		fmt[256];
 	char			*s;
+	long			fraction;
 
 	s = fmt;
 	if (d >= 0.0 && force_sign)
@@ -48,9 +49,9 @@ char				*ft_dtostr(double d, uint32_t precision, bool force_sign)
 		return (fmt);
 	ft_strcpy(s, ft_ultostr((uint64_t)d, 10, true));
 	s += ft_strlen(s);
-	if ((t_double){.d = d}.mantisa && precision > 0)
+	if ((t_double){.d = d}.e.mantisa && precision > 0)
 	{
-		long fraction = (d - ((long)d)) * pow(10, precision);
+		fraction = (d - ((long)d)) * pow(10, precision);
 		*s++ = '.';
 		ft_strcpy(s, ft_ultostr(fraction, 10, true));
 		precision -= ft_strlen(s) - 1;

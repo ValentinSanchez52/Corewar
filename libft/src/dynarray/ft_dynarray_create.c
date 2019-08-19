@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 02:05:01 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/23 18:21:32 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/19 21:16:51 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ t_dynarray				*ft_dynarray_create(uint64_t min, uint64_t max)
 **
 ** - integer 64 bits | size of the default array allocated.
 */
-
 
 t_dynarray				ft_dynarray_create_loc(uint64_t min, uint64_t max)
 {

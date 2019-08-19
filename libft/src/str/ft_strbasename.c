@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strbasename.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njiall <mbeilles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/06 04:38:00 by njiall            #+#    #+#             */
-/*   Updated: 2019/07/06 04:46:15 by njiall           ###   ########.fr       */
+/*   Created: 2019/08/19 21:19:49 by mbeilles          #+#    #+#             */
+/*   Updated: 2019/08/19 21:19:59 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char			*ft_strbasename(char *name)
 {
 	char *nopath;
 	char *noext;
-	
+
 	nopath = ft_strrchr(name, '/');
 	if (nopath)
 		nopath++;

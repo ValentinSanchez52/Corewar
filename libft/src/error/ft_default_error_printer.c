@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_default_error_printer.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njiall </var/spool/mail/njiall>            +#+  +:+       +#+        */
+/*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/01 15:27:49 by njiall            #+#    #+#             */
-/*   Updated: 2019/07/01 15:41:39 by njiall           ###   ########.fr       */
+/*   Created: 2019/08/19 21:17:49 by mbeilles          #+#    #+#             */
+/*   Updated: 2019/08/19 21:18:36 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "libft.h"
 #include "errors.h"
 
-static const char * const	g_headers[ERR_MAX] = {
+static const char *const	g_headers[ERR_MAX] = {
 	[ERR_NONE] = "[?]",
 	[ERR_INFO] = "[i]",
 	[ERR_WARN] = "[!]",

@@ -6,19 +6,12 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 14:39:19 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/07/04 15:32:18 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/19 21:20:54 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdint.h>
-
-typedef union	u_sdouble {
-	double			d;
-	struct {
-		uint32_t	lsw;
-		uint32_t	msw;
-	};
-}				t_sdouble;
+#include "libft.h"
 
 int				ft_isinf(double x)
 {
@@ -27,8 +20,8 @@ int				ft_isinf(double x)
 	int32_t		lx;
 
 	dd = (t_sdouble){.d = x};
-	hx = dd.msw;
-	lx = dd.lsw;
+	hx = dd.e.msw;
+	lx = dd.e.lsw;
 	lx |= (hx & 0x7fffffff) ^ 0x7ff00000;
 	lx |= -lx;
 	return (~(lx >> 31) & (hx >> 30));
