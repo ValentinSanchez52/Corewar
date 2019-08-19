@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 09:30:45 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/18 11:57:34 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/19 09:22:32 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,12 @@ inline void			run_instruction_frame(
 )
 {
 	proc->waiting = false;
-	proc->op = get_instruction_from_arena(proc, proc->global_offset + proc->pc);
-	proc->op.physical_size = get_instruction_size(&proc->op);
+	if (is_instruction_valid_from_arena(proc->global_offset + proc->pc))
+	{
+		proc->op = get_instruction_from_arena(proc,
+				proc->global_offset + proc->pc);
+		proc->op.physical_size = get_instruction_size(&proc->op);
+	}
 	if (proc->op.code < COR_OP_MAX && g_ops_exec[proc->op.code])
 	{
 		g_ops_exec[proc->op.code](proc);
