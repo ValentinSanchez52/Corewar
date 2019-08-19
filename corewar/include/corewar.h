@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/19 12:57:18 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/19 18:35:42 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ typedef struct		s_visu
 {
 	bool			used;
 	WINDOW			*win;
-	bool			state;
+	uint8_t			state;
 	uint32_t		speed;
 }					t_visu;
 

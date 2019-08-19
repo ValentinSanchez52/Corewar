@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 15:44:40 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/13 19:18:21 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/19 19:04:52 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 inline void				visu_state(void)
 {
-	mvprintw(VISU_ARENA_TB, VISU_INFO_MID - 3,
-			(g_vm.visu.state ? "RUNNING" : "PAUSED "));
+	if (g_vm.visu.state == VISU_RUNNING)
+		mvprintw(VISU_ARENA_TB, VISU_INFO_MID - 3, "RUNNING");
+	else
+		mvprintw(VISU_ARENA_TB, VISU_INFO_MID - 3, "PAUSED ");
 }

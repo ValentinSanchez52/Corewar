@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 15:44:06 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/18 13:22:47 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/19 18:31:42 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 inline void				visu_legend(void)
 {
 	attron(COLOR_PAIR(5));
-	mvprintw(VISU_ARENA_BB - 8, VISU_VS,
+	mvprintw(VISU_ARENA_BB - 9, VISU_VS,
 			"***********************************************************");
 	attroff(COLOR_PAIR(5));
-	mvprintw(VISU_ARENA_BB - 6, VISU_INFOS,
+	mvprintw(VISU_ARENA_BB - 7, VISU_INFOS,
 			"[---------------------- LEGEND ----------------------]");
+	mvprintw(VISU_ARENA_BB - 5, VISU_INFOS,
+			"S:	Step by step");
 	mvprintw(VISU_ARENA_BB - 4, VISU_INFOS,
 			"D:	Decrese speed     ->	 Shift + D: by 10");
 	mvprintw(VISU_ARENA_BB - 3, VISU_INFOS,
