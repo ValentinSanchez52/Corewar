@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 12:57:33 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/19 13:02:23 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/19 13:10:45 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static inline int8_t	get_first_warrior(void)
 			return (warrior_id);
 		warrior_id++;
 	}
+	return (-1);
 }
 
 void				print_the_winner(void)
@@ -47,5 +48,5 @@ void				print_the_winner(void)
 		write(1, "\n", 1);
 	}
 	else
-		write(1, "No winner :(", 12);
+		write(1, "No winner :(\n", 13);
 }
