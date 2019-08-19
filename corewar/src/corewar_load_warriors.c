@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 18:28:42 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/19 19:09:32 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/19 19:49:09 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ bool								corewar_load_warriors(int c, char *file)
 
 	if ((err_code = get_warrior(file, &(g_vm.warriors[c]))))
 		print_vm((t_print){.level = LOG_WARN, .printer = printer,
-				.data = get_message(err_code, 
+				.data = get_message(err_code,
 					(g_vm.warriors + c)->name,
 					file)});
 	else

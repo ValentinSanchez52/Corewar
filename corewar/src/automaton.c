@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:55:44 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/19 19:09:32 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/19 19:48:28 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static inline void	automaton_update_counters(t_vm *g_vm)
 	{
 		if (g_vm->live_counter >= COR_CYCLES_LIVES || !g_vm->cycles_left)
 		{
-			/*printf("Cleaning processes...\n");*/
 			g_vm->last_clear = g_vm->cycles;
 			reset_warriors_state();
 			run_process_cleaner(g_vm);
@@ -64,7 +63,7 @@ static inline void	automaton_update_counters(t_vm *g_vm)
 
 static inline void	debug_automaton_states(t_vm *g_vm)
 {
-	char*			nums[3];
+	char			*nums[3];
 
 	nums[0] = ft_strdup(ft_ultostr(g_vm->cycles, 10, true));
 	nums[1] = ft_strdup(ft_ultostr(g_vm->cycles_to_die, 10, true));
@@ -87,7 +86,6 @@ static inline void	debug_automaton_states(t_vm *g_vm)
 ** Then it updates the g_vm's internal counters to wipe dead processes.
 */
 
-#include <stdio.h>
 void				automaton_run(t_vm *vm)
 {
 	t_process		*process;
@@ -99,22 +97,14 @@ void				automaton_run(t_vm *vm)
 			&& !(vm->flags.dump && vm->flags.dump_cycle < vm->cycles))
 	{
 		i = 0;
-		/* debug_automaton_states(vm); */
 		while ((process = ft_dynarray_iterate(&vm->process, &i,
 						sizeof(t_process))))
 			if (!process->waiting)
-			{
-				/* print_process(process, true); */
 				run_process_frame(vm, process);
-			}
 			else if (process->op.timeout > 2)
 				--process->op.timeout;
 			else
-			{
-				/*print_op(process, true);*/
-				/*print_process(process, true);*/
 				run_instruction_frame(vm, process);
-			}
 		run_process_spawner(&vm->process, &vm->process_queue);
 		automaton_update_counters(vm);
 		if (g_vm.visu.used)
