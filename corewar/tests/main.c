@@ -5,7 +5,10 @@
 
 static t_utest		*tests[] = {
 	&utest_ld,
+	&utest_st,
 };
+
+t_vm				g_vm = (t_vm){};
 
 int				main(void)
 {

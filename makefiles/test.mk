@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 18:27:52 by mbeilles          #+#    #+#              #
-#    Updated: 2019/08/09 15:20:12 by mbeilles         ###   ########.fr        #
+#    Updated: 2019/08/19 15:08:33 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 -include ./strings.mk
@@ -30,7 +30,6 @@ endif
 CFLAGS += $(SLOW_FLAG) # Sets the debug flags for finding any underlying segfault.
 
 test: $(TEST_OBJS) $(CLIBS)
-	@echo $(TEST_OBJS)
 	@printf $(COMPILING_TEST)
 	@$(CC) $(LDFLAGS) $(LDLIBS) $(CFLAGS) -o test $^ ; \
 		if [ "$$?" != "1" ]; then \
