@@ -6,13 +6,13 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 12:57:33 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/19 19:52:23 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/19 20:01:30 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static const char * const	g_claim_col[COR_ARN_MAX] = {
+static const char *const	g_claim_col[COR_ARN_MAX] = {
 	[COR_ARN_NO_CLAIM] = "\e[37m",
 	[COR_ARN_W1_CLAIM] = "\e[1;33m",
 	[COR_ARN_W2_CLAIM] = "\e[1;34m",
