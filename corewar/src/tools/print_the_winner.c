@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 12:57:33 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/19 13:10:45 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/19 19:50:21 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static inline int8_t	get_first_warrior(void)
 	return (-1);
 }
 
-void				print_the_winner(void)
+void					print_the_winner(void)
 {
 	uint8_t			warrior_id;
 	int8_t			winner;

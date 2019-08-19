@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 18:28:42 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/08 18:52:46 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/19 19:51:14 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void								corewar_load_warriors(int c, char *file)
 	uint8_t			err_code;
 
 	if ((err_code = get_warrior(file, &(g_vm.warriors[c]))))
-		printf("%s", get_error_message(err_code, 
+		printf("%s", get_error_message(err_code,
 					(g_vm.warriors + c)->name,
 					file));
 	else

@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 16:42:21 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/18 11:26:21 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/19 19:47:00 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static inline void	warrior_live(uint32_t id)
 void				op_live(t_process *proc)
 {
 	proc->living = true;
-	/* printf("live_id: %#08x\n", op->args[0]); */
 	warrior_live(proc->op.args[0]);
 	g_vm.live_counter++;
 }
