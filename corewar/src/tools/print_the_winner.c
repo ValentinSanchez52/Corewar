@@ -6,11 +6,19 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 12:57:33 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/19 13:10:45 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/19 19:09:53 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+static const char * const	g_claim_col[COR_ARN_MAX] = {
+	[COR_ARN_NO_CLAIM] = "\e[37m",
+	[COR_ARN_W1_CLAIM] = "\e[1;33m",
+	[COR_ARN_W2_CLAIM] = "\e[1;34m",
+	[COR_ARN_W3_CLAIM] = "\e[1;31m",
+	[COR_ARN_W4_CLAIM] = "\e[1;35m",
+};
 
 static inline int8_t	get_first_warrior(void)
 {
@@ -41,12 +49,11 @@ void				print_the_winner(void)
 				winner = warrior_id;
 		}
 	if (winner >= 0)
-	{
-		write(1, "Winner is: ", 11);
-		write(1, g_vm.warriors[winner].name,
-				ft_strlen(g_vm.warriors[winner].name));
-		write(1, "\n", 1);
-	}
+		print_vm((t_print){.printer = printer, .level = LOG_INFO,
+				.data = ft_strajoin(4, "The winner is: ",
+						g_claim_col[winner + 1], g_vm.warriors[winner].name,
+						"\e[0m\n"), .destructor = &free});
 	else
-		write(1, "No winner :(\n", 13);
+		print_vm((t_print){.printer = printer, .level = LOG_INFO,
+				.data = "No Winner :("});
 }

@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/04 04:17:21 by mbeilles          #+#    #+#              #
-#    Updated: 2019/08/19 15:15:04 by mbeilles         ###   ########.fr        #
+#    Updated: 2019/08/19 19:11:16 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,9 @@ SRCS = $(PATH_SRC)/main.c													\
 	   $(PATH_SRC)/printing/print_process.c									\
 	   $(PATH_SRC)/printing/print_processes.c								\
 	   $(PATH_SRC)/printing/print_warrior.c									\
+	   $(PATH_SRC)/printing/print_vm.c										\
+\
+	   $(PATH_SRC)/options_functions.c										\
 \
 	   $(PATH_SRC)/corewar_load_arena.c										\
 	   $(PATH_SRC)/corewar_load_warriors.c									\

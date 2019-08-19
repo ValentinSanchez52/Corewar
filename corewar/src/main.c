@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 14:39:16 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/19 17:38:56 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/19 19:33:07 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,100 +18,9 @@
 #include "libft.h"
 
 t_vm						g_vm = (t_vm) {
-		.cycles_to_die = COR_CYCLES_DEFAULT,
-		.cycles_left = COR_CYCLES_LEFT
+	.cycles_to_die = COR_CYCLES_DEFAULT,
+	.cycles_left = COR_CYCLES_LEFT
 };
-
-/*
-** Use this for debug purposes
-*/
-static t_bboa_state			print_args(t_arg_array *args) {
-	t_arg_token				token;
-	uint32_t				i;
-
-	i = -1;
-	printf("Printing for option \e[1;32m'\e[1;36m%s\e[32m'\e[0m \
-\e[1;36m-\e[0;36m>\e[0m data: \e[36m%p\e[0m\n", args->opt, args->data);
-	while (++i < args->len)
-	{
-		token = args->array[i];
-		switch (token.type) {
-			default:
-				printf("\e[1;4mArg\e[0m [\e[1;33mNONE\e[0m]: \e[33m%p\e[0m\n",
-						token.none_token.data);
-				break ;
-			case BBOA_AT_STRING:
-				printf("\e[1;4mArg\e[0m [\e[1;32mSTRG\e[0m]: \e[32m%s\e[0m\n",
-						token.string_token.string);
-				break ;
-			case BBOA_AT_DOUBLE:
-				printf("\e[1;4mArg\e[0m [\e[1;34mDBLE\e[0m]: \e[34m%F\e[0m\n",
-						token.double_token.number);
-				break ;
-			case BBOA_AT_INTEGER:
-				if (token.integer_token.invalid)
-					printf("\e[1;4mArg\e[0m [\e[1;34mINTG\e[0m]: \e[31mInvalid\e[0m\n");
-				else
-					printf("\e[1;4mArg\e[0m [\e[1;34mINTG\e[0m]: \e[34m%lld\e[0m\n",
-							token.integer_token.number);
-				break ;
-			case BBOA_AT_BOOLEAN:
-				printf("\e[1;4mArg\e[0m [\e[1;35mBOOL\e[0m]: \e[35m%s\e[0m\n",
-						(token.bool_token.boolean ? "true" : "false"));
-				break ;
-		}
-	}
-	return (BBOA_RS_OK);
-}
-
-/*
-** Generic help function
-*/
-static t_bboa_state			help(t_arg_array *args) {
-	return (BBOA_RS_DISPLAY_USAGE);
-}
-
-static t_bboa_state			set_dump(t_arg_array *args) {
-	print_args(args);
-	if (args->len < 1 || args->array[0].type != BBOA_AT_INTEGER)
-		return (BBOA_RS_NOT_ENOUGH_ARGS);
-	g_vm.flags.dump_cycle = (uint32_t)args->array[0].integer_token.number;
-	g_vm.flags.dump = true;
-	return (BBOA_RS_OK);
-}
-
-static t_bboa_state			set_dump_size(t_arg_array *args) {
-	uint32_t				arg;
-
-	print_args(args);
-	if (args->len < 1)
-		return (BBOA_RS_NOT_ENOUGH_ARGS);
-	if (args->array[0].type != BBOA_AT_INTEGER)
-		return (BBOA_RS_TYPE_MISMATCH);
-	arg = (uint32_t)args->array[0].integer_token.number;
-	if (arg == 64)
-		g_vm.flags.dump_size = DMP_SIZE_64;
-	else if (arg == 128)
-		g_vm.flags.dump_size = DMP_SIZE_128;
-	else if (arg != 32)
-		return (BBOA_RS_INVALID_ARG);
-	return (BBOA_RS_OK);
-}
-
-static t_bboa_state			parse_player(t_arg_array *args) {
-	print_args(args);
-	if (args->len < 2)
-		return (BBOA_RS_NOT_ENOUGH_ARGS);
-	else if (args->array[0].type != BBOA_AT_INTEGER
-			|| args->array[0].integer_token.invalid
-			|| args->array[1].type != BBOA_AT_STRING)
-		return (BBOA_RS_TYPE_MISMATCH);
-	char *player = ft_strbasename(args->array[1].string_token.string);
-	printf("Loading '%s' as player %u...\n", player,
-			(uint32_t)args->array[0].integer_token.number);
-	free(player);
-	return (BBOA_RS_OK);
-}
 
 static const t_option		g_options[] = {
 	(t_option){
@@ -120,10 +29,9 @@ static const t_option		g_options[] = {
 		.length = 2,
 		.match = (t_opt_match){
 			.func = &help,
-			/*.types = {},*/
 			.arg_count = 0,
 			.desc = "Show this usage."
-		}
+		},
 	},
 	(t_option){
 		.option = {"dump", "d"},
@@ -133,8 +41,8 @@ static const t_option		g_options[] = {
 			.func = &set_dump,
 			.types = {BBOA_AT_INTEGER},
 			.arg_count = 1,
-			.desc = "Dump the arena state after [\e[37mnumber\e[0m] cycles."
-		}
+			.desc = DESC_DUMP "If set to -1 prints at the end of the game.",
+		},
 	},
 	(t_option){
 		.option = {"dump-size", "ds"},
@@ -144,8 +52,8 @@ static const t_option		g_options[] = {
 			.func = &set_dump_size,
 			.types = {BBOA_AT_INTEGER},
 			.arg_count = 1,
-			.desc = "Determines dump width in bytes [32|64|128]. Defaults to 32."
-		}
+			.desc = DESC_DS
+		},
 	},
 	(t_option){
 		.option = {"number", "num", "n", "player", "p"},
@@ -156,7 +64,7 @@ static const t_option		g_options[] = {
 			.types = {BBOA_AT_INTEGER, BBOA_AT_STRING},
 			.arg_count = 2,
 			.desc = "Sets champion's(\e[37margument\e[0m) [\e[37mnumber\e[0m]."
-		}
+		},
 	},
 	(t_option){
 		.option = {"v", "visu"},
@@ -165,8 +73,18 @@ static const t_option		g_options[] = {
 		.match = (t_opt_match){
 			.func = &load_visu,
 			.arg_count = 0,
-			.desc = "Sets viewer mode"
-		}
+			.desc = "Sets viewer mode."
+		},
+	},
+	(t_option){
+		.option = {"db", "dbg", "debug"},
+		.type = {OPT_SINGLE, OPT_SINGLE, OPT_DOUBLE},
+		.length = 3,
+		.match = (t_opt_match){
+			.func = &set_vm_debug,
+			.arg_count = 0,
+			.desc = "Prints debug messages."
+		},
 	},
 };
 
@@ -176,10 +94,9 @@ static inline char			**parse_options(int c, char **v, void *data)
 	uint32_t				i;
 	uint32_t				j;
 
-	patterns = (t_opt_patterns){
-			.mapd = ft_hashmap_create(),
-			.maps = ft_hashmap_create(),
-			.data = data
+	patterns = (t_opt_patterns){.data = data,
+		.mapd = ft_hashmap_create(),
+		.maps = ft_hashmap_create(),
 	};
 	i = ~0u;
 	while (++i < sizeof(g_options) / sizeof(t_option))
@@ -193,15 +110,16 @@ static inline char			**parse_options(int c, char **v, void *data)
 	}
 	if (c == 0)
 	{
-		bboa_set_error_usage(&patterns, NULL, BBOA_RS_DISPLAY_USAGE, BBOA_ERR_NO);
+		bboa_set_error_usage(&patterns, NULL, BBOA_RS_DISPLAY_USAGE,
+				BBOA_ERR_NO);
 		bboa_print_error(g_bboa_error);
 	}
 	return (bboa_parse_args(&patterns, c, v));
 }
 
-bool				append_champion(char *path)
+static inline bool			append_champion(char *path)
 {
-	int				i;
+	int						i;
 
 	i = 0;
 	while (i < 4)
@@ -217,16 +135,17 @@ bool				append_champion(char *path)
 	return (i < 4);
 }
 
-int					main(int c, char **v)
+static inline bool			parse_args(int c, char **v)
 {
-	int				i;
-	bool			error;
+	int						i;
+	int						j;
+	bool					error;
 
 	++v;
 	i = parse_options(--c, v, &g_vm) - v;
 	if (i < c && ft_strequ(v[i], "--"))
 		i++;
-	int j = 0;
+	j = 0;
 	error = false;
 	while (!error && i + j < c)
 	{
@@ -234,17 +153,32 @@ int					main(int c, char **v)
 			break ;
 		j++;
 	}
-	if (error)
-		print((t_print){.level = LOG_WARN, .printer = printer,
-				.data = "Too much champions passed as argument, ignoring...\n"});
+	return (error);
+}
+
+int							main(int c, char **v)
+{
+	bool					error;
+
+	error = parse_args(c, v);
 	print_warriors();
-	corewar_load_arena();
-	if (g_vm.visu.used)
-		start_visu();
-	automaton_run(&g_vm);
-	if (g_vm.visu.used)
-		visu_end_wait();
+	if (error)
+		print_vm((t_print){.level = LOG_WARN, .printer = printer,
+				.data = "Too much champions in arguments, ignoring...\n"});
+	if (!g_vm.warriors_nb)
+		print_vm((t_print){.level = LOG_CRIT, .printer = printer,
+				.data = "No valid champion loaded in the vm, exiting...\n"});
+	if (g_vm.warriors_nb > 1 || g_vm.visu.used)
+	{
+		corewar_load_arena();
+		if (g_vm.visu.used)
+			start_visu();
+		automaton_run(&g_vm);
+		if (g_vm.visu.used)
+			visu_end_wait();
+		if ((int32_t)g_vm.flags.dump_cycle < 0)
+			print_dump(&g_vm);
+	}
 	print_the_winner();
-	print_dump(&g_vm);
 	return (0);
 }

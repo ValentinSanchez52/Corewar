@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 07:38:46 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/10 17:35:40 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/19 19:09:45 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 
 static const char * const	g_claim_col[COR_ARN_MAX] = {
 	[COR_ARN_NO_CLAIM] = "\e[37m",
-	[COR_ARN_W1_CLAIM] = "\e[1;34m",
-	[COR_ARN_W2_CLAIM] = "\e[1;33m",
-	[COR_ARN_W3_CLAIM] = "\e[1;32m",
-	[COR_ARN_W4_CLAIM] = "\e[1;31m",
+	[COR_ARN_W1_CLAIM] = "\e[1;33m",
+	[COR_ARN_W2_CLAIM] = "\e[1;34m",
+	[COR_ARN_W3_CLAIM] = "\e[1;31m",
+	[COR_ARN_W4_CLAIM] = "\e[1;35m",
 };
 
 static inline void	append_dump_index(t_dynarray *msg, uint32_t index)
@@ -35,12 +35,13 @@ static inline void	append_dump_index(t_dynarray *msg, uint32_t index)
 	ft_dynarray_push(msg, "\e[0m: ", 6);
 }
 
-static inline void	print_dump_32(t_vm *vm)
+static inline char	*print_dump_32(t_vm *vm)
 {
 	t_dynarray		msg;
 	uint32_t		i;
 
 	msg = ft_dynarray_create_loc(0, 0);
+	ft_dynarray_push_str(&msg, "Printing arena's dump in 32 byte wide.\n");
 	i = 0;
 	while (i < sizeof(vm->arena) / sizeof(uint8_t))
 	{
@@ -48,10 +49,7 @@ static inline void	print_dump_32(t_vm *vm)
 			ft_dynarray_push(&msg, "\n", 1);
 		if ((i & 31) == 0)
 			append_dump_index(&msg, i);
-		if (vm->arena_claim[i] < COR_ARN_MAX)
-			ft_dynarray_push_str(&msg, (void*)g_claim_col[vm->arena_claim[i]]);
-		else
-			ft_dynarray_push_str(&msg, (void*)g_claim_col[COR_ARN_NO_CLAIM]);
+		ft_dynarray_push_str(&msg, (void*)g_claim_col[vm->arena_claim[i]]);
 		if (vm->arena[i] <= 0xf)
 			ft_dynarray_push(&msg, "0", 1);
 		ft_dynarray_push_str(&msg, ft_ultostr(vm->arena[i], 16, false));
@@ -61,16 +59,16 @@ static inline void	print_dump_32(t_vm *vm)
 		i++;
 	}
 	ft_dynarray_push(&msg, "\n", 1);
-	write(1, msg.array, msg.index);
-	ft_dynarray_destroy(&msg, false);
+	return ((char*)msg.array);
 }
 
-static inline void	print_dump_64(t_vm *vm)
+static inline char	*print_dump_64(t_vm *vm)
 {
 	t_dynarray		msg;
 	uint32_t		i;
 
 	msg = ft_dynarray_create_loc(0, 0);
+	ft_dynarray_push_str(&msg, "Printing arena's dump in 64 byte wide.\n");
 	i = 0;
 	while (i < sizeof(vm->arena) / sizeof(uint8_t))
 	{
@@ -78,10 +76,7 @@ static inline void	print_dump_64(t_vm *vm)
 			ft_dynarray_push(&msg, "\n", 1);
 		if ((i & 63) == 0)
 			append_dump_index(&msg, i);
-		if (vm->arena_claim[i] < COR_ARN_MAX)
-			ft_dynarray_push_str(&msg, (void*)g_claim_col[vm->arena_claim[i]]);
-		else
-			ft_dynarray_push_str(&msg, (void*)g_claim_col[COR_ARN_NO_CLAIM]);
+		ft_dynarray_push_str(&msg, (void*)g_claim_col[vm->arena_claim[i]]);
 		if (vm->arena[i] <= 0xf)
 			ft_dynarray_push(&msg, "0", 1);
 		ft_dynarray_push_str(&msg, ft_ultostr(vm->arena[i], 16, false));
@@ -91,16 +86,16 @@ static inline void	print_dump_64(t_vm *vm)
 		i++;
 	}
 	ft_dynarray_push(&msg, "\n", 1);
-	write(1, msg.array, msg.index);
-	ft_dynarray_destroy(&msg, false);
+	return ((char*)msg.array);
 }
 
-static inline void	print_dump_128(t_vm *vm)
+static inline char	*print_dump_128(t_vm *vm)
 {
 	t_dynarray		msg;
 	uint32_t		i;
 
 	msg = ft_dynarray_create_loc(0, 0);
+	ft_dynarray_push_str(&msg, "Printing arena's dump in 128 byte wide.\n");
 	i = 0;
 	while (i < sizeof(vm->arena) / sizeof(uint8_t))
 	{
@@ -108,10 +103,7 @@ static inline void	print_dump_128(t_vm *vm)
 			ft_dynarray_push(&msg, "\n", 1);
 		if ((i & 127) == 0)
 			append_dump_index(&msg, i);
-		if (vm->arena_claim[i] < COR_ARN_MAX)
-			ft_dynarray_push_str(&msg, (void*)g_claim_col[vm->arena_claim[i]]);
-		else
-			ft_dynarray_push_str(&msg, (void*)g_claim_col[COR_ARN_NO_CLAIM]);
+		ft_dynarray_push_str(&msg, (void*)g_claim_col[vm->arena_claim[i]]);
 		if (vm->arena[i] <= 0xf)
 			ft_dynarray_push(&msg, "0", 1);
 		ft_dynarray_push_str(&msg, ft_ultostr(vm->arena[i], 16, false));
@@ -121,16 +113,25 @@ static inline void	print_dump_128(t_vm *vm)
 		i++;
 	}
 	ft_dynarray_push(&msg, "\n", 1);
-	write(1, msg.array, msg.index);
-	ft_dynarray_destroy(&msg, false);
+	return ((char*)msg.array);
 }
 
 void				print_dump(t_vm *vm)
 {
+	char			*dump;
+
 	if (vm->flags.dump_size == DMP_SIZE_32)
-		print_dump_32(vm);
+		dump = print_dump_32(vm);
 	else if (vm->flags.dump_size == DMP_SIZE_64)
-		print_dump_64(vm);
+		dump = print_dump_64(vm);
 	else if (vm->flags.dump_size == DMP_SIZE_128)
-		print_dump_128(vm);
+		dump = print_dump_128(vm);
+	else
+		dump = NULL;
+	if (dump)
+		print_vm((t_print){.level = LOG_INFO, .printer = printer,
+				.data = dump, .destructor = &free});
+	else
+		print_vm((t_print){.level = LOG_WARN, .printer = printer,
+				.data = "Unable to print vm's arena dump.\n"});
 }
