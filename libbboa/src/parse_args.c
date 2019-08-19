@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/28 14:36:18 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/10 19:28:06 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/19 20:44:42 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,11 @@
 **		projects.
 */
 
-t_opt_patterns			**mtch(void)
+t_opt_patterns		**mtch(void)
 {
 	static t_opt_patterns	*matches;
 
 	return (&matches);
-}
-
-static inline bool		bboa_is_double(char *av)
-{
-	return (av && av[0] == '-' && av[1] == '-');
-}
-
-static inline bool		bboa_is_single(char *av)
-{
-	return (av && av[0] == '-');
 }
 
 /*
@@ -48,7 +38,7 @@ static inline bool		bboa_is_single(char *av)
 **	is left to the writter of the callback function.
 */
 
-t_arg_array				*generate_tokens(
+t_arg_array			*generate_tokens(
 		t_opt_match *match,
 		char *opt,
 		uint32_t args_left,

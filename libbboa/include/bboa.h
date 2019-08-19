@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 04:11:57 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/10 17:27:17 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/19 20:43:42 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,6 +235,9 @@ char					*bboa_get_usage(t_opt_patterns *opts);
 void					bboa_usage_error_destructor(t_bboa_error error);
 t_bboa_state			bboa_set_error_usage(t_opt_patterns *opts, char *match,
 								t_bboa_state state, t_bboa_error_level level);
+
+bool					bboa_is_double(char *av);
+bool					bboa_is_single(char *av);
 
 /*
 **	This is there for internal functioning of the lib.
