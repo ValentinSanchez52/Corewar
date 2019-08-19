@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 14:39:16 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/16 08:03:48 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/19 13:07:06 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,12 +209,13 @@ int					main(int c, char **v)
 	c--;
 	j = (parse_options(c, v, &data) - v);
 	i = 0;
-	printf("j: %d '%s'\n", j, v[j]);
+	/*printf("j: %d '%s'\n", j, v[j]);*/
 	while (i < 4 && i + j < c)
 	{
 		corewar_load_warriors(i, v[j + i]);
 		i++;
 	}
+	print_warriors();
 	corewar_load_arena();
 	/*print_dump(&g_vm);*/
 	if (g_vm.visu.used)
@@ -223,5 +224,6 @@ int					main(int c, char **v)
 	/*print_dump(&g_vm);*/
 	if (g_vm.visu.used)
 		visu_end_wait();
+	print_the_winner();
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/18 11:26:01 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/19 12:57:18 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,6 +276,8 @@ void				print_op(t_process *proc, bool newline);
 void				print_process(t_process *proc, bool newline);
 void				print_processes(t_vm *g_vm);
 void				print_warrior(t_warrior *w, uint32_t index, bool newline);
+
+void				print_the_winner(void);
 
 /*
 ** Scheduler

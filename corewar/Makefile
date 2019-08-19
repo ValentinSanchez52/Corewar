@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/04 04:17:21 by mbeilles          #+#    #+#              #
-#    Updated: 2019/08/15 00:13:52 by njiall           ###   ########.fr        #
+#    Updated: 2019/08/19 13:04:43 by vsanchez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ SRCS = $(PATH_SRC)/main.c													\
 	   $(PATH_SRC)/tools/get_arg_type.c										\
 	   $(PATH_SRC)/tools/get_arg_value.c									\
 	   $(PATH_SRC)/tools/register.c											\
+	   $(PATH_SRC)/tools/print_the_winner.c									\
 \
 	   $(PATH_SRC)/instructions/live.c										\
 	   $(PATH_SRC)/instructions/ld.c										\

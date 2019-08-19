@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 18:28:42 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/09 21:04:22 by njiall           ###   ########.fr       */
+/*   Updated: 2019/08/19 13:07:16 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static inline void	load_warriors_in_arena(void)
 			ft_memcpy(&(g_vm.arena[spawn_i * COR_ARENA_SIZE / g_vm.warriors_nb]),
 					g_vm.warriors[warrior_i].assembly,
 					g_vm.warriors[warrior_i].assembly_size);
-			printf("%u\n", warrior_i);
 			ft_memset(&g_vm.arena_claim[spawn_i * COR_ARENA_SIZE / g_vm.warriors_nb], warrior_i + 1, g_vm.warriors[warrior_i].assembly_size);
 			process = (t_process){
 					.registers[0] = g_vm.warriors[warrior_i].id,
@@ -48,7 +47,7 @@ void				corewar_load_arena(void)
 	g_vm.process = ft_dynarray_create_loc(0, 0);
 	g_vm.process_queue = ft_dynarray_create_loc(0, 0);
 	load_warriors_in_arena();
-	print_warriors();
+	/*print_warriors();*/
 	/* print_arena(); */
 	/* print_processes(); */
 }

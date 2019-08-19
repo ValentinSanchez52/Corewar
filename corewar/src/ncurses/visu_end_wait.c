@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 18:01:07 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/18 13:16:26 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/19 13:04:21 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static inline int8_t	get_first_warrior(void)
 			return (warrior_id);
 		warrior_id++;
 	}
+	return (-1);
 }
 
 static inline int8_t	win_center(int8_t warrior_id)
@@ -49,16 +50,16 @@ static inline void		print_winner(void)
 
 	winner = get_first_warrior();
 	warrior_id = -1;
-	while (++warrior_id < COR_WARRIOR_NB_MAX)
+	while (winner >= 0 && ++warrior_id < COR_WARRIOR_NB_MAX)
 		if (g_vm.warriors[warrior_id].id)
 		{
 			if (g_vm.warriors[warrior_id].cycle_last
 					> g_vm.warriors[winner].cycle_last)
 				winner = warrior_id;
 		}
-	win_centred = win_center(winner);
 	if (winner >= 0)
 	{
+		win_centred = win_center(winner);
 		attron(COLOR_PAIR(winner + 1));
 		mvprintw((VISU_ARENA_BB) / 2 - 1, win_centred,
 				g_vm.warriors[winner].name);
