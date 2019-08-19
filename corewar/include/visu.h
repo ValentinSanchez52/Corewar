@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:17:45 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/18 11:22:44 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/19 19:01:49 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,9 @@
 # define			VISU_ARENA_WDTH	(64)
 //# define			VISU_ARENA_WDTH	((VISU_ARENA_RB - 4) / 3)
 
-# define			VISU_RUNNING	(true)
-# define			VISU_PAUSED		(false)
+# define			VISU_STEP		(2)
+# define			VISU_RUNNING	(1)
+# define			VISU_PAUSED		(0)
 # define			VISU_CPS_MAX	(151)
 
 /*
@@ -69,13 +70,13 @@ void				visu_cps(void);
 void				visu_borders(void);
 void				visu_legend(void);
 void				visu_state(void);
-bool				visu_get_key(void);
+uint8_t				visu_get_key(void);
 void				visu_clock(void);
 void				visu_processes(void);
 void				visu_arena(void);
 void				visu_end_wait(void);
 void				visu_warrior(void);
 void				visu_live(void);
- void				visu_debug(void);
+void				visu_debug(void);
 
 #endif

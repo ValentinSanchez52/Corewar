@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 05:10:09 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/16 08:38:56 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/19 18:27:26 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,13 @@
 
 void				op_sti(t_process *proc)
 {
-	uint32_t                value_1;
-	uint32_t                value_2;
+	uint32_t				value_1;
+	uint32_t				value_2;
+	uint8_t					reg_id;
 
+	if (!(proc->op.types[0] == COR_ARG_REG && (reg_id = proc->op.args[0])
+			&& proc->op.args[0] <= 16))
+		return ;
 	if (proc->op.types[1] == COR_ARG_REG && proc->op.args[1]
 			&& proc->op.args[1] <= 16)
 		value_1 = get_reg_value(proc, proc->op.args[1]);
@@ -36,8 +40,17 @@ void				op_sti(t_process *proc)
 		value_2 = (uint16_t)proc->op.args[2];
 	set_mem_value(proc->global_offset + proc->pc
 			+ (int16_t)(value_1 + value_2) % COR_IDX_MOD,
-			get_reg_value(proc, proc->op.args[0]), COR_REG_SIZE,
+			get_reg_value(proc, reg_id), COR_REG_SIZE,
 			get_cell_claim(proc->global_offset + proc->pc));
 }
 
 /*reg dir reg*/
+
+		/*set_mem_value(proc->global_offset + proc->pc + proc->op.args[2],*/
+				/*get_reg_value(proc, reg_id), COR_REG_SIZE,*/
+				/*get_cell_claim(proc->global_offset + proc->pc));*/
+		/*set_mem_value(proc->global_offset + proc->pc*/
+				/*+ (int16_t)(value_1 % COR_IDX_MOD),*/
+				/*get_reg_value(proc, reg_id), COR_REG_SIZE,*/
+				/*get_cell_claim(proc->global_offset + proc->pc));*/
+		/*return ;*/

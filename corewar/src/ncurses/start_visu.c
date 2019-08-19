@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 17:28:47 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/16 08:01:27 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/19 18:05:11 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ inline void				start_visu(void)
 	noecho();
 	curs_set(0);
 	start_color();
-	init_pair(VISU_CLR_W1, COLOR_GREEN, COLOR_BLACK);
+	init_pair(VISU_CLR_W1, COLOR_YELLOW, COLOR_BLACK);
 	init_pair(VISU_CLR_W2, COLOR_BLUE, COLOR_BLACK);
 	init_pair(VISU_CLR_W3, COLOR_RED, COLOR_BLACK);
-	init_pair(VISU_CLR_W4, COLOR_CYAN, COLOR_BLACK);
+	init_pair(VISU_CLR_W4, COLOR_MAGENTA, COLOR_BLACK);
 	init_pair(5, COLOR_WHITE, COLOR_WHITE);
 	init_pair(6, COLOR_WHITE, COLOR_BLACK);
 	g_vm.visu.win = newwin(VISU_HEIGHT, VISU_WIDTH, 0, 0);

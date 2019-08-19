@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 15:45:29 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/18 09:05:35 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/19 19:01:35 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,15 @@ static void			visu_get_speed_key(uint32_t key)
 	visu_cps();
 }
 
-bool				visu_get_key(void)
+static inline void	set_play_pause(void)
+{
+	if (g_vm.visu.state == VISU_RUNNING || g_vm.visu.state == VISU_STEP)
+		g_vm.visu.state = VISU_PAUSED;
+	else
+		g_vm.visu.state = VISU_RUNNING;
+}
+
+uint8_t				visu_get_key(void)
 {
 	uint32_t		key;
 
@@ -37,7 +45,9 @@ bool				visu_get_key(void)
 		if (key == 0x70)
 			g_vm.visu.state = false;
 		else if (key == 0x20)
-			g_vm.visu.state = !g_vm.visu.state;
+			set_play_pause();
+		else if (key == 0x73 || key == 0x53)
+			g_vm.visu.state = VISU_STEP;
 		else if (key == 0x71 || key == 0x51)
 		{
 			endwin();
