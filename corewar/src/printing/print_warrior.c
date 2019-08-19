@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 16:42:32 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/19 19:09:46 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/19 19:54:33 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,9 @@ void			print_warrior(t_warrior *w, uint32_t index, bool newline)
 	ft_dynarray_push_str(&msg, ft_ultostr(w->assembly_size, 16, true));
 	ft_dynarray_push_str(&msg, "]");
 	ft_dynarray_push(&msg, (newline ? "\n" : ""), 1 + newline);
-	print_vm((t_print){.data = msg.array, .printer = printer, .destructor = free});
+	print_vm((t_print){
+			.data = msg.array,
+			.printer = printer,
+			.destructor = free
+	});
 }

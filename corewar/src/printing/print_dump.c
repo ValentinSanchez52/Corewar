@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 07:38:46 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/19 19:09:45 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/19 19:57:51 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "corewar.h"
 #include "print.h"
 
-static const char * const	g_claim_col[COR_ARN_MAX] = {
+static const char *const	g_claim_col[COR_ARN_MAX] = {
 	[COR_ARN_NO_CLAIM] = "\e[37m",
 	[COR_ARN_W1_CLAIM] = "\e[1;33m",
 	[COR_ARN_W2_CLAIM] = "\e[1;34m",

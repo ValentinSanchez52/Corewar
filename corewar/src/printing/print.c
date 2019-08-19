@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 19:07:04 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/19 19:16:08 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/19 19:54:04 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 #include "print.h"
 #include "libft.h"
 
-void				printer(t_print print)
+void							printer(t_print print)
 {
-	static const char * const	headers[LOG_MAX] = {
+	static const char *const	headers[LOG_MAX] = {
 		[LOG_DEBUG] = "\e[0;37m[\e[1;34m?\e[0;37m]\e[0m ",
 		[LOG_INFO] = "\e[0;37m[\e[1;34mi\e[0;37m]\e[0m ",
 		[LOG_WARN] = "\e[0;37m[\e[1;33m!\e[0;37m]\e[0m ",
 		[LOG_CRIT] = "\e[0;37m[\e[1;31mx\e[0;37m]\e[0m ",
 	};
-	char			*msg;
+	char						*msg;
 
 	if (print.flags.silent)
 		return ;
@@ -36,7 +36,7 @@ void				printer(t_print print)
 		write(1, print.data, ft_strlen(print.data));
 }
 
-void				print(t_print print)
+void							print(t_print print)
 {
 	if (print.printer && !print.flags.silent
 			&& !(!print.flags.debug && print.level == LOG_DEBUG))

@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 19:30:46 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/19 19:09:45 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/19 19:56:45 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,28 @@ static const char	*g_op_arg_names[COR_ARG_MAX] = {
 	[COR_ARG_REG] = "\e[32mRegister\e[0m:",
 };
 
+static inline void	print_args(
+		t_process *proc,
+		t_dynarray *msg
+)
+{
+	uint32_t		i;
+
+	i = 0;
+	while (i < proc->op.param_count)
+	{
+		ft_dynarray_push_str(msg, "[");
+		ft_dynarray_push_str(msg, (void*)g_op_arg_names[proc->op.types[i]]);
+		ft_dynarray_push_str(msg, "\e[33m0x");
+		ft_dynarray_push_str(msg, ft_ultostr(proc->op.args[i], 16, false));
+		ft_dynarray_push_str(msg, "\e[0m]");
+		i++;
+	}
+}
+
 void				print_op(t_process *proc, bool newline)
 {
 	t_dynarray		msg;
-	uint32_t		i;
 
 	msg = ft_dynarray_create_loc(4096, 1 << 20);
 	ft_dynarray_push_str(&msg, "[cl: 0x");
@@ -52,18 +70,13 @@ void				print_op(t_process *proc, bool newline)
 	ft_dynarray_push_str(&msg, "] [");
 	ft_dynarray_push_str(&msg, (void*)g_op_names[proc->op.code]);
 	ft_dynarray_push_str(&msg, "] ");
-	i = 0;
-	while (i < proc->op.param_count)
-	{
-		ft_dynarray_push_str(&msg, "[");
-		ft_dynarray_push_str(&msg, (void*)g_op_arg_names[proc->op.types[i]]);
-		ft_dynarray_push_str(&msg, "\e[33m0x");
-		ft_dynarray_push_str(&msg, ft_ultostr(proc->op.args[i], 16, false));
-		ft_dynarray_push_str(&msg, "\e[0m]");
-		i++;
-	}
+	print_args(proc, &msg);
 	ft_dynarray_push_str(&msg, " Remain: ");
 	ft_dynarray_push_str(&msg, ft_ultostr(proc->op.timeout, 10, true));
 	ft_dynarray_push(&msg, (newline ? " cycles.\n" : " cycles."), 9 + newline);
-	print_vm((t_print){.data = msg.array, .printer = printer, .destructor = free});
+	print_vm((t_print){
+			.data = msg.array,
+			.printer = printer,
+			.destructor = free
+	});
 }
