@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 07:19:32 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/19 14:04:21 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/19 19:46:10 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void					op_lfork(t_process *proc)
 
 	new_process = *(proc);
 	new_process.global_offset = proc->pc + (uint16_t)proc->op.args[0];
-	new_process. pc = 0;
+	new_process.pc = 0;
 	new_process.waiting = false;
 	new_process.living = false;
-	new_process.op = (t_op){};
+	new_process.op = (t_op){.physical_size = 0};
 	str_uuid_generate(new_process.uuid);
 	ft_dynarray_insert(&(g_vm.process_queue), 0, &new_process,
 			sizeof(t_process));

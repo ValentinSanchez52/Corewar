@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 07:17:31 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/10 18:42:16 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/19 19:48:37 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static uint32_t		get_value(t_process *proc, uint8_t arg)
 	if (proc->op.types[arg] == COR_ARG_DIR)
 		value = proc->op.args[arg];
 	else if (proc->op.types[arg] == COR_ARG_IND)
-	value = get_mem_value(proc->global_offset + proc->pc
+		value = get_mem_value(proc->global_offset + proc->pc
 				+ ((uint16_t)proc->op.args[arg] % COR_IDX_MOD), COR_REG_SIZE);
 	return (value);
 }
