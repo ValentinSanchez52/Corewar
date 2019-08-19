@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 16:42:21 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/08 18:53:30 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/18 11:26:21 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static inline void	warrior_live(uint32_t id)
 		if (g_vm.warriors[warrior_i].id == id)
 		{
 			g_vm.warriors[warrior_i].cycle_last = g_vm.cycles;
+			g_vm.warriors[warrior_i].period_lives++;
 			g_vm.warriors[warrior_i].living = 1;
 			break ;
 		}

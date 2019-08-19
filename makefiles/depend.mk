@@ -6,11 +6,31 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/08 18:36:26 by mbeilles          #+#    #+#              #
-#    Updated: 2019/08/10 14:57:55 by mbeilles         ###   ########.fr        #
+#    Updated: 2019/08/14 23:36:45 by njiall           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 -include ./strings.mk
+
+#==============================================================================#
+#                                 Flags detection                              #
+#==============================================================================#
+
+FAST_FLAG = -O3 -march=native #-flto
+SLOW_FLAG = -fsanitize=address -g3 -O0
+
+ifeq	(,$(filter debug, $(MAKECMDGOALS)))
+CFLAGS += $(FAST_FLAG)
+START_MSG = $(COMPILING_PRD)
+else
+CFLAGS += $(SLOW_FLAG)
+START_MSG = $(COMPILING_DBG)
+endif
+
+#==============================================================================#
+#                                Path generation                               #
+#==============================================================================#
+
 .PRECIOUS: $(PATH_OBJ)/. $(PATH_OBJ)%/.
 
 $(PATH_OBJ)/.:
@@ -35,31 +55,12 @@ libraries = $(shell make -q -s -C $(1) || echo 'FORCE')
 .PRECIOUS: $(DEPS)
 
 #==============================================================================#
-#                                 Dependencies                                 #
+#                                 Default rules                                 #
 #==============================================================================#
 
 $(PATH_DEP)/%.d: ;
 
 .SECONDEXPANSION:
-
-FAST_FLAG = -O3 -march=native #-flto
-SLOW_FLAG = -fsanitize=address -g3 -O0
-
-ifeq	(,$(filter debug, $(MAKECMDGOALS)))
-CFLAGS += $(FAST_FLAG)
-START_MSG = $(COMPILING_PRD)
-else
-CFLAGS += $(SLOW_FLAG)
-START_MSG = $(COMPILING_DBG)
-endif
-
-UNAME_S := $(shell uname -s)
-ifeq ($(UNAME_S),Linux)
-LDFLAGS+=$(foreach lib, $(SYSLIBS_LINUX), -l$(lib))
-else ifeq ($(UNAME_S),Darwin)
-LDFLAGS+=$(foreach lib, $(SYSLIBS_DARWIN), -l$(lib))
-endif
-LDFLAGS+=$(foreach lib, $(SYSLIBS), -l$(lib))
 
 FORCE:
 
@@ -76,7 +77,11 @@ fclean: clean
 	@printf $(CLEANING_BINS)
 
 re: fclean
-	@$(MAKE) all
+	@$(MAKE) --no-print-directory all
+
+#==============================================================================#
+#                                 Dependencies                                 #
+#==============================================================================#
 
 ifeq ($(filter re,$(MAKECMDGOALS)),re)
 MAKECMDGOALS:=$(filter-out re,$(MAKECMDGOALS)) fclean all
@@ -103,6 +108,10 @@ depend:
 	@printf $(MADE_LIB)
 endif
 
+#==============================================================================#
+#                           C libraries compilation                            #
+#==============================================================================#
+
 ifneq ($(filter depend,$(MAKECMDGOALS)),depend)
 ifneq ($(CLIBS), )
 $(CLIBS): $$(strip $$(call libraries,$$(@D)))
@@ -110,6 +119,10 @@ $(CLIBS): $$(strip $$(call libraries,$$(@D)))
 	@$(MAKE) -C $(@D) --no-print-directory $(filter-out test, $(MAKECMDGOALS))
 endif
 endif
+
+#==============================================================================#
+#                             C files compilation                              #
+#==============================================================================#
 
 $(PATH_OBJ)/%.o: %.c | $$(@D)/. $(PATH_DEP)/$$(*D)/. $$(LDLIBS) $$(CLIBS)
 $(PATH_OBJ)/%.o: %.c $(PATH_DEP)/%.d | $$(@D)/. $(PATH_DEP)/$$(*D)/. $$(LDLIBS) $$(CLIBS)

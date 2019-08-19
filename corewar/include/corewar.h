@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 13:03:56 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/10 19:51:11 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/19 17:36:05 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "bboa.h"
 # include "libft.h"
 # include "dynarray.h"
+# include "visu.h"
 
 /*
 ** Struct for ease of use for Libboa.
@@ -179,6 +180,7 @@ typedef struct		s_warrior
 	uint8_t			assembly[WARRIOR_MAX_SIZE + 1];
 	uint32_t		assembly_size;
 	uint32_t		cycle_last;
+	uint32_t		period_lives;
 	uint32_t		magic;
 	bool			living: 1;
 }					t_warrior;
@@ -188,6 +190,14 @@ typedef struct		s_warrior
 ** 		g_vm
 ** =============================================================================
 */
+
+typedef struct		s_visu
+{
+	bool			used;
+	WINDOW			*win;
+	bool			state;
+	uint32_t		speed;
+}					t_visu;
 
 typedef struct		s_vm_flags
 {
@@ -204,6 +214,7 @@ typedef struct		s_vm
 	uint32_t		cycles_to_die; // First clean limit
 	uint32_t		cycles_counter; // Counts cycles up to cycles_to_die
 	uint32_t		cycles_left; // Cycles until forced clean
+	uint32_t		last_clear;
 	uint32_t		cycles; // Cycles passed so far
 	uint32_t		live_counter; // Number of lives inside a cycles_to_die
 	t_warrior		warriors[4];
@@ -211,6 +222,7 @@ typedef struct		s_vm
 	t_dynarray		process;
 	t_dynarray		process_queue;
 	t_vm_flags		flags;
+	t_visu			visu;
 }					t_vm;
 
 extern t_vm			g_vm;
@@ -265,6 +277,8 @@ void				print_process(t_process *proc, bool newline);
 void				print_processes(t_vm *g_vm);
 void				print_warrior(t_warrior *w, uint32_t index, bool newline);
 
+void				print_the_winner(void);
+
 /*
 ** Scheduler
 */
@@ -292,11 +306,20 @@ uint32_t			get_reg_value(t_process *process, uint8_t reg_id);
 uint32_t			*get_register(t_process *process, uint8_t reg_id);
 
 void				set_mem_value(uint32_t index, uint32_t value,
-		uint32_t size);
+		uint32_t size, t_arena_own claim_id);
 uint32_t			get_mem_value(uint32_t index, uint32_t size);
 uint8_t				get_mem_cell(uint32_t index);
+t_arena_own			get_cell_claim(uint32_t index);
 
 t_op_arg_code		get_arg_type(uint8_t encode, uint32_t i);
 uint32_t			get_arg_value(uint32_t mem, t_op_arg_code *typ, uint32_t i);
+
+
+/*
+**	Ncurses visu
+*/
+
+void				start_visu(void);
+t_bboa_state		load_visu(t_arg_array *args);
 
 #endif

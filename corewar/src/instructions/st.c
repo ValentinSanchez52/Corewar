@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 19:23:41 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/10 12:59:37 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/19 08:52:14 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,17 @@
 void				op_st(t_process *proc)
 {
 	uint32_t		reg_id;
-	uint32_t		reg_2_id;
 
+	if (!((reg_id = proc->op.args[0]) && reg_id <= 16))
+		return ;
 	if (proc->op.types[1] == COR_ARG_REG)
 	{
 		reg_set_value(proc, proc->op.args[1],
-				get_reg_value(proc, proc->op.args[0]));
+				get_reg_value(proc, reg_id));
 	}
 	else if (proc->op.types[1] == COR_ARG_IND)
 		set_mem_value(proc->global_offset + proc->pc
-				+ (uint16_t)proc->op.args[1] % COR_IDX_MOD,
-				get_reg_value(proc, proc->op.args[0]), sizeof(t_reg));
+				+ (int16_t)proc->op.args[1] % COR_IDX_MOD,
+				get_reg_value(proc, reg_id), sizeof(t_reg),
+				get_cell_claim(proc->global_offset + proc->pc));
 }

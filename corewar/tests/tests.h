@@ -6,5 +6,6 @@
 typedef bool (t_utest)(void);
 
 t_utest		utest_ld;
+t_utest		utest_st;
 
 #endif

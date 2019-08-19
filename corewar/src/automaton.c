@@ -6,12 +6,29 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:55:44 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/10 16:01:17 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/19 15:10:07 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+#include "visu.h"
 #include "print.h"
+
+static inline void	reset_warriors_state(void)
+{
+	uint8_t			warrior_id;
+
+	warrior_id = 0;
+	while (warrior_id < COR_WARRIOR_NB_MAX)
+	{
+		if (g_vm.warriors[warrior_id].id)
+		{
+			g_vm.warriors[warrior_id].living = false;
+			g_vm.warriors[warrior_id].period_lives = 0;
+		}
+		warrior_id++;
+	}
+}
 
 /*
 ** Updates the g_vm's internal counters to know when to kill process that didn't
@@ -24,15 +41,19 @@ static inline void	automaton_update_counters(t_vm *g_vm)
 	{
 		if (g_vm->live_counter >= COR_CYCLES_LIVES || !g_vm->cycles_left)
 		{
-			printf("Cleaning processes...\n");
+			/*printf("Cleaning processes...\n");*/
+			g_vm->last_clear = g_vm->cycles;
+			reset_warriors_state();
 			run_process_cleaner(g_vm);
 			g_vm->cycles_left = COR_CYCLES_LEFT;
-			g_vm->cycles_counter = 0;
 			g_vm->live_counter = 0;
 			g_vm->cycles_to_die -= COR_CYCLES_DELTA;
 		}
 		else if (g_vm->live_counter < COR_CYCLES_LIVES)
+		{
 			--g_vm->cycles_left;
+		}
+		g_vm->cycles_counter = 0;
 	}
 	else
 	{
@@ -73,7 +94,8 @@ void				automaton_run(t_vm *vm)
 	t_op			*instruction;
 	uint64_t		i;
 
-	while (vm->cycles_to_die <= COR_CYCLES_DEFAULT
+	while (g_vm.process.index / sizeof(t_process)
+			&& vm->cycles_to_die <= COR_CYCLES_DEFAULT
 			&& !(vm->flags.dump && vm->flags.dump_cycle < vm->cycles))
 	{
 		i = 0;
@@ -85,15 +107,17 @@ void				automaton_run(t_vm *vm)
 				/* print_process(process, true); */
 				run_process_frame(vm, process);
 			}
-			else if (process->op.timeout > 0)
+			else if (process->op.timeout > 2)
 				--process->op.timeout;
 			else
 			{
-				print_op(process, true);
-				/* print_process(process, true); */
+				/*print_op(process, true);*/
+				/*print_process(process, true);*/
 				run_instruction_frame(vm, process);
 			}
 		run_process_spawner(&vm->process, &vm->process_queue);
 		automaton_update_counters(vm);
+		if (g_vm.visu.used)
+			visu_update();
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 14:39:16 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/10 20:11:33 by mbeilles         ###   ########.fr       */
+/*   Updated: 2019/08/19 17:38:56 by mbeilles         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,16 @@ static const t_option		g_options[] = {
 			.desc = "Sets champion's(\e[37margument\e[0m) [\e[37mnumber\e[0m]."
 		}
 	},
+	(t_option){
+		.option = {"v", "visu"},
+		.type = {OPT_SINGLE, OPT_DOUBLE},
+		.length = 2,
+		.match = (t_opt_match){
+			.func = &load_visu,
+			.arg_count = 0,
+			.desc = "Sets viewer mode"
+		}
+	},
 };
 
 static inline char			**parse_options(int c, char **v, void *data)
@@ -227,9 +237,14 @@ int					main(int c, char **v)
 	if (error)
 		print((t_print){.level = LOG_WARN, .printer = printer,
 				.data = "Too much champions passed as argument, ignoring...\n"});
+	print_warriors();
 	corewar_load_arena();
-	/* print_dump(&g_vm); */
-	/* automaton_run(&g_vm); */
-	/* print_dump(&g_vm); */
+	if (g_vm.visu.used)
+		start_visu();
+	automaton_run(&g_vm);
+	if (g_vm.visu.used)
+		visu_end_wait();
+	print_the_winner();
+	print_dump(&g_vm);
 	return (0);
 }

@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fork.c                                             :+:      :+:    :+:   */
+/*   get_cell_claim.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/26 06:20:20 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/19 14:04:06 by vsanchez         ###   ########.fr       */
+/*   Created: 2019/08/10 19:15:31 by vsanchez          #+#    #+#             */
+/*   Updated: 2019/08/10 19:19:02 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void					op_fork(t_process *proc)
+t_arena_own				get_cell_claim(uint32_t index)
 {
-	t_process			new_process;
-
-	new_process = *(proc);
-	new_process.global_offset = (proc->global_offset + proc->pc
-			+ (uint16_t)proc->op.args[0]) & (COR_ARENA_SIZE - 1);
-	new_process.pc = 0;
-	new_process.waiting = false;
-	new_process.living = false;
-	new_process.op = (t_op){};
-	str_uuid_generate(new_process.uuid);
-	ft_dynarray_insert(&(g_vm.process_queue), 0, &new_process,
-			sizeof(t_process));
+	return (g_vm.arena_claim[index & (COR_ARENA_SIZE - 1)]);
 }

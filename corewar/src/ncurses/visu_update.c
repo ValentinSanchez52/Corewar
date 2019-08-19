@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add.c                                              :+:      :+:    :+:   */
+/*   visu_update.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/26 04:24:34 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/13 18:54:53 by vsanchez         ###   ########.fr       */
+/*   Created: 2019/08/13 16:34:50 by vsanchez          #+#    #+#             */
+/*   Updated: 2019/08/14 17:13:13 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "visu.h"
 
-void				op_add(t_process *proc)
+inline void				visu_update(void)
 {
-	if (proc->op.args[0] && proc->op.args[1] && proc->op.args[2]
-			&& proc->op.args[0] <= 16 && proc->op.args[1] <= 16
-			&& proc->op.args[2] <= 16)
-	{
-		reg_set_value(proc, proc->op.args[2],
-				get_reg_value(proc, proc->op.args[0])
-				+ get_reg_value(proc, proc->op.args[1]));
-		proc->carry = (!get_reg_value(proc, proc->op.args[2]));
-	}
+	while (g_vm.visu.state == VISU_PAUSED)
+		g_vm.visu.state = visu_get_key();
+	g_vm.visu.state = visu_get_key();
+	visu_arena();
+	visu_processes();
+	visu_clock();
+	visu_live();
+	visu_debug();
+	refresh();
+	cps_max();
 }

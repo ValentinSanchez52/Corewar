@@ -9,15 +9,6 @@ struct				ld_test {
 	t_process		result;
 };
 
-t_vm				g_vm = {
-	.arena = {
-		[46] = 0x0,
-		[47] = 0x0,
-		[48] = 0x0,
-		[49] = 0x56,
-	},
-};
-
 bool				utest_ld(void)
 {
 	struct ld_test	processes[] = {
@@ -31,6 +22,7 @@ bool				utest_ld(void)
 					.code = COR_OP_LOAD,
 					.types = {COR_ARG_DIR, COR_ARG_REG},
 					.args = {0x42, 0x1},
+					.param_count = 2,
 				},
 			},
 			.result = (t_process){
@@ -42,6 +34,7 @@ bool				utest_ld(void)
 					.code = COR_OP_LOAD,
 					.types = {COR_ARG_DIR, COR_ARG_REG},
 					.args = {0x42, 0x1},
+					.param_count = 2,
 				},
 			},
 		},
@@ -55,16 +48,17 @@ bool				utest_ld(void)
 					.code = COR_OP_LOAD,
 					.types = {COR_ARG_IND, COR_ARG_REG},
 					.args = {46, 0x1},
+					.param_count = 2,
 				},
 			},
 			.result = (t_process){
 				.uuid = "none",
 				.registers = {[0] = 0x56},
-				.carry = true,
 				.op = (t_op){
 					.code = COR_OP_LOAD,
 					.types = {COR_ARG_IND, COR_ARG_REG},
 					.args = {46, 0x1},
+					.param_count = 2,
 				},
 			},
 		},
@@ -78,6 +72,7 @@ bool				utest_ld(void)
 					.code = COR_OP_LOAD,
 					.types = {COR_ARG_DIR, COR_ARG_REG},
 					.args = {46, 0x4},
+					.param_count = 2,
 				},
 			},
 			.result = (t_process){
@@ -87,38 +82,50 @@ bool				utest_ld(void)
 					.code = COR_OP_LOAD,
 					.types = {COR_ARG_DIR, COR_ARG_REG},
 					.args = {46, 0x4},
+					.param_count = 2,
 				},
 			},
 		},
 
 	};
+
 	bool	error = false;
 
-	printf("Syntax: \e[31m-\e[0m : expected, \e[32m+\e[0m : returned\n");
+	g_vm = (t_vm){
+		.arena = {
+			[46] = 0x0,
+			[47] = 0x0,
+			[48] = 0x0,
+			[49] = 0x56,
+		},
+	};
+
+	printf("[\e[1;33m%s\e[0m] Syntax: \e[31m-\e[0m : expected, \e[32m+\e[0m : returned\n", __FILE__);
 	for (size_t i = 0; i < sizeof(processes) / sizeof(struct ld_test); i++)
 	{
 		op_ld(&processes[i].value);
 		if (memcmp(&processes[i].value, &processes[i].result, sizeof(t_process)) == 0) {
-			printf("[%02zx] \e[1;32mPassed!\e[0m\n", i + 1);
+			printf("[\e[1;32m + \e[0m] [\e[1;33m%02zx\e[0m] \e[1;32mPassed!\e[0m\n", i + 1);
 		} else {
 			error = true;
-			if (i != 0)
-				printf("\n");
-			printf("[%02zx] \e[1;31mFailed:\e[0m %s\n", i + 1, processes[i].desc);
 
-			printf("\e[31m- ");
+			printf("[\e[1;31m x \e[0m] [\e[1;33m%02zx\e[0m] \e[1;31mFailed:\e[0m %s in \e[4m%s\e[0m\n", i + 1, processes[i].desc, __FILE__);
+			printf("\e[31m----- ");
 			fflush(stdout);
 			print_op(&processes[i].result, true);
-			printf("\e[32m+ ");
+			printf("\e[32m+++++ ");
 			fflush(stdout);
 			print_op(&processes[i].value, true);
-			printf("\e[31m- ");
+			printf("\e[31m----- ");
 			fflush(stdout);
 			print_process(&processes[i].result, true);
-			printf("\e[32m+ ");
+			printf("\e[32m+++++ ");
 			fflush(stdout);
 			print_process(&processes[i].value, true);
+			printf("\n");
 		}
 	}
+	if (!error)
+		printf("\n");
 	return (error);
 }

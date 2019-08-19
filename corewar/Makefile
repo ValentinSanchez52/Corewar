@@ -6,7 +6,7 @@
 #    By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/04 04:17:21 by mbeilles          #+#    #+#              #
-#    Updated: 2019/08/10 14:56:37 by mbeilles         ###   ########.fr        #
+#    Updated: 2019/08/19 15:15:04 by mbeilles         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,11 +54,13 @@ SRCS = $(PATH_SRC)/main.c													\
 	   $(PATH_SRC)/tools/str_uuid_generate.c								\
 	   $(PATH_SRC)/tools/flip_bytes.c										\
 	   $(PATH_SRC)/tools/get_mem_cell.c										\
+	   $(PATH_SRC)/tools/get_cell_claim.c									\
 	   $(PATH_SRC)/tools/get_mem_value.c									\
 	   $(PATH_SRC)/tools/set_mem_value.c									\
 	   $(PATH_SRC)/tools/get_arg_type.c										\
 	   $(PATH_SRC)/tools/get_arg_value.c									\
 	   $(PATH_SRC)/tools/register.c											\
+	   $(PATH_SRC)/tools/print_the_winner.c									\
 \
 	   $(PATH_SRC)/instructions/live.c										\
 	   $(PATH_SRC)/instructions/ld.c										\
@@ -76,6 +78,23 @@ SRCS = $(PATH_SRC)/main.c													\
 	   $(PATH_SRC)/instructions/lldi.c										\
 	   $(PATH_SRC)/instructions/lfork.c										\
 	   $(PATH_SRC)/instructions/aff.c										\
+\
+	   $(PATH_SRC)/ncurses/start_visu.c										\
+	   $(PATH_SRC)/ncurses/visu_cps.c										\
+	   $(PATH_SRC)/ncurses/visu_borders.c									\
+	   $(PATH_SRC)/ncurses/visu_legend.c									\
+	   $(PATH_SRC)/ncurses/visu_warrior.c									\
+	   $(PATH_SRC)/ncurses/visu_live.c										\
+	   $(PATH_SRC)/ncurses/visu_state.c										\
+	   $(PATH_SRC)/ncurses/visu_get_key.c									\
+	   $(PATH_SRC)/ncurses/visu_clock.c										\
+	   $(PATH_SRC)/ncurses/visu_cps_max.c									\
+	   $(PATH_SRC)/ncurses/visu_processes.c									\
+	   $(PATH_SRC)/ncurses/visu_arena.c										\
+	   $(PATH_SRC)/ncurses/visu_debug.c										\
+	   $(PATH_SRC)/ncurses/visu_update.c									\
+	   $(PATH_SRC)/ncurses/visu_end_wait.c									\
+
 
 INCS = $(PATH_INC)/corewar.h												\
 
@@ -83,13 +102,14 @@ LIBS =	\
 		../libbboa \
 		../libft \
 
-SYSLIBS =	\
+SYSLIBS =	ncurses \
 
 SYSLIBS_LINUX =	\
 				uuid \
 
 TESTS =	\
 		$(PATH_TEST)/ops/ld.c												\
+		$(PATH_TEST)/ops/st.c												\
 
 
 #==============================================================================#
@@ -109,14 +129,13 @@ LDLIBS = \
 
 CLIBS = $(foreach dep, $(LIBS), $(dep)/$(notdir $(dep)).a) \
 
-LTOPLUGIN="$(gcc -print-search-dirs | grep install | awk '{print $2 "liblto_plugin.so"}')"
+LDFLAGS =
+LDFLAGS_DARWIN =
+LDFLAGS_LINUX = -fuse-ld=lld # Don't forget to install lld as ld don't use .a files
 
-LDFLAGS = \
-
-CFLAGS = -I$(PATH_INC) $(FLAGS) \
+CFLAGS = -I$(PATH_INC) \
 		 $(foreach dep, $(LIBS), -I$(dep)/$(PATH_INC)) \
 		 $(foreach dep, $(LDLIBS), -I$(dep)/$(PATH_INC)) \
-		 $(foreach lib, $(SYSLIBS), -l$(lib))
 
 #==============================================================================#
 #                                   Various                                    #
@@ -136,6 +155,6 @@ DEPS := $(patsubst %.c, $(PATH_DEP)/%.d, $(SRCS))
 #==============================================================================#
 
 include ../makefiles/bin.mk
+include ../makefiles/test.mk
 include ../makefiles/strings.mk
 include ../makefiles/depend.mk
-include ../makefiles/test.mk
