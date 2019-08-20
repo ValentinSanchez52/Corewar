@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 15:52:36 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/13 18:45:55 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/20 13:52:50 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ inline void				visu_processes(void)
 					sizeof(t_process))))
 	{
 		index = process->global_offset % 4096 + process->pc % 4096;
-		if (!(color_id = get_cell_claim(index)))
+		if (!(color_id = get_cell_claim(index)) || color_id > COR_ARN_MAX)
 			color_id = 6;
+		else if (color_id > COR_ARN_W4_CLAIM && (color_id = color_id % 4))
+				color_id = 4;
 		attron(COLOR_PAIR(color_id));
 		attron(A_REVERSE);
 		mvprintw(VISU_ARENA_TB + (index % 4096) / VISU_ARENA_WDTH,
