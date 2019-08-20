@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 12:17:45 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/19 19:37:52 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/20 13:39:24 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,11 @@
 # define VISU_CLR_W3		(COR_ARN_W3_CLAIM)
 # define VISU_CLR_W4		(COR_ARN_W4_CLAIM)
 
-# define VISU_GREEN			(VISU_CLR_W1)
+# define VISU_YELLOW		(VISU_CLR_W1)
 # define VISU_BLUE			(VISU_CLR_W2)
 # define VISU_RED			(VISU_CLR_W3)
-# define VISU_CYAN			(VISU_CLR_W4)
+# define VISU_MAGENTA		(VISU_CLR_W4)
+# define VISU_GREEN			(7)
 
 # define VISU_ARENA_TB		(VISU_TOP_B + 2)
 # define VISU_ARENA_LB		(VISU_LEFT_B + 3)
@@ -76,5 +77,6 @@ void				visu_end_wait(void);
 void				visu_warrior(void);
 void				visu_live(void);
 void				visu_debug(void);
+void				visu_set_mem(uint32_t index, uint8_t size);
 
 #endif

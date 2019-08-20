@@ -6,14 +6,14 @@
 /*   By: mbeilles <mbeilles@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 09:30:45 by mbeilles          #+#    #+#             */
-/*   Updated: 2019/08/19 09:22:32 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/20 11:43:05 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include "corewar.h"
 
-static void			(*g_ops_exec[COR_OP_MAX])(t_process *process) = {
+static void			(*g_ops_exec[COR_OP_MAX])(t_process *proc) = {
 	[COR_OP_LIVE] = op_live,
 	[COR_OP_LOAD] = op_ld,
 	[COR_OP_STORE] = op_st,
@@ -47,9 +47,7 @@ inline void			run_instruction_frame(
 	if (proc->op.code < COR_OP_MAX && g_ops_exec[proc->op.code])
 	{
 		g_ops_exec[proc->op.code](proc);
-	}
-	if (proc->op.code != COR_OP_ZJUMP)
-	{
-		proc->pc += proc->op.physical_size;
+		if (proc->op.code != COR_OP_ZJUMP)
+			proc->pc += proc->op.physical_size;
 	}
 }

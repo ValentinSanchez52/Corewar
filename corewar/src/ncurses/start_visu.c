@@ -6,7 +6,7 @@
 /*   By: vsanchez <vsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 17:28:47 by vsanchez          #+#    #+#             */
-/*   Updated: 2019/08/19 18:05:11 by vsanchez         ###   ########.fr       */
+/*   Updated: 2019/08/20 13:38:36 by vsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,17 @@ t_bboa_state			load_visu(t_arg_array *args)
 {
 	g_vm.visu.used = true;
 	return (BBOA_RS_OK);
+}
+
+static inline void		set_pairs()
+{
+	init_pair(VISU_CLR_W1, COLOR_YELLOW, COLOR_BLACK);
+	init_pair(VISU_CLR_W2, COLOR_BLUE, COLOR_BLACK);
+	init_pair(VISU_CLR_W3, COLOR_RED, COLOR_BLACK);
+	init_pair(VISU_CLR_W4, COLOR_MAGENTA, COLOR_BLACK);
+	init_pair(5, COLOR_WHITE, COLOR_WHITE);
+	init_pair(6, COLOR_WHITE, COLOR_BLACK);
+	init_pair(VISU_GREEN, COLOR_GREEN, COLOR_BLACK);
 }
 
 /*
@@ -40,12 +51,7 @@ inline void				start_visu(void)
 	noecho();
 	curs_set(0);
 	start_color();
-	init_pair(VISU_CLR_W1, COLOR_YELLOW, COLOR_BLACK);
-	init_pair(VISU_CLR_W2, COLOR_BLUE, COLOR_BLACK);
-	init_pair(VISU_CLR_W3, COLOR_RED, COLOR_BLACK);
-	init_pair(VISU_CLR_W4, COLOR_MAGENTA, COLOR_BLACK);
-	init_pair(5, COLOR_WHITE, COLOR_WHITE);
-	init_pair(6, COLOR_WHITE, COLOR_BLACK);
+	set_pairs();
 	g_vm.visu.win = newwin(VISU_HEIGHT, VISU_WIDTH, 0, 0);
 	g_vm.visu.speed = 1;
 	g_vm.visu.state = VISU_PAUSED;
